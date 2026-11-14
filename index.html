@@ -33,6 +33,12 @@
   --font-display: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
   --font-body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --t-company: #6A55E0;
+  --t-tech: #1F6FD6;
+  --t-pop: #C24A86;
+  --t-climate: #8A6420;
+  --t-weapon: #4E5965;
+  --s1: #1F6FD6; --s2: #0C6B64; --s3: #C24A86; --s4: #CF4235; --s5: #E3A23B; --s6: #A5B0BA;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -41,6 +47,8 @@
     --boom: #2FA56E; --growth: #4E8E6C; --bubble: #D7952F; --stagnation: #56636E; --crisis: #D9503F;
     --on-boom: #FFFFFF; --on-growth: #FFFFFF; --on-bubble: #1E1303; --on-stagnation: #FFFFFF; --on-crisis: #FFFFFF;
     --good: #45C08A; --warn: #E0A647; --bad: #EE6B5C;
+    --t-company: #9C8CFF; --t-tech: #5EA2FF; --t-pop: #EE7DB3; --t-climate: #D3A35A; --t-weapon: #A9B4BF;
+    --s1: #5EA2FF; --s2: #4DBDB1; --s3: #EE7DB3; --s4: #EE6B5C; --s5: #E0A647; --s6: #56636E;
     color-scheme: dark;
   }
 }
@@ -50,8 +58,27 @@
   --boom: #2FA56E; --growth: #4E8E6C; --bubble: #D7952F; --stagnation: #56636E; --crisis: #D9503F;
   --on-boom: #FFFFFF; --on-growth: #FFFFFF; --on-bubble: #1E1303; --on-stagnation: #FFFFFF; --on-crisis: #FFFFFF;
   --good: #45C08A; --warn: #E0A647; --bad: #EE6B5C;
+  --t-company: #9C8CFF; --t-tech: #5EA2FF; --t-pop: #EE7DB3; --t-climate: #D3A35A; --t-weapon: #A9B4BF;
+  --s1: #5EA2FF; --s2: #4DBDB1; --s3: #EE7DB3; --s4: #EE6B5C; --s5: #E0A647; --s6: #56636E;
   color-scheme: dark;
 }
+.term { text-decoration: underline dotted; text-decoration-color: var(--accent); text-underline-offset: 3px; cursor: help; }
+.term:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-radius: 2px; }
+#tip { position: fixed; z-index: 50; max-width: 300px; padding: 10px 12px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 13px; line-height: 1.45; pointer-events: none; box-shadow: 0 6px 24px rgba(0,0,0,.25); opacity: 0; transform: translateY(4px); transition: opacity .15s, transform .15s; }
+#tip.on { opacity: 1; transform: none; }
+#tip b { display: block; margin-bottom: 2px; }
+.profile { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.prof { border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; background: var(--surface-2); min-width: 0; }
+.prof .ico { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.prof .ico svg { width: 18px; height: 18px; }
+.prof h3 { font-size: 14px; }
+.mini-prof { display: flex; flex-direction: column; gap: 4px; font-size: 13px; border-top: 1px dashed var(--line); padding-top: 8px; }
+.mini-prof b { color: var(--accent); }
+.charts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.chart-card { border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.chart-card svg { width: 100%; height: auto; display: block; }
+.chart-card .lesson { border-left: 3px solid var(--accent); padding-left: 10px; font-size: 14px; }
+.bubble-svg { width: 100%; height: auto; display: block; max-width: 960px; margin: 0 auto; }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.55; margin: 0; }
@@ -138,6 +165,9 @@ nav.menu a:focus-visible, .brand:focus-visible, .go:focus-visible { outline: 2px
   .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s ease-out forwards; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
   .strip i { transform-origin: left; animation: growX .5s ease both; }
+  svg .rise { transform-box: fill-box; animation: riseIn .7s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .profile .prof { animation: pageIn .4s ease both; }
   .go { transition: transform .2s ease, border-color .2s ease; }
   .go:hover { transform: translateY(-3px); }
   .kpi .v { transition: color .3s; }
@@ -222,6 +252,8 @@ footer { font-size: 12px; color: var(--muted); }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero, .map-grid { grid-template-columns: minmax(0, 1fr); }
   .signals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .charts { grid-template-columns: minmax(0, 1fr); }
   #map { height: 360px; }
   .lessons, .cycles { grid-template-columns: minmax(0, 1fr); }
   .brand span { display: none; }
@@ -245,6 +277,7 @@ footer { font-size: 12px; color: var(--muted); }
       <a href="#tong-quan" data-nav="tong-quan">Tổng quan</a>
       <a href="#dong-thoi-gian" data-nav="dong-thoi-gian">Dòng thời gian</a>
       <a href="#ban-do" data-nav="ban-do">Bản đồ</a>
+      <a href="#xu-huong" data-nav="xu-huong">Xu hướng dài hạn</a>
       <a href="#quoc-gia" data-nav="quoc-gia">Từng quốc gia</a>
       <a href="#ke-hoach" data-nav="ke-hoach">Công cụ kế hoạch</a>
       <a href="#cam-nang" data-nav="cam-nang">Cẩm nang</a>
@@ -256,7 +289,7 @@ footer { font-size: 12px; color: var(--muted); }
   <div class="page" data-page="tong-quan">
     <header class="hero">
       <div class="hero-text">
-        <span class="eyebrow">1945 – 2026 · 8 nền kinh tế + Việt Nam</span>
+        <span class="eyebrow">1700 – 2026 · 11 nền kinh tế + Việt Nam</span>
         <h1>Chu kỳ kinh tế và kế hoạch của bạn</h1>
         <p class="lede">Các nền kinh tế lặp lại một mẫu: tiền rẻ, vay nhiều, bong bóng, cú sốc, sụp đổ, rồi phục hồi. Hiểu mẫu này giúp bạn, một lập trình viên trẻ ở TP.HCM, sống sót qua 3–4 đợt suy thoái trong sự nghiệp và dùng chúng làm cơ hội.</p>
         <div class="cycle-step" aria-label="Mẫu của một chu kỳ">
@@ -276,7 +309,7 @@ footer { font-size: 12px; color: var(--muted); }
     <section class="panel">
       <h2>Bắt đầu từ đâu</h2>
       <div class="cards">
-        <a class="go" href="#dong-thoi-gian"><span class="n">Trang 1</span><h3>Dòng thời gian</h3><p>So sánh 9 nền kinh tế trên cùng một trục, bấm “Phát” để xem lịch sử chạy từng năm.</p></a>
+        <a class="go" href="#dong-thoi-gian"><span class="n">Trang 1</span><h3>Dòng thời gian</h3><p>So sánh 12 nền kinh tế trên cùng một trục, bấm “Phát” để xem lịch sử chạy từng năm.</p></a>
         <a class="go" href="#quoc-gia"><span class="n">Trang 2</span><h3>Từng quốc gia</h3><p>Đọc từng giai đoạn của một nước, kèm bài học rút ra.</p></a>
         <a class="go" href="#ke-hoach"><span class="n">Trang 3</span><h3>Công cụ kế hoạch</h3><p>Kéo slider để thử thu nhập, tiết kiệm, khủng hoảng và mua nhà.</p></a>
         <a class="go" href="#cam-nang"><span class="n">Trang 4</span><h3>Cẩm nang</h3><p>Làm gì ở mỗi pha: bùng nổ, bong bóng, khủng hoảng, phục hồi.</p></a>
@@ -290,6 +323,37 @@ footer { font-size: 12px; color: var(--muted); }
         <div class="card"><span class="eyebrow">50–75 năm</span><h3>Chu kỳ nợ dài</h3><p class="note">Nợ tăng nhanh hơn thu nhập trong nhiều thập kỷ, rồi sụp đổ và giảm nợ. Mỹ 1929, Nhật 1990, Mỹ 2008, bất động sản Trung Quốc sau 2021.</p></div>
         <div class="card"><span class="eyebrow">40–60 năm</span><h3>Làn sóng công nghệ</h3><p class="note">Hơi nước, điện, ô tô và dầu mỏ, CNTT và Internet, và bây giờ là AI.</p></div>
       </div>
+    </section>
+
+    <section class="panel">
+      <h2>Bong bóng hình thành và vỡ như thế nào</h2>
+      <p class="note">Hai vòng xoáy tự khuếch đại. Bên trái, giá tăng giúp vay thêm, vay thêm lại đẩy giá tăng. Một cú sốc (lãi suất tăng, tin xấu) đảo chiều vòng xoáy: giá giảm buộc người vay bán, bán lại làm giá giảm thêm. Đây là câu chuyện của 1720, 1929, 1989 ở Nhật, 1997 ở Thái Lan, 2008 ở Mỹ và 2022 ở Việt Nam.</p>
+      <svg class="bubble-svg" viewBox="0 0 900 370" role="img" aria-label="Sơ đồ hai vòng xoáy: hưng phấn và hoảng loạn">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"/></marker>
+        </defs>
+        <circle cx="220" cy="200" r="110" fill="none" stroke="var(--boom)" stroke-width="3" stroke-dasharray="10 8"/>
+        <circle cx="680" cy="200" r="110" fill="none" stroke="var(--crisis)" stroke-width="3" stroke-dasharray="10 8"/>
+        <circle r="8" fill="var(--boom)"><animateMotion dur="6s" repeatCount="indefinite" path="M220 90 A110 110 0 1 1 219.9 90"/></circle>
+        <circle r="8" fill="var(--crisis)"><animateMotion dur="4s" repeatCount="indefinite" path="M680 90 A110 110 0 1 1 679.9 90"/></circle>
+        <text x="220" y="196" text-anchor="middle" font-size="20" font-weight="800" fill="var(--boom)">Hưng phấn</text>
+        <text x="220" y="218" text-anchor="middle" font-size="12" fill="var(--muted)">giá tăng → vay thêm</text>
+        <text x="680" y="196" text-anchor="middle" font-size="20" font-weight="800" fill="var(--crisis)">Hoảng loạn</text>
+        <text x="680" y="218" text-anchor="middle" font-size="12" fill="var(--muted)">giá giảm → bán tháo</text>
+        <path d="M330 52 C 420 6, 480 6, 570 52" fill="none" stroke="var(--ink)" stroke-width="2.5" marker-end="url(#ah)"/>
+        <text x="450" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">Cú sốc: lãi suất tăng, tin xấu</text>
+        <g font-size="13" font-weight="600" text-anchor="middle">
+          <rect x="140" y="72" width="160" height="36" rx="18" fill="var(--surface)" stroke="var(--boom)" stroke-width="2"/><text x="220" y="95" fill="var(--ink)">Lãi suất thấp</text>
+          <rect x="250" y="182" width="170" height="36" rx="18" fill="var(--surface)" stroke="var(--boom)" stroke-width="2"/><text x="335" y="205" fill="var(--ink)">Vay dễ, vay nhiều</text>
+          <rect x="140" y="292" width="160" height="36" rx="18" fill="var(--surface)" stroke="var(--boom)" stroke-width="2"/><text x="220" y="315" fill="var(--ink)">Giá tài sản tăng</text>
+          <rect x="10" y="182" width="180" height="36" rx="18" fill="var(--surface)" stroke="var(--boom)" stroke-width="2"/><text x="100" y="205" fill="var(--ink)">Thế chấp tăng giá trị</text>
+          <rect x="600" y="72" width="160" height="36" rx="18" fill="var(--surface)" stroke="var(--crisis)" stroke-width="2"/><text x="680" y="95" fill="var(--ink)">Giá giảm</text>
+          <rect x="705" y="182" width="185" height="36" rx="18" fill="var(--surface)" stroke="var(--crisis)" stroke-width="2"/><text x="797" y="205" fill="var(--ink)">Gọi ký quỹ, bán tháo</text>
+          <rect x="595" y="292" width="170" height="36" rx="18" fill="var(--surface)" stroke="var(--crisis)" stroke-width="2"/><text x="680" y="315" fill="var(--ink)">Ngân hàng siết vay</text>
+          <rect x="480" y="182" width="160" height="36" rx="18" fill="var(--surface)" stroke="var(--crisis)" stroke-width="2"/><text x="560" y="205" fill="var(--ink)">Không ai dám mua</text>
+        </g>
+        <text x="450" y="362" text-anchor="middle" font-size="12" fill="var(--muted)">Người không vay nợ đứng ngoài cả hai vòng xoáy, và có thể mua khi người khác buộc phải bán.</text>
+      </svg>
     </section>
 
     <section class="panel">
@@ -318,12 +382,18 @@ footer { font-size: 12px; color: var(--muted); }
       <div class="chips" id="country-chips" role="group" aria-label="Chọn nền kinh tế"></div>
     </div>
     <div class="controls">
+      <span class="hint">Các mốc khác:</span>
+      <div class="chips" id="theme-chips" role="group" aria-label="Chọn loại mốc"></div>
+    </div>
+    <div class="controls">
       <div class="range-row">
-        <label for="from">Từ</label><input type="range" id="from" min="1945" max="2016" value="1945"><output id="from-out">1945</output>
-        <label for="to">đến</label><input type="range" id="to" min="1955" max="2026" value="2026"><output id="to-out">2026</output>
+        <label for="from">Từ</label><input type="range" id="from" min="1700" max="2016" value="1700"><output id="from-out">1700</output>
+        <label for="to">đến</label><input type="range" id="to" min="1710" max="2026" value="2026"><output id="to-out">2026</output>
       </div>
       <div class="range-row" role="group" aria-label="Khoảng thời gian có sẵn">
-        <button class="btn" data-preset="1945,2026">Toàn bộ</button>
+        <button class="btn" data-preset="1700,2026">Từ 1700</button>
+        <button class="btn" data-preset="1900,2026">Từ 1900</button>
+        <button class="btn" data-preset="1945,2026">Từ 1945</button>
         <button class="btn" data-preset="1983,2002">Plaza → 1997</button>
         <button class="btn" data-preset="2000,2026">2000 → nay</button>
       </div>
@@ -362,8 +432,11 @@ footer { font-size: 12px; color: var(--muted); }
     <div class="map-ctrl">
       <button class="btn play" id="map-play" type="button" aria-pressed="false"><span aria-hidden="true" id="map-play-icon">▶</span> <span id="map-play-label">Phát</span></button>
       <label for="map-year-in" class="hint">Năm</label>
-      <input type="range" id="map-year-in" min="1945" max="2026" value="1997">
+      <input type="range" id="map-year-in" min="1700" max="2026" value="1997">
       <div class="chips" role="group" aria-label="Năm đáng chú ý">
+        <button class="chip" type="button" data-y="1720">1720</button>
+        <button class="chip" type="button" data-y="1840">1840</button>
+        <button class="chip" type="button" data-y="1931">1931</button>
         <button class="chip" type="button" data-y="1973">1973</button>
         <button class="chip" type="button" data-y="1989">1989</button>
         <button class="chip" type="button" data-y="1997">1997</button>
@@ -371,12 +444,67 @@ footer { font-size: 12px; color: var(--muted); }
         <button class="chip" type="button" data-y="2022">2022</button>
       </div>
     </div>
+    <div class="controls">
+      <span class="hint">Hiển thị:</span>
+      <div class="chips" id="map-chips" role="group" aria-label="Chọn quốc gia hiển thị trên bản đồ"></div>
+      <button class="btn" type="button" id="map-all">Tất cả</button>
+      <button class="btn" type="button" id="map-asia">Châu Á</button>
+    </div>
     <div class="legend" id="map-legend"></div>
     <div class="map-grid">
       <div id="map" role="img" aria-label="Bản đồ thế giới tô màu theo pha kinh tế"></div>
       <div class="side">
         <div class="card"><span class="map-year" id="map-year">1997</span><span class="hint" id="map-global"></span><ul class="yr-list" id="map-list"></ul></div>
         <div class="card detail" id="map-detail"><p class="hint">Bấm vào một nước trên bản đồ hoặc trong danh sách.</p></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="page" data-page="xu-huong" hidden>
+  <section class="panel" aria-labelledby="tr-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="tr-title">Xu hướng dài hạn: 300 năm trong vài biểu đồ</h2>
+        <p>Chu kỳ ngắn nằm bên trong những xu hướng rất dài. Rê chuột trên mỗi biểu đồ để xem số liệu từng năm. Số liệu là ước tính đã làm tròn.</p>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h3>Ai làm ra của cải của thế giới? Tỷ trọng GDP toàn cầu</h3>
+      <div class="legend" id="gdp-legend"></div>
+      <svg id="ch-gdp" viewBox="0 0 1000 360" role="img" aria-label="Tỷ trọng GDP thế giới theo khu vực từ 1700 đến 2023"></svg>
+      <div class="readout" id="rd-gdp">Rê chuột để xem từng mốc.</div>
+      <p class="lesson">Trung Quốc và Ấn Độ chiếm hơn 45% GDP thế giới năm 1700, rồi tụt xuống dưới 10% vì bỏ lỡ cách mạng công nghiệp. Trung Quốc quay lại chỉ trong 40 năm sau khi mở cửa. Vị thế kinh tế không cố định: công nghệ và sự mở cửa quyết định.</p>
+      <p class="note">Nguồn ước tính: Angus Maddison (1700–1973) và IMF theo sức mua tương đương (2000, 2023).</p>
+    </div>
+    <div class="chart-card">
+      <h3>Các làn sóng công nghệ (chu kỳ Kondratiev)</h3>
+      <svg id="ch-waves" viewBox="0 0 1000 300" role="img" aria-label="Sáu làn sóng công nghệ từ 1780 đến nay"></svg>
+      <p class="lesson">Mỗi làn sóng kéo dài khoảng 40–60 năm. Người vào sớm ở đầu làn sóng hưởng lợi nhiều nhất. Bạn 26 tuổi, đúng lúc làn sóng AI bắt đầu: đây là thời điểm tốt nhất để học nó.</p>
+    </div>
+    <div class="charts">
+      <div class="chart-card">
+        <h3>Dân số thế giới</h3>
+        <svg id="ch-pop" viewBox="0 0 1000 380" role="img" aria-label="Dân số thế giới từ 1700 đến 2026"></svg>
+        <div class="readout" id="rd-pop"></div>
+        <p class="lesson">Mất cả lịch sử loài người để đạt 1 tỷ (1804), nhưng chỉ 12 năm để thêm 1 tỷ (2011 → 2022). Giờ Đông Á già đi nhanh: Việt Nam có ít thời gian để giàu trước khi già.</p>
+      </div>
+      <div class="chart-card">
+        <h3>CO₂ trong khí quyển (ppm)</h3>
+        <svg id="ch-co2" viewBox="0 0 1000 380" role="img" aria-label="Nồng độ CO2 từ 1700 đến 2026"></svg>
+        <div class="readout" id="rd-co2"></div>
+        <p class="lesson">CO₂ gần như phẳng suốt 150 năm, rồi tăng vọt theo than, dầu và khí. Biến đổi khí hậu ảnh hưởng trực tiếp Việt Nam: hạn mặn ĐBSCL, bão mạnh hơn. Năng lượng sạch là một làn sóng đầu tư lớn.</p>
+      </div>
+      <div class="chart-card">
+        <h3>Nhiệt độ toàn cầu so với thời tiền công nghiệp (°C)</h3>
+        <svg id="ch-temp" viewBox="0 0 1000 380" role="img" aria-label="Mức tăng nhiệt độ toàn cầu từ 1850 đến 2024"></svg>
+        <div class="readout" id="rd-temp"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Số đầu đạn hạt nhân trên thế giới</h3>
+        <svg id="ch-nuke" viewBox="0 0 1000 380" role="img" aria-label="Số đầu đạn hạt nhân từ 1945 đến 2024"></svg>
+        <div class="readout" id="rd-nuke"></div>
+        <p class="lesson">Chiến tranh Lạnh đẩy số đầu đạn lên khoảng 70.000 năm 1986. Khi căng thẳng giảm, ngân sách quốc phòng chuyển sang dân sự (“cổ tức hòa bình” của thập niên 90). Địa chính trị căng thẳng hôm nay đang đảo ngược xu hướng đó.</p>
       </div>
     </div>
   </section>
@@ -391,10 +519,11 @@ footer { font-size: 12px; color: var(--muted); }
       </div>
     </div>
     <div class="ctry-tabs" id="ctry-tabs" role="tablist" aria-label="Chọn quốc gia"></div>
+    <div class="profile" id="ctry-profile"></div>
     <div class="ctry-grid">
       <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
         <div class="strip" id="ctry-strip"></div>
-        <div class="strip-axis"><span id="strip-a">1945</span><span>1985</span><span>2026</span></div>
+        <div class="strip-axis"><span>1700</span><span>1800</span><span>1900</span><span>2000</span></div>
         <ol class="phases" id="ctry-phases"></ol>
       </div>
       <div class="side">
@@ -495,6 +624,7 @@ footer { font-size: 12px; color: var(--muted); }
   <footer>Dữ liệu dòng thời gian là tóm tắt giản lược để học, năm và con số mang tính gần đúng. Mô hình tài chính chỉ mang tính minh họa.</footer>
 </div>
 
+<div id="tip" role="tooltip" aria-hidden="true"></div>
 <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
 <script>
@@ -510,6 +640,24 @@ footer { font-size: 12px; color: var(--muted); }
   // phase: [start, end, type, short, title, desc, lesson?]
   const COUNTRIES = [
     { id: "us", name: "Mỹ", phases: [
+      [1700, 1775, "growth", "Thuộc địa Anh", "Thuộc địa Anh", "Kinh tế nông nghiệp và thương mại, phụ thuộc nước Anh."],
+      [1776, 1789, "crisis", "Chiến tranh độc lập", "Chiến tranh giành độc lập", "Tuyên ngôn độc lập 1776. Chính quyền in tiền Continental để trả chi phí chiến tranh, tiền mất giá gần hết.", "In tiền để trả nợ sẽ phá hủy giá trị đồng tiền. Giữ toàn bộ tiết kiệm bằng một loại tiền là rủi ro."],
+      [1790, 1836, "growth", "Hamilton, mở rộng Tây", "Xây dựng hệ thống tài chính, mở rộng về phía Tây", "Hamilton lập ngân hàng quốc gia và thị trường trái phiếu. Mua Louisiana (1803)."],
+      [1837, 1843, "crisis", "Khủng hoảng 1837", "Khủng hoảng 1837", "Bong bóng đất đai vỡ, hàng trăm ngân hàng phá sản."],
+      [1844, 1860, "boom", "Đường sắt, sốt vàng", "Đường sắt và cơn sốt vàng California (1848)", ""],
+      [1861, 1865, "crisis", "Nội chiến", "Nội chiến Mỹ", ""],
+      [1866, 1872, "boom", "Đường sắt xuyên lục địa", "Tái thiết, đường sắt xuyên lục địa (1869)", ""],
+      [1873, 1879, "crisis", "Khủng hoảng 1873", "Khủng hoảng 1873", "Bong bóng đường sắt vỡ, mở đầu cuộc Đại suy thoái dài."],
+      [1880, 1892, "boom", "Thời đại mạ vàng", "Thời đại mạ vàng (Gilded Age)", "Thép, dầu mỏ, điện. Carnegie, Rockefeller. Mỹ thành nền kinh tế lớn nhất thế giới."],
+      [1893, 1897, "crisis", "Khủng hoảng 1893", "Khủng hoảng 1893", "Đường sắt phá sản hàng loạt, thất nghiệp khoảng 15–18%."],
+      [1898, 1906, "growth", "Tập đoàn lớn", "Sáp nhập, tập đoàn lớn", ""],
+      [1907, 1908, "crisis", "Khủng hoảng 1907", "Khủng hoảng 1907", "J.P. Morgan đứng ra cứu hệ thống ngân hàng. Dẫn đến việc lập Fed (1913)."],
+      [1909, 1919, "growth", "Ô tô, Thế chiến I", "Ô tô Ford, Thế chiến I", "Mỹ từ con nợ thành chủ nợ của thế giới."],
+      [1920, 1921, "crisis", "Suy thoái 1920", "Suy thoái hậu chiến", ""],
+      [1922, 1928, "bubble", "Thập niên 20 sôi động", "Thập niên 20 sôi động", "Ô tô, radio, điện. Nhiều người mua cổ phiếu bằng tiền vay (margin), chỉ cần 10% vốn.", "Bong bóng đòn bẩy: khi ai cũng vay để mua cổ phiếu, chỉ một cú giảm giá cũng gây bán tháo dây chuyền."],
+      [1929, 1933, "crisis", "Đại suy thoái", "Đại suy thoái", "Sụp đổ chứng khoán 10/1929, Dow giảm khoảng 89%. GDP giảm khoảng 25%, thất nghiệp khoảng 25%, khoảng 9.000 ngân hàng phá sản.", "Ngay cả nền kinh tế mạnh nhất cũng có thể mất 1/4 quy mô trong 4 năm. Phải đến 1954 Dow mới về lại đỉnh 1929."],
+      [1934, 1940, "stagnation", "New Deal", "New Deal, phục hồi chậm", "Roosevelt mở rộng chi tiêu công, lập bảo hiểm tiền gửi. Suy thoái lại năm 1937."],
+      [1941, 1944, "boom", "Kinh tế thời chiến", "Kinh tế thời chiến", "Sản xuất vũ khí kéo thất nghiệp về gần 0."],
       [1945, 1969, "boom", "Hoàng kim hậu chiến", "Thời kỳ hoàng kim hậu chiến", "Bretton Woods đưa USD thành tiền tệ của thế giới. Kế hoạch Marshall, tầng lớp trung lưu lớn mạnh."],
       [1970, 1979, "stagnation", "Lạm phát đình trệ", "Lạm phát đình trệ (stagflation)", "Bỏ bản vị vàng 1971, hai cú sốc dầu 1973 và 1979 (chiến tranh Trung Đông, cách mạng Iran). Lạm phát cao, tăng trưởng thấp."],
       [1980, 1982, "crisis", "Volcker", "Suy thoái do Volcker", "Fed tăng lãi suất lên khoảng 20% để dập lạm phát. Thất nghiệp vượt 10%.", "Lãi suất là 'trọng lực' của mọi tài sản. Khi ngân hàng trung ương quyết tâm chống lạm phát, tài sản và việc làm đều chịu áp lực."],
@@ -524,6 +672,23 @@ footer { font-size: 12px; color: var(--muted); }
       [2023, 2026, "boom", "Bùng nổ AI", "Bùng nổ AI, thuế quan mới", "Đầu tư khổng lồ vào AI và trung tâm dữ liệu. Thuế quan cao từ 2025, xu hướng phi toàn cầu hóa."]
     ], events: [[1971, "Nixon bỏ bản vị vàng"], [1987, "Black Monday: Dow giảm 22% trong 1 ngày"], [2001, "Sự kiện 11/9"], [2008, "Lehman Brothers phá sản"], [2022, "Lạm phát đỉnh 9,1%"], [2025, "Thuế quan diện rộng"]] },
     { id: "eu", name: "Châu Âu", phases: [
+      [1700, 1717, "growth", "Thương mại thuộc địa", "Thương mại thuộc địa", "Anh, Pháp, Hà Lan cạnh tranh thương mại toàn cầu."],
+      [1718, 1719, "bubble", "Bong bóng", "Bong bóng South Sea và Mississippi", "Cổ phiếu Công ty South Sea (Anh) và Công ty Mississippi (Pháp) tăng gấp nhiều lần nhờ lời hứa về thương mại thuộc địa."],
+      [1720, 1721, "crisis", "Vỡ 1720", "Bong bóng South Sea vỡ", "Isaac Newton mất khoảng 20.000 bảng Anh khi mua lại ở gần đỉnh.", "Người thông minh nhất cũng mất tiền vì FOMO. Trí tuệ không bảo vệ bạn khỏi tâm lý đám đông, chỉ có kỷ luật mới làm được."],
+      [1722, 1759, "growth", "Cách mạng nông nghiệp", "Cách mạng nông nghiệp, mở rộng thương mại", ""],
+      [1760, 1788, "boom", "Cách mạng công nghiệp", "Cách mạng công nghiệp ở Anh", "Máy hơi nước của Watt (1769), máy dệt. Năng suất tăng chưa từng có.", "Làn sóng công nghệ tạo ra người thắng lớn và người thua lớn. Thợ dệt thủ công mất việc, người biết vận hành máy thì giàu lên. AI hôm nay là một làn sóng như vậy."],
+      [1789, 1815, "crisis", "CM Pháp, Napoleon", "Cách mạng Pháp và chiến tranh Napoleon", "Siêu lạm phát tiền giấy assignat ở Pháp. Chiến tranh khắp châu Âu đến trận Waterloo (1815)."],
+      [1816, 1844, "growth", "Công nghiệp hóa lan rộng", "Công nghiệp hóa lan ra châu Âu", "Khủng hoảng ngân hàng ở Anh năm 1825."],
+      [1845, 1849, "crisis", "Nạn đói, CM 1848", "Nạn đói Ireland, khủng hoảng 1847, cách mạng 1848", ""],
+      [1850, 1872, "boom", "Đường sắt, thống nhất Đức", "Đường sắt, thương mại tự do, Đức thống nhất (1871)", ""],
+      [1873, 1895, "stagnation", "Đại suy thoái dài", "Đại suy thoái dài (Long Depression)", "Giá cả giảm kéo dài, nông nghiệp khủng hoảng, làn sóng di cư sang Mỹ."],
+      [1896, 1913, "growth", "Belle Époque", "Belle Époque: toàn cầu hóa lần thứ nhất", "Bản vị vàng, thương mại và vốn chảy tự do khắp thế giới."],
+      [1914, 1918, "crisis", "Thế chiến I", "Thế chiến I", "Toàn cầu hóa lần thứ nhất kết thúc."],
+      [1919, 1923, "crisis", "Siêu lạm phát Đức", "Siêu lạm phát Đức", "Cuối năm 1923, giá cả ở Đức tăng gấp đôi chỉ sau vài ngày. Một ổ bánh mì giá hàng trăm tỷ mark.", "Người giữ tiền mặt và tiết kiệm bằng tiền mất trắng; người có tài sản thật và kỹ năng thì sống sót."],
+      [1924, 1928, "growth", "Những năm 20", "Phục hồi của những năm 20", ""],
+      [1929, 1933, "crisis", "Đại suy thoái", "Đại suy thoái", "Thất nghiệp ở Đức khoảng 30%, góp phần đưa Hitler lên nắm quyền (1933).", "Khủng hoảng kinh tế kéo dài có thể dẫn đến khủng hoảng chính trị và chiến tranh."],
+      [1934, 1938, "stagnation", "Tái vũ trang", "Phục hồi chậm, tái vũ trang", ""],
+      [1939, 1944, "crisis", "Thế chiến II", "Thế chiến II", ""],
       [1945, 1949, "growth", "Tái thiết", "Tái thiết sau chiến tranh", "Kế hoạch Marshall giúp châu Âu xây dựng lại."],
       [1950, 1972, "boom", "Phép màu Đức", "Phép màu kinh tế Đức, thành lập EEC", "Đức và Pháp tăng trưởng nhanh. Hiệp ước Rome 1957 lập Cộng đồng Kinh tế châu Âu."],
       [1973, 1985, "stagnation", "Eurosclerosis", "Eurosclerosis: tăng trưởng chậm, thất nghiệp cao", "Sau các cú sốc dầu, châu Âu trì trệ kéo dài."],
@@ -537,7 +702,40 @@ footer { font-size: 12px; color: var(--muted); }
       [2021, 2021, "growth", "Phục hồi", "Phục hồi sau COVID", ""],
       [2022, 2026, "stagnation", "Sốc năng lượng", "Cú sốc năng lượng, Đức trì trệ", "Chiến tranh Nga–Ukraine làm giá khí đốt tăng vọt. Công nghiệp Đức mất lợi thế khí đốt Nga giá rẻ và thị trường Trung Quốc.", "Mô hình thành công có thể dựa vào điều kiện không còn tồn tại (năng lượng rẻ, một thị trường lớn). Kỹ năng của bạn cũng cần cập nhật khi điều kiện thay đổi."]
     ], events: [[1957, "Hiệp ước Rome"], [1990, "Đức thống nhất"], [1999, "Ra đời đồng Euro"], [2012, "Draghi: 'whatever it takes'"], [2016, "Anh bỏ phiếu Brexit"]] },
+    { id: "ru", name: "Nga", phases: [
+      [1700, 1761, "growth", "Peter Đại đế", "Peter Đại đế hiện đại hóa", "Học kỹ thuật phương Tây, lập St. Petersburg (1703), xây hải quân và xưởng sản xuất."],
+      [1762, 1800, "growth", "Catherine Đại đế", "Catherine Đại đế mở rộng lãnh thổ", ""],
+      [1801, 1815, "crisis", "Napoleon", "Chiến tranh Napoleon", "Năm 1812 Napoleon tiến vào Moscow, thành phố bị đốt cháy."],
+      [1816, 1852, "stagnation", "Nông nô", "Chế độ nông nô, kinh tế lạc hậu", ""],
+      [1853, 1856, "crisis", "Chiến tranh Krym", "Thua chiến tranh Krym", "Thất bại cho thấy Nga tụt hậu so với Anh, Pháp."],
+      [1857, 1886, "growth", "Giải phóng nông nô", "Giải phóng nông nô (1861)", ""],
+      [1887, 1904, "boom", "Công nghiệp hóa Witte", "Công nghiệp hóa thời Witte", "Đường sắt xuyên Siberia, vốn nước ngoài đổ vào, bản vị vàng (1897)."],
+      [1905, 1906, "crisis", "Thua Nhật, CM 1905", "Thua Nhật, Cách mạng 1905", ""],
+      [1907, 1913, "growth", "Stolypin", "Cải cách ruộng đất Stolypin", ""],
+      [1914, 1921, "crisis", "Thế chiến, Cách mạng", "Thế chiến I, Cách mạng Tháng Mười, nội chiến", "Cách mạng 1917, nội chiến và nạn đói 1921."],
+      [1922, 1928, "growth", "NEP", "Chính sách kinh tế mới (NEP)", "Cho phép buôn bán nhỏ tư nhân để phục hồi kinh tế."],
+      [1929, 1940, "growth", "Kế hoạch 5 năm", "Công nghiệp hóa cưỡng bức", "Các kế hoạch 5 năm xây công nghiệp nặng rất nhanh, nhưng tập thể hóa gây nạn đói 1932–1933."],
+      [1941, 1945, "crisis", "Thế chiến II", "Chiến tranh Vệ quốc (Thế chiến II)", "Khoảng 27 triệu người Liên Xô thiệt mạng."],
+      [1946, 1973, "boom", "Siêu cường", "Tái thiết, siêu cường", "Tăng trưởng nhanh nhờ công nghiệp nặng. Sputnik (1957), Gagarin bay vào vũ trụ (1961)."],
+      [1974, 1985, "stagnation", "Trì trệ, sống nhờ dầu", "Thời kỳ trì trệ, sống nhờ dầu", "Năng suất đứng yên; nguồn thu dầu che giấu các vấn đề.", "Một nền kinh tế sống nhờ một nguồn thu rất dễ vỡ khi nguồn thu đó giảm. Cá nhân cũng vậy: đừng phụ thuộc một nguồn thu nhập duy nhất."],
+      [1986, 1991, "crisis", "Liên Xô tan rã", "Perestroika, giá dầu sụp, Liên Xô tan rã", "Giá dầu giảm mạnh từ 1986, thiếu hàng hóa, Liên Xô tan rã cuối năm 1991. Việt Nam mất nguồn viện trợ lớn nhất."],
+      [1992, 1998, "crisis", "Liệu pháp sốc, vỡ nợ", "Liệu pháp sốc, vỡ nợ 1998", "Siêu lạm phát, GDP giảm khoảng 40%, tài sản nhà nước rơi vào tay nhóm tài phiệt. Năm 1998 Nga vỡ nợ, rúp mất khoảng 2/3 giá trị.", "Người dân mất sạch tiền tiết kiệm hai lần trong một thập kỷ. Giữ tài sản ở nhiều dạng khác nhau là cách tự bảo vệ."],
+      [1999, 2008, "boom", "Giá dầu tăng", "Bùng nổ nhờ giá dầu", "Giá dầu tăng từ khoảng 10 lên hơn 140 USD/thùng. Thu nhập thực tăng mạnh."],
+      [2009, 2009, "crisis", "GFC", "Khủng hoảng toàn cầu, giá dầu sụp", "GDP giảm khoảng 8%."],
+      [2010, 2013, "growth", "Phục hồi", "Phục hồi chậm", ""],
+      [2014, 2016, "crisis", "Crimea, trừng phạt", "Sáp nhập Crimea, trừng phạt, giá dầu giảm", "Rúp mất khoảng một nửa giá trị."],
+      [2017, 2021, "stagnation", "Tăng trưởng thấp", "Tăng trưởng thấp", ""],
+      [2022, 2026, "stagnation", "Kinh tế thời chiến", "Chiến tranh Ukraine, trừng phạt, kinh tế thời chiến", "Bị cắt khỏi phần lớn hệ thống tài chính phương Tây, chuyển hướng bán năng lượng sang Trung Quốc và Ấn Độ. Chi tiêu quân sự tăng mạnh, lạm phát và lãi suất cao.", "Chiến tranh và trừng phạt có thể cắt một nền kinh tế khỏi thế giới chỉ trong vài tuần. Rủi ro địa chính trị là có thật với tài sản và công việc."]
+    ], events: [[1703, "Lập St. Petersburg"], [1812, "Napoleon vào Moscow"], [1861, "Giải phóng nông nô"], [1917, "Cách mạng Tháng Mười"], [1957, "Sputnik"], [1991, "Liên Xô tan rã"], [1998, "Vỡ nợ"], [2014, "Sáp nhập Crimea"], [2022, "Chiến tranh Ukraine"]] },
     { id: "jp", name: "Nhật Bản", phases: [
+      [1700, 1852, "stagnation", "Tokugawa, bế quan", "Mạc phủ Tokugawa, bế quan tỏa cảng", "Hòa bình lâu dài, thương mại trong nước phát triển (sàn giao dịch gạo Dojima), nhưng gần như đóng cửa với thế giới."],
+      [1853, 1867, "crisis", "Perry, mở cửa", "Hạm đội Perry buộc mở cửa", "Năm 1853 tàu chiến Mỹ đến vịnh Edo. Các hiệp ước bất bình đẳng, lạm phát, bất ổn."],
+      [1868, 1904, "boom", "Minh Trị Duy Tân", "Minh Trị Duy Tân", "Cử người đi học phương Tây, xây đường sắt, nhà máy, quân đội hiện đại. Từ nước nông nghiệp thành cường quốc công nghiệp trong một thế hệ.", "Bị buộc mở cửa nhưng chọn học hỏi, Nhật bắt kịp phương Tây trong khoảng 40 năm. Với cá nhân: khi thế giới thay đổi, người học nhanh nhất thắng."],
+      [1905, 1913, "growth", "Cường quốc", "Thắng Nga, trở thành cường quốc", "Thắng chiến tranh Nga–Nhật (1905), chiếm Triều Tiên (1910)."],
+      [1914, 1919, "boom", "Bùng nổ Thế chiến I", "Bùng nổ nhờ Thế chiến I", "Xuất khẩu tăng vọt khi châu Âu bận chiến tranh."],
+      [1920, 1931, "stagnation", "Động đất, KH ngân hàng", "Suy thoái kéo dài", "Sụp đổ 1920, động đất Kanto (1923), khủng hoảng ngân hàng (1927), suy thoái Showa (1930)."],
+      [1932, 1937, "growth", "Takahashi, quân sự hóa", "Kích thích kinh tế và quân sự hóa", "Bộ trưởng Takahashi nới lỏng tiền tệ, Nhật thoát Đại suy thoái sớm. Chi tiêu quân sự tăng mạnh."],
+      [1938, 1944, "crisis", "Chiến tranh", "Chiến tranh Trung–Nhật, Thế chiến II", ""],
       [1945, 1949, "stagnation", "Hậu chiến", "Hậu chiến, Mỹ chiếm đóng", "Kinh tế kiệt quệ, cải cách ruộng đất và giải thể zaibatsu."],
       [1950, 1973, "boom", "Thần kỳ Nhật Bản", "Thần kỳ Nhật Bản", "Tăng trưởng khoảng 9–10%/năm. Đơn hàng từ chiến tranh Triều Tiên, xuất khẩu thép, ô tô, điện tử."],
       [1974, 1974, "crisis", "Dầu", "Cú sốc dầu", "Tăng trưởng âm lần đầu sau chiến tranh."],
@@ -553,6 +751,9 @@ footer { font-size: 12px; color: var(--muted); }
       [2021, 2026, "growth", "Nikkei vượt đỉnh", "Nikkei vượt đỉnh 1989", "Năm 2024 Nikkei vượt đỉnh cũ sau 34 năm. BOJ chấm dứt lãi suất âm.", "Mua ở đỉnh bong bóng có thể mất 34 năm mới hòa vốn. Thời điểm và giá mua quan trọng không kém tài sản tốt."]
     ], events: [[1950, "Đơn hàng chiến tranh Triều Tiên"], [1964, "Olympic Tokyo, tàu Shinkansen"], [1985, "Hiệp ước Plaza"], [1989, "Nikkei đỉnh 38.915"], [2011, "Động đất, sóng thần"], [2024, "Nikkei vượt đỉnh 1989"]] },
     { id: "kr", name: "Hàn Quốc", phases: [
+      [1700, 1875, "stagnation", "Joseon khép kín", "Triều Tiên (Joseon): “vương quốc ẩn dật”", "Nông nghiệp, đóng cửa với thế giới bên ngoài."],
+      [1876, 1909, "crisis", "Bị buộc mở cửa", "Bị buộc mở cửa, các cường quốc tranh giành", "Hiệp ước Ganghwa với Nhật (1876). Trung, Nhật, Nga tranh giành ảnh hưởng."],
+      [1910, 1944, "crisis", "Thuộc địa Nhật", "Thuộc địa Nhật Bản", "Nhật xây một số hạ tầng và công nghiệp để phục vụ chính quốc. Lao động và lương thực bị khai thác."],
       [1945, 1953, "crisis", "Chiến tranh", "Chia cắt và chiến tranh Triều Tiên", "Đất nước bị tàn phá, thuộc nhóm nghèo nhất thế giới."],
       [1954, 1961, "stagnation", "Viện trợ", "Phụ thuộc viện trợ Mỹ", ""],
       [1962, 1979, "boom", "Kỳ tích sông Hàn", "Kỳ tích sông Hàn", "Park Chung-hee công nghiệp hóa hướng xuất khẩu, xây dựng các chaebol (tập đoàn gia đình) như Samsung, Hyundai."],
@@ -566,6 +767,8 @@ footer { font-size: 12px; color: var(--muted); }
       [2021, 2026, "growth", "Chip AI, dân số già", "Chip AI (HBM), dân số già nhanh", "Tỷ lệ sinh thấp nhất thế giới (khoảng 0,72 năm 2023), nợ hộ gia đình cao."]
     ], events: [[1950, "Chiến tranh Triều Tiên"], [1988, "Olympic Seoul"], [1997, "Cứu trợ IMF 58 tỷ USD"], [2023, "Tỷ lệ sinh 0,72"]] },
     { id: "tw", name: "Đài Loan", phases: [
+      [1700, 1894, "stagnation", "Thuộc nhà Thanh", "Thuộc nhà Thanh, nông nghiệp", "Trồng lúa, mía, trà. Mở cảng cho phương Tây sau chiến tranh Nha phiến."],
+      [1895, 1944, "growth", "Thuộc địa Nhật", "Thuộc địa Nhật Bản", "Nhật chiếm Đài Loan năm 1895. Xây đường sắt, thủy lợi, phát triển gạo và đường để xuất về Nhật."],
       [1945, 1949, "crisis", "Nội chiến", "Nội chiến, siêu lạm phát", ""],
       [1950, 1963, "growth", "Cải cách ruộng đất", "Cải cách ruộng đất, viện trợ Mỹ", ""],
       [1964, 1996, "boom", "Xuất khẩu → TSMC", "Khu chế xuất đến bán dẫn", "Khu chế xuất Cao Hùng (1966), Công viên khoa học Tân Trúc (1980), TSMC thành lập năm 1987. Nhiều doanh nghiệp nhỏ và vừa linh hoạt."],
@@ -577,6 +780,13 @@ footer { font-size: 12px; color: var(--muted); }
       [2018, 2026, "boom", "Chip AI", "Chiến tranh chip, bùng nổ chip AI", "Mỹ–Trung cạnh tranh công nghệ, Đài Loan thành trung tâm sản xuất chip AI. Rủi ro lớn nhất là căng thẳng quân sự eo biển.", "Địa chính trị có thể biến một ngành thành 'vàng'. Đứng gần dòng tiền (bán dẫn, AI) giúp thu nhập tăng nhanh hơn."]
     ], events: [[1966, "Khu chế xuất Cao Hùng"], [1980, "Công viên KH Tân Trúc"], [1987, "Thành lập TSMC"], [2022, "Căng thẳng eo biển"]] },
     { id: "cn", name: "Trung Quốc", phases: [
+      [1700, 1795, "boom", "Thịnh thế Khang–Càn", "Thịnh thế Khang Hy – Ung Chính – Càn Long", "Dân số và nông nghiệp tăng mạnh. Đến năm 1820, Trung Quốc chiếm khoảng 1/3 GDP thế giới."],
+      [1796, 1838, "stagnation", "Nhà Thanh suy yếu", "Nhà Thanh suy yếu", "Khởi nghĩa Bạch Liên giáo, tham nhũng. Thuốc phiện của Anh tràn vào, bạc chảy ra ngoài."],
+      [1839, 1864, "crisis", "Nha phiến, Thái Bình", "Chiến tranh Nha phiến và Thái Bình Thiên Quốc", "Thua Anh trong hai cuộc chiến tranh Nha phiến (1839–42, 1856–60), mất Hồng Kông, ký hiệp ước bất bình đẳng. Thái Bình Thiên Quốc (1850–64) làm chết hàng chục triệu người.", "Từ nền kinh tế lớn nhất thế giới, Trung Quốc tụt lại hơn 100 năm vì bỏ lỡ cách mạng công nghiệp. Đứng ngoài làn sóng công nghệ là rủi ro lớn nhất."],
+      [1865, 1894, "stagnation", "Tự cường nửa vời", "Phong trào Dương vụ (tự cường) nửa vời", "Mua vũ khí và máy móc phương Tây nhưng không cải cách thể chế."],
+      [1895, 1911, "crisis", "Thua Nhật, Thanh sụp", "Thua Nhật, nhà Thanh sụp đổ", "Thua Nhật (1895), Nghĩa Hòa Đoàn (1900), Cách mạng Tân Hợi (1911)."],
+      [1912, 1936, "stagnation", "Quân phiệt", "Trung Hoa Dân quốc, quân phiệt cát cứ", ""],
+      [1937, 1944, "crisis", "Chiến tranh Trung–Nhật", "Chiến tranh Trung–Nhật", ""],
       [1945, 1949, "crisis", "Nội chiến", "Nội chiến", ""],
       [1950, 1958, "stagnation", "Kế hoạch hóa", "Kinh tế kế hoạch", ""],
       [1959, 1961, "crisis", "Nạn đói", "Đại nhảy vọt, nạn đói lớn", ""],
@@ -588,7 +798,25 @@ footer { font-size: 12px; color: var(--muted); }
       [2017, 2020, "bubble", "Bong bóng BĐS", "Bong bóng bất động sản", "Bất động sản chiếm khoảng 1/4 nền kinh tế. Chiến tranh thương mại với Mỹ từ 2018."],
       [2021, 2026, "stagnation", "Khủng hoảng BĐS", "Khủng hoảng bất động sản, giảm phát", "Quy định 'ba lằn ranh đỏ', Evergrande vỡ nợ (2021). Thất nghiệp thanh niên trên 20% (2023). Doanh nghiệp chuyển sản xuất ra ngoài (Trung Quốc +1), Việt Nam hưởng lợi.", "Khi nhà ở thành 'kênh đầu tư' thay vì chỗ ở và nợ tăng nhanh hơn thu nhập, cú điều chỉnh có thể kéo dài nhiều năm."]
     ], events: [[1978, "Cải cách mở cửa"], [1980, "Đặc khu Thâm Quyến"], [1992, "Nam tuần"], [2001, "Gia nhập WTO"], [2015, "Chứng khoán sụp đổ"], [2021, "Evergrande vỡ nợ"]] },
+    { id: "in", name: "Ấn Độ", phases: [
+      [1700, 1756, "stagnation", "Mughal suy yếu", "Đế quốc Mughal suy yếu", "Năm 1700 Ấn Độ chiếm khoảng 1/4 GDP thế giới, nổi tiếng với vải bông. Sau khi Aurangzeb mất (1707), đế quốc tan rã dần."],
+      [1757, 1857, "crisis", "Công ty Đông Ấn", "Công ty Đông Ấn Anh cai trị", "Sau trận Plassey (1757), một công ty tư nhân kiểm soát dần cả tiểu lục địa. Nạn đói Bengal 1770. Vải dệt thủ công bị máy móc Anh đánh bại.", "Một làn sóng công nghệ (máy dệt) có thể xóa sổ một ngành nghề hàng trăm năm. Người thợ dệt giỏi nhất cũng thua nếu đứng ngoài làn sóng."],
+      [1858, 1946, "stagnation", "Thuộc địa Anh", "Thuộc địa Anh (British Raj)", "Thu nhập bình quân gần như không tăng trong gần 100 năm. Nhiều nạn đói lớn, như nạn đói Bengal 1943."],
+      [1947, 1949, "crisis", "Độc lập, chia cắt", "Độc lập và chia cắt", "Tách thành Ấn Độ và Pakistan, hàng triệu người di cư và thiệt mạng."],
+      [1950, 1979, "stagnation", "License Raj", "Kinh tế kế hoạch, “License Raj”", "Muốn sản xuất gì cũng cần giấy phép. Tăng trưởng khoảng 3,5%/năm. Cách mạng xanh (từ 1966) giúp hết nạn đói."],
+      [1980, 1990, "growth", "Tăng tốc", "Cải cách nhỏ, tăng tốc", ""],
+      [1991, 1991, "crisis", "Khủng hoảng 1991", "Khủng hoảng cán cân thanh toán", "Dự trữ ngoại tệ chỉ đủ nhập khẩu vài tuần, phải cầm cố vàng để vay IMF. Cú sốc mở đường cho cải cách."],
+      [1992, 2007, "boom", "Tự do hóa, IT", "Tự do hóa, bùng nổ dịch vụ IT", "Infosys, TCS, Wipro, Bangalore thành “thung lũng Silicon” của Ấn Độ nhờ kỹ sư giỏi và tiếng Anh.", "Ấn Độ đi lên nhờ dịch vụ IT và tiếng Anh, không qua sản xuất như Đông Á. Đây là đối thủ trực tiếp của lập trình viên Việt Nam: cạnh tranh bằng chất lượng và kỹ năng, không chỉ bằng giá."],
+      [2008, 2009, "stagnation", "GFC", "Khủng hoảng toàn cầu, tăng trưởng chậm lại", ""],
+      [2010, 2013, "growth", "Lạm phát cao", "Tăng trưởng, lạm phát cao", "Năm 2013 rupee giảm mạnh khi Fed báo hiệu giảm QE."],
+      [2014, 2019, "growth", "Make in India", "Modi: Make in India, đổi tiền, thuế GST", "Thu hồi tiền mệnh giá lớn (2016), thống nhất thuế hàng hóa (2017)."],
+      [2020, 2020, "crisis", "COVID", "COVID-19", "GDP giảm khoảng 6%."],
+      [2021, 2026, "boom", "Tăng nhanh nhất", "Nền kinh tế lớn tăng nhanh nhất", "Dân số đông nhất thế giới (2023). Apple và nhiều hãng chuyển một phần sản xuất sang Ấn Độ (Trung Quốc +1), cạnh tranh trực tiếp với Việt Nam."]
+    ], events: [[1757, "Trận Plassey"], [1857, "Khởi nghĩa Sepoy"], [1943, "Nạn đói Bengal"], [1947, "Độc lập"], [1991, "Cải cách mở cửa"], [2016, "Đổi tiền"], [2023, "Dân số đông nhất thế giới"]] },
     { id: "sg", name: "Singapore", phases: [
+      [1819, 1866, "growth", "Raffles, cảng tự do", "Raffles lập thương cảng tự do (1819)", "Cảng miễn thuế trên tuyến thương mại Ấn Độ – Trung Quốc."],
+      [1867, 1941, "boom", "Thuộc địa Anh, Suez", "Thuộc địa Anh: kênh Suez, cao su, thiếc", "Kênh đào Suez (1869) đưa Singapore thành điểm trung chuyển lớn."],
+      [1942, 1944, "crisis", "Nhật chiếm đóng", "Nhật chiếm đóng", ""],
       [1945, 1964, "stagnation", "Thuộc địa", "Thuộc địa Anh, rồi thuộc Malaysia", ""],
       [1965, 1984, "boom", "Độc lập, FDI", "Độc lập: FDI, cảng biển", "Không có tài nguyên. Lý Quang Diệu thu hút đầu tư nước ngoài, xây cảng, đào tạo nhân lực."],
       [1985, 1986, "crisis", "Suy thoái 1985", "Suy thoái đầu tiên", "Chi phí lao động tăng quá nhanh. Chính phủ cắt chi phí, chuyển sang ngành giá trị cao hơn."],
@@ -603,6 +831,11 @@ footer { font-size: 12px; color: var(--muted); }
       [2021, 2026, "growth", "Trung tâm khu vực", "Trung tâm vốn và công nghệ khu vực", "Đón dòng vốn và nhân tài rời Hồng Kông."]
     ], events: [[1965, "Độc lập"], [1985, "Suy thoái đầu tiên"], [2015, "SkillsFuture"]] },
     { id: "th", name: "Thái Lan", phases: [
+      [1700, 1766, "growth", "Ayutthaya", "Vương quốc Ayutthaya, trung tâm thương mại", ""],
+      [1767, 1781, "crisis", "Ayutthaya thất thủ", "Ayutthaya thất thủ trước Miến Điện", ""],
+      [1782, 1854, "growth", "Nhà Chakri, Bangkok", "Nhà Chakri, Bangkok thành kinh đô", ""],
+      [1855, 1931, "growth", "Hiệp ước Bowring", "Mở cửa thương mại, giữ được độc lập", "Hiệp ước Bowring với Anh (1855) mở cửa thương mại, xuất khẩu gạo. Xiêm là nước Đông Nam Á duy nhất không thành thuộc địa.", "Chủ động mở cửa và cải cách (thời Rama V) giúp Xiêm giữ độc lập trong khi các nước xung quanh thành thuộc địa."],
+      [1932, 1949, "stagnation", "Cách mạng 1932, Thế chiến", "Cách mạng 1932, Thế chiến II", "Chuyển sang quân chủ lập hiến; liên minh với Nhật trong Thế chiến II."],
       [1950, 1984, "growth", "Công nghiệp hóa", "Nông nghiệp, công nghiệp hóa ban đầu", ""],
       [1985, 1990, "boom", "FDI Nhật", "FDI Nhật Bản đổ vào", "Sau Hiệp ước Plaza, doanh nghiệp Nhật chuyển nhà máy sang Thái. Tăng trưởng 8–13%/năm."],
       [1991, 1996, "bubble", "Vay USD, BĐS", "Bong bóng: vay USD giá rẻ", "Ngân hàng và doanh nghiệp vay USD lãi thấp, đổ vào bất động sản và chứng khoán. Nhiều người tin Thái Lan sẽ là 'con hổ thứ năm'."],
@@ -615,7 +848,29 @@ footer { font-size: 12px; color: var(--muted); }
       [2020, 2020, "crisis", "COVID", "COVID-19: du lịch sụp đổ", "GDP giảm khoảng 6%."],
       [2021, 2026, "stagnation", "Tăng ~2%", "Tăng trưởng khoảng 2%, già hóa", "Già trước khi giàu, nợ hộ gia đình cao."]
     ], events: [[1997, "Thả nổi baht 2/7"], [2006, "Đảo chính"], [2011, "Lũ lụt lớn"], [2014, "Đảo chính"]] },
+    { id: "id", name: "Indonesia", phases: [
+      [1700, 1798, "stagnation", "VOC", "Công ty Đông Ấn Hà Lan (VOC)", "VOC độc quyền buôn gia vị (đinh hương, nhục đậu khấu), cai trị bằng vũ lực."],
+      [1799, 1829, "crisis", "VOC phá sản, chiến tranh Java", "VOC phá sản, chiến tranh Java", "VOC giải thể (1799) vì tham nhũng và nợ. Chiến tranh Java (1825–1830)."],
+      [1830, 1869, "stagnation", "Canh tác cưỡng bức", "Hệ thống canh tác cưỡng bức", "Nông dân bị buộc trồng cà phê, đường, chàm để nộp cho Hà Lan."],
+      [1870, 1929, "growth", "Đồn điền, dầu mỏ", "Đồn điền tư nhân, dầu mỏ", "Cao su, đường, thiếc, dầu mỏ (tiền thân của Shell). Lợi nhuận chủ yếu về Hà Lan."],
+      [1930, 1941, "crisis", "Đại suy thoái", "Đại suy thoái: giá hàng hóa sụp đổ", ""],
+      [1942, 1949, "crisis", "Nhật chiếm, độc lập", "Nhật chiếm đóng, chiến tranh giành độc lập", "Tuyên bố độc lập năm 1945, Hà Lan công nhận năm 1949."],
+      [1950, 1962, "stagnation", "Sukarno", "Thời Sukarno: quốc hữu hóa", ""],
+      [1963, 1966, "crisis", "Siêu lạm phát", "Siêu lạm phát, biến cố 1965", "Lạm phát khoảng 600% (1966). Biến cố 1965 và bạo lực chính trị."],
+      [1967, 1996, "boom", "Trật tự mới", "Suharto: “Trật tự mới”", "Dầu mỏ, FDI, xuất khẩu; tăng trưởng khoảng 7%/năm, nhưng tham nhũng và nợ USD tăng."],
+      [1997, 1998, "crisis", "KH châu Á", "Khủng hoảng châu Á", "Rupiah mất khoảng 80% giá trị, GDP giảm khoảng 13%. Bạo loạn, Suharto từ chức sau 32 năm.", "Nợ USD tăng gấp nhiều lần khi đồng nội tệ sụp. Khủng hoảng kinh tế có thể kéo đổ cả một chế độ chính trị."],
+      [1999, 2007, "growth", "Dân chủ hóa", "Dân chủ hóa, phục hồi", "Sóng thần Aceh (2004)."],
+      [2008, 2019, "growth", "Tăng ~5%", "Tăng trưởng ổn định khoảng 5%", ""],
+      [2020, 2020, "crisis", "COVID", "COVID-19", ""],
+      [2021, 2026, "growth", "Niken, xe điện", "Chế biến niken cho pin xe điện", "Cấm xuất khẩu quặng niken thô (2020) để buộc xây nhà máy chế biến trong nước.", "Giữ tài nguyên để chế biến trong nước thay vì xuất thô giúp tăng giá trị. Với cá nhân: đừng bán “nguyên liệu thô” (giờ làm), hãy bán sản phẩm hoàn chỉnh (giải pháp)."]
+    ], events: [[1799, "VOC giải thể"], [1883, "Núi lửa Krakatoa"], [1945, "Tuyên bố độc lập"], [1998, "Suharto từ chức"], [2004, "Sóng thần Aceh"], [2020, "Cấm xuất khẩu niken thô"]] },
     { id: "vn", name: "Việt Nam", ref: true, phases: [
+      [1700, 1770, "stagnation", "Trịnh – Nguyễn", "Trịnh – Nguyễn phân tranh", "Đất nước chia đôi. Phố Hiến, Hội An là thương cảng sôi động."],
+      [1771, 1801, "crisis", "Tây Sơn, nội chiến", "Khởi nghĩa Tây Sơn, nội chiến", "Đánh tan quân Xiêm (1785) và quân Thanh (1789)."],
+      [1802, 1857, "stagnation", "Nhà Nguyễn đóng cửa", "Nhà Nguyễn, hạn chế giao thương với phương Tây", "Thống nhất đất nước nhưng khép kín, bác bỏ các đề nghị cải cách.", "Đóng cửa khi thế giới đang công nghiệp hóa khiến đất nước tụt hậu và mất độc lập."],
+      [1858, 1884, "crisis", "Pháp xâm lược", "Pháp xâm lược", "Pháp đánh Đà Nẵng (1858), chiếm Nam Kỳ, rồi toàn bộ Việt Nam (1884)."],
+      [1885, 1929, "stagnation", "Thuộc địa Pháp", "Thuộc địa Pháp: khai thác thuộc địa", "Đồn điền cao su, mỏ than, xuất khẩu gạo qua Sài Gòn. Lợi nhuận chủ yếu về chính quốc."],
+      [1930, 1944, "crisis", "Đại suy thoái, nạn đói", "Đại suy thoái, Nhật chiếm, nạn đói", "Giá gạo, cao su sụp đổ (1930). Nhật vào Đông Dương (1940). Nạn đói 1944–1945 làm khoảng 1–2 triệu người chết."],
       [1945, 1975, "crisis", "Chiến tranh", "Chiến tranh, chia cắt", "Kháng chiến chống Pháp (1945–1954) và chiến tranh Việt Nam (1955–1975). Mỹ cấm vận miền Bắc từ 1964."],
       [1976, 1978, "stagnation", "Bao cấp, cấm vận", "Thống nhất, bao cấp và cấm vận", "Mỹ mở rộng cấm vận ra cả nước từ 1975. Kinh tế kế hoạch tập trung, “ngăn sông cấm chợ”, sản xuất trì trệ."],
       [1979, 1985, "crisis", "Chiến tranh biên giới, cấm vận", "Chiến tranh biên giới hai đầu và bị cô lập", "Chiến tranh biên giới Tây Nam với Khmer Đỏ (từ cuối 1978, quân tình nguyện ở Campuchia đến 1989) và chiến tranh biên giới phía Bắc (2/1979), xung đột kéo dài đến 1989 (Vị Xuyên 1984). Bị Mỹ, phương Tây và nhiều nước ASEAN cấm vận, cô lập; phụ thuộc viện trợ Liên Xô. Thiếu lương thực, phải nhập gạo. “Khoán 100” (1981) là bước “xé rào” đầu tiên. Cải cách giá–lương–tiền 1985 thất bại, đẩy lạm phát lên cao.", "Bị cắt khỏi thị trường thế giới thì dù cố gắng đến đâu cũng khó giàu lên. Mở cửa, kết nối với dòng chảy toàn cầu là điều kiện của tăng trưởng. Với cá nhân: tiếng Anh, mạng lưới quốc tế, khách hàng nước ngoài là cách bạn “mở cửa” cho chính mình."],
@@ -633,7 +888,177 @@ footer { font-size: 12px; color: var(--muted); }
       [2024, 2026, "growth", "Phục hồi, chip", "Phục hồi, FDI bán dẫn và AI", ""]
     ], events: [[1975, "Mỹ cấm vận cả nước"], [1978, "Chiến tranh biên giới Tây Nam"], [1979, "Chiến tranh biên giới phía Bắc"], [1984, "Mặt trận Vị Xuyên"], [1985, "Giá–lương–tiền thất bại"], [1986, "Đổi Mới"], [1989, "Rút quân khỏi Campuchia"], [1994, "Mỹ bỏ cấm vận"], [1995, "Bình thường hóa với Mỹ, vào ASEAN"], [2007, "Gia nhập WTO"], [2022, "Khủng hoảng trái phiếu"]] }
   ];
-  const GLOBAL = [[1973, "Sốc dầu"], [1985, "Plaza"], [1991, "Liên Xô tan rã"], [1997, "KH châu Á"], [2001, "TQ vào WTO"], [2008, "Lehman"], [2020, "COVID-19"], [2022, "Chiến tranh Ukraine"]];
+  const GLOBAL = [[1720, "Bong bóng South Sea"], [1789, "Cách mạng Pháp"], [1815, "Waterloo"], [1848, "Cách mạng 1848"], [1873, "Khủng hoảng 1873"], [1914, "Thế chiến I"], [1929, "Đại suy thoái"], [1939, "Thế chiến II"], [1944, "Bretton Woods"], [1973, "Sốc dầu"], [1985, "Plaza"], [1991, "Liên Xô tan rã"], [1997, "KH châu Á"], [2001, "TQ vào WTO"], [2008, "Lehman"], [2020, "COVID-19"], [2022, "Chiến tranh Ukraine"]];
+  // milestone tracks: [year, label, note?]
+  const THEMES = [
+    { id: "company", name: "Công ty, tập đoàn", c: "var(--t-company)", items: [
+      [1720, "South Sea Company sụp đổ", "Một trong những bong bóng cổ phiếu đầu tiên của lịch sử."], [1870, "Standard Oil (Rockefeller)", "Từng kiểm soát khoảng 90% dầu tinh chế ở Mỹ, bị chia tách năm 1911."], [1877, "Bell Telephone Company"], [1892, "General Electric"], [1901, "US Steel: công ty 1 tỷ USD đầu tiên"], [1903, "Ford Motor", "Dây chuyền lắp ráp (1913) làm ô tô rẻ cho số đông."], [1911, "IBM (tiền thân CTR)"], [1918, "Panasonic (Matsushita)"], [1937, "Toyota Motor"], [1938, "Samsung (buôn bán nông sản)", "Bắt đầu là cửa hàng buôn cá khô và rau ở Daegu."], [1947, "Hyundai"], [1968, "Intel"], [1975, "Microsoft"], [1976, "Apple"], [1987, "TSMC", "Mô hình mới: chỉ sản xuất chip cho người khác thiết kế (foundry)."], [1988, "FPT"], [1993, "Nvidia"], [1994, "Amazon"], [1998, "Google"], [1999, "Alibaba"], [2001, "Enron phá sản", "Gian lận kế toán, một trong những vụ phá sản lớn nhất nước Mỹ."], [2003, "Tesla"], [2004, "Facebook"], [2015, "OpenAI"], [2024, "Nvidia thành công ty giá trị nhất thế giới", "Nhờ nhu cầu chip AI. Một công ty làm card đồ họa cho game trở thành trung tâm của làn sóng AI."]] },
+    { id: "tech", name: "Khoa học kỹ thuật", c: "var(--t-tech)", items: [
+      [1712, "Máy hơi nước Newcomen"], [1769, "Máy hơi nước Watt", "Mở đầu Cách mạng công nghiệp."], [1796, "Vắc-xin đầu tiên (Jenner)"], [1825, "Đường sắt công cộng đầu tiên"], [1837, "Điện báo Morse"], [1859, "Giếng dầu thương mại đầu tiên"], [1876, "Điện thoại"], [1879, "Bóng đèn Edison"], [1886, "Ô tô Benz"], [1903, "Máy bay anh em Wright"], [1928, "Penicillin"], [1945, "Máy tính điện tử ENIAC"], [1947, "Transistor", "Nền tảng của mọi con chip."], [1957, "Vệ tinh Sputnik"], [1969, "Lên Mặt Trăng, mạng ARPANET"], [1971, "Vi xử lý Intel 4004"], [1981, "Máy tính cá nhân IBM PC"], [1991, "World Wide Web"], [2003, "Giải mã bộ gen người"], [2007, "iPhone"], [2012, "Deep learning (AlexNet)"], [2017, "Kiến trúc Transformer", "Nền tảng của các mô hình ngôn ngữ lớn."], [2022, "ChatGPT", "Đạt 100 triệu người dùng trong khoảng 2 tháng."]] },
+    { id: "pop", name: "Dân số", c: "var(--t-pop)", items: [
+      [1798, "Malthus cảnh báo dân số", "Cho rằng dân số sẽ tăng nhanh hơn lương thực. Ông đã sai vì không tính đến công nghệ."], [1804, "Thế giới 1 tỷ người"], [1927, "2 tỷ người"], [1960, "3 tỷ người"], [1966, "Cách mạng xanh: giống lúa IR8", "Năng suất lúa tăng mạnh, châu Á thoát nạn đói."], [1974, "4 tỷ người"], [1979, "Trung Quốc: chính sách một con"], [1987, "5 tỷ người"], [1999, "6 tỷ người"], [2011, "7 tỷ người"], [2022, "8 tỷ người"], [2023, "Ấn Độ vượt Trung Quốc; Hàn Quốc sinh 0,72", "Dân số già đi nhanh ở Đông Á là thách thức kinh tế lớn của thế kỷ 21."], [2024, "Việt Nam: mức sinh thấp kỷ lục khoảng 1,91"]] },
+    { id: "climate", name: "Khí hậu", c: "var(--t-climate)", items: [
+      [1815, "Núi lửa Tambora", "Năm 1816 thành “năm không có mùa hè”, mất mùa và đói kém ở châu Âu và Bắc Mỹ."], [1896, "Arrhenius: CO₂ làm Trái Đất nóng lên"], [1958, "Bắt đầu đo CO₂ liên tục (Keeling)"], [1988, "Thành lập IPCC"], [1997, "Nghị định thư Kyoto"], [2013, "CO₂ vượt 400 ppm"], [2015, "Hiệp định Paris"], [2016, "Hạn mặn kỷ lục ở ĐBSCL"], [2024, "Năm đầu tiên nóng hơn 1,5°C; bão Yagi", "Nhiệt độ toàn cầu năm 2024 cao hơn thời tiền công nghiệp khoảng 1,55°C. Bão Yagi gây thiệt hại nặng ở miền Bắc Việt Nam."]] },
+    { id: "weapon", name: "Vũ khí, quân sự", c: "var(--t-weapon)", items: [
+      [1867, "Thuốc nổ dynamite (Nobel)"], [1884, "Súng máy Maxim"], [1915, "Khí độc trong Thế chiến I"], [1916, "Xe tăng"], [1945, "Bom nguyên tử Hiroshima, Nagasaki"], [1949, "Liên Xô có bom nguyên tử"], [1952, "Bom nhiệt hạch"], [1957, "Tên lửa liên lục địa"], [1962, "Khủng hoảng tên lửa Cuba"], [1968, "Hiệp ước không phổ biến hạt nhân (NPT)"], [1986, "Đỉnh khoảng 70.000 đầu đạn hạt nhân"], [1991, "Vũ khí dẫn đường chính xác (chiến tranh Vùng Vịnh)"], [2001, "Máy bay không người lái có vũ trang"], [2022, "Chiến tranh drone ở Ukraine", "Drone giá rẻ thay đổi cách đánh nhau. Công nghệ dân sự (chip, AI, viễn thông) thành công nghệ quân sự."]] }
+  ];
+
+  // ---------- COUNTRY PROFILES: geography, geopolitics, religion, people, culture ----------
+  const PROFILE_KEYS = [
+    ["Địa lý", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>'],
+    ["Địa chính trị", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg>'],
+    ["Tôn giáo", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 6H3zM5 9v10M19 9v10M9 9v10M15 9v10M3 21h18"/></svg>'],
+    ["Dân tộc, nhân chủng", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5c2.6.2 4.6 1.9 5.5 5"/></svg>'],
+    ["Văn hóa và kinh tế", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>']
+  ];
+  const PROFILES = {
+    us: ["Lục địa rộng giữa hai đại dương, nhiều đất nông nghiệp và tài nguyên (dầu, khí đá phiến). Hai đại dương che chắn khỏi chiến tranh trên lãnh thổ.", "Siêu cường từ 1945. USD là tiền tệ dự trữ của thế giới. Mạng lưới đồng minh NATO, Nhật, Hàn; cạnh tranh chiến lược với Trung Quốc.", "Đa số theo Kitô giáo (Tin Lành, Công giáo); tự do tôn giáo; tỷ lệ người không tôn giáo đang tăng.", "Quốc gia của người nhập cư: gốc châu Âu, châu Phi, Mỹ Latinh, châu Á. Khoảng 340 triệu dân, tuổi trung vị khoảng 39.", "Chấp nhận rủi ro, khởi nghiệp; phá sản không bị kỳ thị. Thu hút nhân tài toàn cầu."],
+    eu: ["Bờ biển dài, sông lớn dễ giao thương (Rhine, Danube), khí hậu ôn hòa. Ít năng lượng, phụ thuộc nhập khẩu.", "Liên minh 27 nước, thị trường chung; 20 nước dùng đồng Euro. An ninh dựa vào NATO, sát cạnh Nga.", "Truyền thống Kitô giáo (Công giáo ở phía Nam, Tin Lành ở phía Bắc, Chính thống giáo ở phía Đông); thế tục hóa mạnh; cộng đồng Hồi giáo đang tăng.", "Nhiều dân tộc và ngôn ngữ (German, La-tinh, Slav). Khoảng 450 triệu dân, già hóa (tuổi trung vị khoảng 44).", "Nhà nước phúc lợi, bảo vệ người lao động mạnh. Ổn định nhưng đổi mới chậm hơn Mỹ."],
+    ru: ["Quốc gia rộng nhất thế giới (khoảng 17 triệu km², 11 múi giờ). Giàu dầu, khí, kim loại, lúa mì; khí hậu lạnh, ít cảng không đóng băng.", "Cường quốc hạt nhân, thành viên thường trực Hội đồng Bảo an LHQ. Đối đầu NATO; sau 2022 xoay trục sang Trung Quốc, Ấn Độ. Đối tác truyền thống của Việt Nam.", "Chính thống giáo Nga là chủ đạo; Hồi giáo ở một số vùng (Tatarstan, Chechnya).", "Khoảng 144 triệu dân, gần 80% người Nga, hơn 190 dân tộc. Dân số giảm và già hóa.", "Nhà nước tập trung mạnh, kinh tế phụ thuộc tài nguyên. Nền tảng khoa học, toán học rất mạnh."],
+    jp: ["Quần đảo nhiều núi, ít đất canh tác, ít tài nguyên; nhiều động đất, sóng thần. Phải nhập khẩu năng lượng và nguyên liệu.", "Đồng minh chặt chẽ của Mỹ sau 1945; nằm giữa Trung Quốc, Nga và Triều Tiên.", "Thần đạo và Phật giáo đan xen; phần lớn người dân theo cả hai như phong tục.", "Dân tộc khá đồng nhất (người Yamato; thiểu số Ainu, Ryukyu). Khoảng 124 triệu dân, già nhất thế giới (tuổi trung vị khoảng 49).", "Kỷ luật, chất lượng, cải tiến liên tục (kaizen); làm việc lâu dài cho một công ty; thận trọng với nhập cư."],
+    kr: ["Bán đảo nhiều núi, ít tài nguyên, nằm giữa các cường quốc.", "Bị chia cắt với Triều Tiên từ 1945; quân Mỹ đóng quân. Kẹp giữa Mỹ (an ninh) và Trung Quốc (thị trường lớn nhất).", "Khoảng một nửa không tôn giáo; Tin Lành, Phật giáo, Công giáo. Ảnh hưởng sâu của Nho giáo.", "Dân tộc rất đồng nhất (người Hàn). Khoảng 51 triệu dân, tỷ lệ sinh thấp nhất thế giới.", "Rất coi trọng giáo dục, cạnh tranh gay gắt. Nho giáo nhấn mạnh thứ bậc và gia đình, thấy rõ ở các chaebol."],
+    tw: ["Đảo nhỏ nhiều núi, ít tài nguyên, nhiều động đất; nằm trên chuỗi đảo thứ nhất ở Tây Thái Bình Dương.", "Vị thế chính trị đặc biệt; Bắc Kinh coi là một phần của Trung Quốc. Căng thẳng eo biển; “lá chắn silicon” nhờ ngành chip.", "Tín ngưỡng dân gian Trung Hoa, Phật giáo, Đạo giáo đan xen.", "Đa số người Hán (Mân Nam, Khách Gia, người từ đại lục sau 1949); khoảng 2% thổ dân gốc Nam Đảo. Khoảng 23 triệu dân.", "Doanh nghiệp nhỏ và vừa linh hoạt, kỹ sư giỏi, tinh thần làm ăn gia đình."],
+    cn: ["Lãnh thổ rộng: đồng bằng màu mỡ ở phía Đông, núi và sa mạc ở phía Tây; thiếu nước ở phía Bắc; giáp 14 nước.", "Cường quốc số 2, “công xưởng thế giới”. Sáng kiến Vành đai và Con đường; tranh chấp Biển Đông; cạnh tranh công nghệ với Mỹ.", "Đa số không theo tôn giáo chính thức; tín ngưỡng dân gian, Phật giáo, Đạo giáo, ảnh hưởng Nho giáo. Nhà nước kiểm soát chặt tôn giáo.", "Khoảng 91% người Hán và 55 dân tộc thiểu số. Khoảng 1,41 tỷ dân, đang giảm từ 2022.", "Nhà nước dẫn dắt kinh tế bằng kế hoạch 5 năm; người dân tiết kiệm rất cao."],
+    in: ["Tiểu lục địa giữa dãy Himalaya và Ấn Độ Dương; phụ thuộc gió mùa; đồng bằng sông Hằng rất đông dân.", "Cường quốc hạt nhân, truyền thống “không liên kết”, cân bằng giữa Mỹ, Nga, Trung Quốc. Căng thẳng biên giới với Pakistan và Trung Quốc; thành viên nhóm Bộ Tứ (Quad).", "Khoảng 80% theo Ấn Độ giáo, 14% Hồi giáo, cùng Kitô giáo, đạo Sikh; Phật giáo khởi nguồn ở đây.", "Khoảng 1,45 tỷ dân, đông nhất thế giới; hàng trăm ngôn ngữ (22 ngôn ngữ chính thức); hệ thống đẳng cấp vẫn ảnh hưởng xã hội. Dân số rất trẻ (tuổi trung vị khoảng 28).", "Tiếng Anh phổ biến trong kinh doanh; thế mạnh dịch vụ IT và kỹ sư; thủ tục hành chính phức tạp."],
+    sg: ["Đảo nhỏ khoảng 735 km², không có tài nguyên, phải nhập cả nước ngọt. Nằm ở eo biển Malacca, một trong những tuyến hàng hải bận rộn nhất thế giới.", "Trung lập khéo léo giữa Mỹ và Trung Quốc; trung tâm tài chính, logistics của khu vực.", "Đa tôn giáo: Phật giáo, Kitô giáo, Hồi giáo, Đạo giáo, Ấn Độ giáo; luật pháp giữ hòa hợp tôn giáo.", "Khoảng 74% người Hoa, 13% Mã Lai, 9% Ấn. Khoảng 6 triệu người, gồm nhiều người nước ngoài.", "Trọng nhân tài (meritocracy), kỷ luật; tiếng Anh là ngôn ngữ làm việc."],
+    th: ["Đồng bằng sông Chao Phraya màu mỡ, xuất khẩu gạo hàng đầu; trung tâm của Đông Nam Á lục địa.", "Nước Đông Nam Á duy nhất không thành thuộc địa. Đồng minh của Mỹ nhưng quan hệ gần với Trung Quốc.", "Khoảng 93% theo Phật giáo Nam tông (Theravada); Hồi giáo ở miền Nam.", "Người Thái là đa số; cộng đồng gốc Hoa lớn và hòa nhập sâu. Khoảng 70 triệu dân, già hóa nhanh.", "Coi trọng hoàng gia và sự hài hòa; quân đội có vai trò lớn trong chính trị."],
+    id: ["Quần đảo hơn 17.000 đảo trên “vành đai lửa” (động đất, núi lửa). Kiểm soát nhiều eo biển quan trọng; giàu niken, than, dầu cọ.", "Nước lớn nhất ASEAN, chính sách đối ngoại “tự do và chủ động”, không tham gia liên minh quân sự; thành viên G20.", "Nước có nhiều người Hồi giáo nhất thế giới (khoảng 87%); đảo Bali theo Ấn Độ giáo. Nguyên tắc Pancasila tôn trọng đa tôn giáo.", "Khoảng 280 triệu dân, hơn 300 nhóm dân tộc (người Java đông nhất); tiếng Indonesia là ngôn ngữ chung; dân số trẻ.", "Tinh thần đồng thuận, tương trợ (gotong royong); kinh tế dựa nhiều vào tiêu dùng nội địa và tài nguyên."],
+    vn: ["Dải đất hình chữ S, bờ biển khoảng 3.260 km, hai đồng bằng lúa gạo lớn. Nằm cạnh Biển Đông, tuyến hàng hải quan trọng; chịu nhiều thiên tai và nước biển dâng.", "Giáp Trung Quốc; chính sách “ngoại giao cây tre” cân bằng giữa các cường quốc. Hưởng lợi từ Trung Quốc +1; tranh chấp ở Biển Đông.", "Đa số theo tín ngưỡng dân gian, thờ cúng tổ tiên; Phật giáo, Công giáo, Cao Đài, Hòa Hảo; ảnh hưởng Nho giáo.", "54 dân tộc, người Kinh khoảng 85%. Khoảng 101 triệu dân; thời kỳ “dân số vàng” đang dần kết thúc.", "Coi trọng giáo dục và gia đình, thích nghi nhanh, giỏi buôn bán, chịu khó."]
+  };
+  function renderProfile(box, id, compact) {
+    box.innerHTML = "";
+    const pr = PROFILES[id]; if (!pr) return;
+    if (compact) {
+      box.className = "mini-prof";
+      [0, 1, 2].forEach(i => { const p = document.createElement("p"); p.innerHTML = "<b></b> "; p.firstChild.textContent = PROFILE_KEYS[i][0] + ":"; p.append(pr[i]); box.appendChild(p); });
+      return;
+    }
+    box.classList.add("stagger");
+    pr.forEach((txt, i) => {
+      const d = document.createElement("div"); d.className = "prof"; d.style.animationDelay = (i * 60) + "ms";
+      d.innerHTML = `<span class="ico" aria-hidden="true">${PROFILE_KEYS[i][1]}</span><h3></h3><p></p>`;
+      d.querySelector("h3").textContent = PROFILE_KEYS[i][0]; d.querySelector("p").textContent = txt;
+      box.appendChild(d);
+    });
+  }
+
+  // ---------- GLOSSARY TOOLTIPS ----------
+  const GLOSS_RAW = {
+    "QE": "Nới lỏng định lượng: ngân hàng trung ương “in tiền” để mua trái phiếu, bơm tiền vào hệ thống, kéo lãi suất xuống.",
+    "margin": "Vay tiền công ty chứng khoán để mua cổ phiếu. Khi giá giảm bạn có thể bị buộc bán và mất nhiều hơn số vốn bỏ ra.",
+    "đòn bẩy": "Dùng tiền vay để đầu tư. Lãi được nhân lên, nhưng lỗ cũng được nhân lên.",
+    "bong bóng": "Giá tài sản tăng vượt xa giá trị thật, chủ yếu vì người ta tin giá sẽ còn tăng. Cuối cùng giá sụp.",
+    "lạm phát đình trệ": "Lạm phát cao cùng lúc với kinh tế trì trệ, thất nghiệp cao. Khó chữa vì muốn giảm lạm phát phải tăng lãi suất, làm kinh tế yếu thêm.",
+    "stagflation": "Lạm phát đình trệ: lạm phát cao cùng lúc với kinh tế trì trệ.",
+    "lạm phát": "Giá cả tăng chung, tiền mất sức mua. Lạm phát 4%/năm nghĩa là 100 triệu sau 1 năm chỉ mua được lượng hàng bằng khoảng 96 triệu hôm nay.",
+    "siêu lạm phát": "Lạm phát cực cao, thường trên 50% mỗi tháng. Tiền gần như mất hết giá trị.",
+    "giảm phát": "Giá cả giảm kéo dài. Nghe có vẻ tốt nhưng nguy hiểm: người ta hoãn chi tiêu, doanh nghiệp giảm lương, nợ trở nên nặng hơn.",
+    "FDI": "Đầu tư trực tiếp nước ngoài: công ty nước ngoài xây nhà máy, văn phòng ở một nước khác (ví dụ Samsung ở Việt Nam).",
+    "chaebol": "Tập đoàn gia đình khổng lồ ở Hàn Quốc như Samsung, Hyundai, LG, được nhà nước hỗ trợ để xuất khẩu.",
+    "zaibatsu": "Tập đoàn gia đình ở Nhật trước 1945 (Mitsubishi, Mitsui...), bị Mỹ giải thể sau chiến tranh.",
+    "bản vị vàng": "Tiền giấy được bảo đảm bằng vàng và đổi được ra vàng theo tỷ lệ cố định, nên không thể in tiền tùy ý.",
+    "Bretton Woods": "Hệ thống tiền tệ từ 1944: các đồng tiền neo vào USD, USD neo vào vàng. Kết thúc năm 1971.",
+    "Plaza": "Hiệp ước Plaza (1985): các nước lớn đồng ý làm USD yếu đi, khiến đồng yên Nhật tăng giá mạnh.",
+    "IMF": "Quỹ Tiền tệ Quốc tế: cho các nước gặp khủng hoảng vay tiền, kèm điều kiện cải cách.",
+    "Fed": "Cục Dự trữ Liên bang Mỹ (ngân hàng trung ương Mỹ). Quyết định lãi suất USD, ảnh hưởng cả thế giới.",
+    "ECB": "Ngân hàng Trung ương châu Âu, quản lý đồng Euro.",
+    "BOJ": "Ngân hàng Trung ương Nhật Bản.",
+    "NHNN": "Ngân hàng Nhà nước Việt Nam (ngân hàng trung ương).",
+    "lãi suất âm": "Ngân hàng trung ương thu phí khi các ngân hàng gửi tiền, để ép họ cho vay ra. Đã dùng ở châu Âu và Nhật.",
+    "GDP": "Tổng sản phẩm quốc nội: tổng giá trị hàng hóa và dịch vụ một nước làm ra trong một năm.",
+    "sức mua tương đương": "PPP: cách so sánh GDP có tính đến giá cả khác nhau giữa các nước. 1 USD mua được nhiều hàng ở Việt Nam hơn ở Mỹ.",
+    "WTO": "Tổ chức Thương mại Thế giới. Gia nhập WTO nghĩa là giảm thuế, mở cửa thị trường theo luật chung.",
+    "ASEAN": "Hiệp hội các quốc gia Đông Nam Á; Việt Nam gia nhập năm 1995.",
+    "OECD": "Tổ chức Hợp tác và Phát triển Kinh tế, câu lạc bộ của các nước giàu.",
+    "subprime": "Khoản vay mua nhà cho người có khả năng trả nợ kém. Gốc rễ của khủng hoảng 2008.",
+    "Lehman": "Lehman Brothers, ngân hàng đầu tư lớn của Mỹ, phá sản ngày 15/9/2008, châm ngòi khủng hoảng toàn cầu.",
+    "dot-com": "Bong bóng cổ phiếu các công ty Internet cuối thập niên 1990, vỡ năm 2000.",
+    "Nikkei": "Chỉ số chứng khoán chính của Nhật Bản.",
+    "Dow": "Chỉ số Dow Jones, gồm 30 công ty lớn của Mỹ.",
+    "Nasdaq": "Sàn và chỉ số chứng khoán Mỹ có nhiều công ty công nghệ.",
+    "VN-Index": "Chỉ số chứng khoán chính của sàn HOSE, Việt Nam.",
+    "Abenomics": "Chính sách của Thủ tướng Abe (từ 2012): in tiền mạnh, chi tiêu công và cải cách để kéo Nhật khỏi giảm phát.",
+    "Eurosclerosis": "Thời kỳ châu Âu tăng trưởng chậm, thất nghiệp cao kéo dài trong thập niên 1970–1980.",
+    "ERM": "Cơ chế tỷ giá châu Âu, tiền thân của đồng Euro. Bảng Anh bị đẩy ra khỏi cơ chế này năm 1992.",
+    "bẫy thu nhập trung bình": "Một nước thoát nghèo nhờ lao động rẻ nhưng không nâng được năng suất, nên mắc kẹt ở mức thu nhập trung bình.",
+    "Trung Quốc +1": "Doanh nghiệp giữ nhà máy ở Trung Quốc nhưng mở thêm ở nước khác (thường là Việt Nam, Ấn Độ) để giảm rủi ro.",
+    "foundry": "Nhà máy chỉ sản xuất chip theo thiết kế của công ty khác. TSMC là ví dụ lớn nhất.",
+    "HBM": "Bộ nhớ băng thông cao, dùng trong chip AI. SK Hynix và Samsung dẫn đầu.",
+    "quỹ khẩn cấp": "Tiền mặt để riêng, đủ chi tiêu 6–12 tháng, chỉ dùng khi mất việc, ốm đau hoặc có sự cố lớn.",
+    "tự do tài chính": "Khi tài sản đủ lớn (thường khoảng 25 lần chi tiêu một năm) để sống bằng lợi nhuận mà không cần đi làm.",
+    "CPF": "Quỹ tiết kiệm bắt buộc ở Singapore: người lao động và chủ cùng đóng mỗi tháng, dùng cho nhà ở, y tế, hưu trí.",
+    "SkillsFuture": "Chương trình của Singapore (2015) cấp tiền cho mỗi người dân học kỹ năng mới.",
+    "Kondratiev": "Nhà kinh tế Nga đề xuất các chu kỳ dài 40–60 năm gắn với các làn sóng công nghệ.",
+    "NPT": "Hiệp ước Không phổ biến vũ khí hạt nhân (1968).",
+    "ppm": "Phần triệu: số phân tử CO₂ trong một triệu phân tử không khí.",
+    "IPCC": "Ủy ban Liên chính phủ về Biến đổi Khí hậu của Liên Hợp Quốc.",
+    "New Deal": "Chương trình của Tổng thống Roosevelt (1933–1939): chi tiêu công, tạo việc làm, bảo hiểm tiền gửi để thoát Đại suy thoái.",
+    "Belle Époque": "“Thời kỳ tươi đẹp” ở châu Âu khoảng 1871–1914: hòa bình, thịnh vượng, công nghệ mới.",
+    "NEP": "Chính sách kinh tế mới của Lenin (1921): cho phép buôn bán tư nhân nhỏ để phục hồi kinh tế.",
+    "Perestroika": "Chính sách cải tổ kinh tế của Gorbachev (từ 1986) ở Liên Xô.",
+    "liệu pháp sốc": "Chuyển rất nhanh từ kinh tế kế hoạch sang thị trường: bỏ kiểm soát giá, tư nhân hóa ồ ạt.",
+    "tài phiệt": "Người rất giàu kiểm soát doanh nghiệp lớn và có ảnh hưởng chính trị, ví dụ ở Nga sau 1991.",
+    "bao cấp": "Thời kỳ nhà nước phân phối hàng hóa bằng tem phiếu, giá do nhà nước định, thị trường tự do bị hạn chế.",
+    "Đổi Mới": "Chính sách cải cách từ năm 1986 ở Việt Nam: chuyển sang kinh tế thị trường, mở cửa với thế giới.",
+    "Khoán 100": "Chỉ thị 100 (1981): khoán sản phẩm đến nhóm và người lao động trong nông nghiệp.",
+    "Khoán 10": "Nghị quyết 10 (1988): giao đất cho hộ nông dân tự chủ sản xuất. Năm 1989 Việt Nam thành nước xuất khẩu gạo.",
+    "cấm vận": "Lệnh cấm buôn bán và giao dịch tài chính với một nước. Mỹ cấm vận Việt Nam đến năm 1994.",
+    "trừng phạt": "Biện pháp kinh tế để gây áp lực lên một nước: cấm buôn bán, đóng băng tài sản, cắt khỏi hệ thống thanh toán.",
+    "South Sea": "Công ty South Sea (Anh): bong bóng cổ phiếu năm 1720, một trong những bong bóng tài chính đầu tiên.",
+    "bế quan tỏa cảng": "Chính sách đóng cửa, hạn chế giao thương với nước ngoài.",
+    "Minh Trị Duy Tân": "Cải cách toàn diện ở Nhật từ 1868, học theo phương Tây để công nghiệp hóa.",
+    "zombie": "Ngân hàng hoặc công ty thực chất đã phá sản nhưng vẫn được duy trì nhờ vay thêm, cản trở phục hồi.",
+    "gọi ký quỹ": "Khi giá cổ phiếu giảm, công ty chứng khoán yêu cầu bạn nộp thêm tiền; nếu không, họ bán cổ phiếu của bạn.",
+    "outsourcing": "Thuê ngoài: công ty ở nước khác thuê một công ty (thường ở nơi chi phí thấp) làm phần mềm hay dịch vụ cho họ.",
+    "trái phiếu": "Giấy nợ: bạn cho công ty hoặc nhà nước vay tiền và nhận lãi định kỳ.",
+    "VOC": "Công ty Đông Ấn Hà Lan (1602–1799), công ty cổ phần đầu tiên phát hành cổ phiếu rộng rãi.",
+    "License Raj": "Hệ thống giấy phép dày đặc ở Ấn Độ (1950–1990): muốn sản xuất, mở rộng hay nhập khẩu đều cần xin phép.",
+    "Quad": "Nhóm Bộ Tứ: Mỹ, Nhật, Úc, Ấn Độ hợp tác an ninh ở Ấn Độ Dương – Thái Bình Dương.",
+    "Pancasila": "Năm nguyên tắc lập quốc của Indonesia, trong đó có tôn trọng đa tôn giáo.",
+    "meritocracy": "Chế độ trọng nhân tài: thăng tiến dựa trên năng lực và kết quả, không dựa trên quan hệ.",
+    "kaizen": "Triết lý cải tiến liên tục từng chút một của Nhật Bản.",
+    "Kế hoạch Marshall": "Viện trợ của Mỹ (1948–1952) giúp Tây Âu tái thiết sau Thế chiến II.",
+    "dân số vàng": "Giai đoạn số người trong độ tuổi lao động nhiều gấp đôi số người phụ thuộc. Cơ hội để tăng trưởng nhanh, chỉ đến một lần.",
+    "UAV": "Máy bay không người lái (drone)."
+  };
+  const GLOSS = {}; Object.keys(GLOSS_RAW).forEach(k => GLOSS[k.toLowerCase()] = [k, GLOSS_RAW[k]]);
+  const glossRe = new RegExp("(?<![\\p{L}\\p{N}])(" + Object.keys(GLOSS_RAW).sort((a, b) => b.length - a.length).map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")(?![\\p{L}\\p{N}])", "giu");
+  const SKIP = new Set(["SCRIPT", "STYLE", "BUTTON", "A", "TEXTAREA", "OUTPUT", "LABEL", "OPTION", "TITLE", "H1", "H2"]);
+  function gloss(root) {
+    if (!root) return;
+    const used = new Set([...root.querySelectorAll(".term")].map(t => t.dataset.k));
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => {
+      for (let p = n.parentNode; p && p !== root.parentNode; p = p.parentNode) { if (p.nodeType === 1 && (SKIP.has(p.tagName) || p.classList.contains("term") || p.namespaceURI === "http://www.w3.org/2000/svg" || p.id === "tip")) return NodeFilter.FILTER_REJECT; }
+      return NodeFilter.FILTER_ACCEPT; } });
+    const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const text = node.nodeValue; glossRe.lastIndex = 0;
+      let m, last = 0, frag = null;
+      while ((m = glossRe.exec(text))) {
+        const key = m[1].toLowerCase(); if (used.has(key)) continue;
+        used.add(key); frag = frag || document.createDocumentFragment();
+        frag.append(text.slice(last, m.index));
+        const s = document.createElement("span"); s.className = "term"; s.tabIndex = 0; s.dataset.k = key; s.textContent = m[1]; frag.append(s);
+        last = m.index + m[1].length;
+      }
+      if (frag) { frag.append(text.slice(last)); node.parentNode.replaceChild(frag, node); }
+    });
+  }
+  const tip = document.getElementById("tip");
+  function showTip(t) {
+    const g = GLOSS[t.dataset.k]; if (!g) return;
+    tip.innerHTML = "<b></b><span></span>"; tip.firstChild.textContent = g[0]; tip.lastChild.textContent = g[1];
+    const r = t.getBoundingClientRect(); tip.classList.add("on");
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    let x = Math.max(8, Math.min(innerWidth - tw - 8, r.left + r.width / 2 - tw / 2));
+    let y = r.bottom + 8; if (y + th > innerHeight - 8) y = r.top - th - 8;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  const hideTip = () => tip.classList.remove("on");
+  document.addEventListener("mouseover", e => { const t = e.target.closest && e.target.closest(".term"); t ? showTip(t) : hideTip(); });
+  document.addEventListener("focusin", e => { const t = e.target.closest && e.target.closest(".term"); t ? showTip(t) : hideTip(); });
+  document.addEventListener("click", e => { const t = e.target.closest && e.target.closest(".term"); if (t) showTip(t); });
+  window.addEventListener("scroll", hideTip, { passive: true });
 
   const NS = "http://www.w3.org/2000/svg";
   function el(tag, attrs, parent, text) {
@@ -646,11 +1071,21 @@ footer { font-size: 12px; color: var(--muted); }
   function store(key, val) { try { if (val === undefined) return JSON.parse(localStorage.getItem(key)); localStorage.setItem(key, JSON.stringify(val)); } catch (e) { return null; } }
 
   // ---------- TIMELINE ----------
-  const tl = { from: 1945, to: 2026, active: new Set(COUNTRIES.map(c => c.id)), global: true, year: 1997, locked: false, sel: { c: "th", s: 1997 } };
+  const tl = { from: 1700, to: 2026, active: new Set(COUNTRIES.map(c => c.id)), themes: new Set(THEMES.map(t => t.id)), global: true, year: 1997, locked: false, sel: { c: "th", s: 1997 }, selTheme: null };
   const saved = store("cyc-tl");
   if (saved && Array.isArray(saved.active)) tl.active = new Set(saved.active);
+  if (saved && Array.isArray(saved.themes)) tl.themes = new Set(saved.themes);
+  const saveTl = () => store("cyc-tl", { active: [...tl.active], themes: [...tl.themes] });
   const svg = document.getElementById("tl");
-  const W = 1000, L = 112, R = 12, TOP = 60, LANE = 30, GAP = 10;
+  const W = 1000, L = 136, R = 12, TOP = 60, LANE = 30, GAP = 10, TLANE = 22, TGAP = 6;
+  const themeBox = document.getElementById("theme-chips");
+  THEMES.forEach(t => {
+    const b = document.createElement("button");
+    b.className = "chip theme-chip"; b.type = "button"; b.innerHTML = '<i class="sw" style="border-radius:50%;width:10px;height:10px"></i>'; b.firstChild.style.background = t.c; b.append(" " + t.name);
+    b.setAttribute("aria-pressed", tl.themes.has(t.id));
+    b.onclick = () => { tl.themes.has(t.id) ? tl.themes.delete(t.id) : tl.themes.add(t.id); b.setAttribute("aria-pressed", tl.themes.has(t.id)); saveTl(); drawTimeline(); };
+    themeBox.appendChild(b);
+  });
   let geom = null;
 
   const chipsBox = document.getElementById("country-chips");
@@ -661,7 +1096,7 @@ footer { font-size: 12px; color: var(--muted); }
     b.onclick = () => {
       if (tl.active.has(c.id)) { if (tl.active.size > 1) tl.active.delete(c.id); } else tl.active.add(c.id);
       b.setAttribute("aria-pressed", tl.active.has(c.id));
-      store("cyc-tl", { active: [...tl.active] });
+      saveTl();
       drawTimeline();
     };
     chipsBox.appendChild(b);
@@ -681,12 +1116,14 @@ footer { font-size: 12px; color: var(--muted); }
 
   function drawTimeline(anim) {
     const lanes = COUNTRIES.filter(c => tl.active.has(c.id));
-    const H = TOP + lanes.length * (LANE + GAP) + 22;
+    const tLanes = THEMES.filter(t => tl.themes.has(t.id));
+    const T0 = TOP + lanes.length * (LANE + GAP) + (tLanes.length ? 14 : 0);
+    const H = T0 + tLanes.length * (TLANE + TGAP) + 22;
     svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
     svg.innerHTML = "";
     svg.classList.toggle("grow", !!anim);
     const span = tl.to - tl.from;
-    const step = span > 50 ? 10 : span > 25 ? 5 : 2;
+    const step = span > 200 ? 25 : span > 100 ? 20 : span > 50 ? 10 : span > 25 ? 5 : 2;
     const gGrid = el("g", {}, svg);
     for (let y = Math.ceil(tl.from / step) * step; y <= tl.to; y += step) {
       const x = xOf(y);
@@ -694,15 +1131,17 @@ footer { font-size: 12px; color: var(--muted); }
       el("text", { x, y: H - 6, "text-anchor": "middle", "font-size": 11, "font-family": "var(--font-data)", fill: "var(--muted)" }, gGrid, y);
     }
     if (tl.global) {
-      let i = 0;
+      const rowEnd = [-1e9, -1e9, -1e9];
       GLOBAL.forEach(([y, label]) => {
         if (y < tl.from || y > tl.to) return;
-        const x = xOf(y + 0.5);
-        const row = i % 3, ty = 12 + row * 15;
-        el("line", { x1: x, x2: x, y1: ty + 3, y2: H - 20, stroke: "var(--ink)", "stroke-opacity": .35, "stroke-dasharray": "3 3" }, svg);
-        const anchor = x > W - 110 ? "end" : x < L + 60 ? "start" : "middle";
-        el("text", { x, y: ty, "text-anchor": anchor, "font-size": 11, "font-weight": 600, fill: "var(--ink)" }, svg, `${y} ${label}`);
-        i++;
+        const x = xOf(y + 0.5), text = `${y} ${label}`, w = text.length * 6.2;
+        const anchor = x > W - w / 2 - 8 ? "end" : x < L + w / 2 ? "start" : "middle";
+        const left = anchor === "end" ? x - w : anchor === "start" ? x : x - w / 2;
+        const row = rowEnd.findIndex(e => e < left - 6);
+        const ty = 12 + Math.max(0, row) * 15;
+        const ln = el("line", { x1: x, x2: x, y1: row >= 0 ? ty + 3 : TOP - 8, y2: H - 20, stroke: "var(--ink)", "stroke-opacity": .3, "stroke-dasharray": "3 3" }, svg);
+        if (row >= 0) { el("text", { x, y: ty, "text-anchor": anchor, "font-size": 11, "font-weight": 600, fill: "var(--ink)" }, svg, text); rowEnd[row] = left + w; }
+        else el("title", {}, ln, text);
       });
     }
     lanes.forEach((c, li) => {
@@ -717,7 +1156,7 @@ footer { font-size: 12px; color: var(--muted); }
         el("rect", { class: "bar", style: `animation-delay:${li * 70 + (x1 - L) / 3}ms`, x: x1 + 0.5, y: y0, width: Math.max(1, x2 - x1 - 1), height: LANE, rx: 3, fill: t.c, stroke: isSel ? "var(--ink)" : "none", "stroke-width": 2 }, g);
         el("title", {}, g, `${c.name} ${p[0]}–${p[1]}: ${p[4]}`);
         if (x2 - x1 > p[3].length * 6.3 + 10) el("text", { x: x1 + 6, y: y0 + LANE / 2 + 4, "font-size": 11, "font-weight": 600, fill: t.on, "pointer-events": "none" }, g, p[3]);
-        const pick = ev => { ev.stopPropagation(); tl.sel = { c: c.id, s: p[0] }; tl.year = Math.max(tl.from, Math.min(tl.to, Math.max(p[0], Math.min(p[1], tl.year)))); tl.locked = true; drawTimeline(); };
+        const pick = ev => { ev.stopPropagation(); tl.sel = { c: c.id, s: p[0] }; tl.selTheme = null; tl.year = Math.max(tl.from, Math.min(tl.to, Math.max(p[0], Math.min(p[1], tl.year)))); tl.locked = true; drawTimeline(); };
         g.addEventListener("click", pick);
         g.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); pick(ev); } });
       });
@@ -728,7 +1167,23 @@ footer { font-size: 12px; color: var(--muted); }
         el("title", {}, d, `${y}: ${label}`);
       });
     });
-    const cross = el("line", { y1: TOP - 6, y2: H - 20, stroke: "var(--accent)", "stroke-width": 2, "pointer-events": "none", style: "transition: x1 .25s ease, x2 .25s ease" }, svg);
+    if (tLanes.length) el("text", { x: 8, y: T0 - 4, "font-size": 10, "font-family": "var(--font-data)", "letter-spacing": "0.08em", fill: "var(--muted)" }, svg, "CÁC MỐC KHÁC");
+    tLanes.forEach((t, ti) => {
+      const y0 = T0 + ti * (TLANE + TGAP), cy = y0 + TLANE / 2;
+      el("rect", { x: L, y: y0, width: W - L - R, height: TLANE, rx: 11, fill: t.c, "fill-opacity": .08 }, svg);
+      el("text", { x: 8, y: cy + 4, "font-size": 12, "font-weight": 600, fill: t.c }, svg, t.name);
+      t.items.forEach(([y, label, note], k) => {
+        if (y < tl.from || y > tl.to) return;
+        const isSel = tl.selTheme && tl.selTheme.t === t.id && tl.selTheme.k === k;
+        const g = el("g", { class: "band mark", tabindex: 0, role: "button", "aria-label": `${y}: ${label}`, style: `animation-delay:${400 + ti * 80 + k * 25}ms` }, svg);
+        el("circle", { cx: xOf(y + 0.5), cy, r: isSel ? 7.5 : 5.5, fill: t.c, stroke: isSel ? "var(--ink)" : "var(--surface-2)", "stroke-width": isSel ? 2 : 1.5 }, g);
+        el("title", {}, g, `${y}: ${label}`);
+        const pick = ev => { ev.stopPropagation(); tl.selTheme = { t: t.id, k }; tl.year = y; tl.locked = true; drawTimeline(); };
+        g.addEventListener("click", pick);
+        g.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); pick(ev); } });
+      });
+    });
+    const cross = el("line", { y1: TOP - 6, y2: H - 20, stroke: "var(--accent)", "stroke-width": 2, "pointer-events": "none" }, svg);
     geom = { H, cross };
     moveCross();
     renderYear(); renderDetail();
@@ -781,9 +1236,27 @@ footer { font-size: 12px; color: var(--muted); }
     COUNTRIES.forEach(c => c.events.forEach(([y, l]) => { if (y === tl.year && tl.active.has(c.id)) list.push(c.name + ": " + l); }));
     ev.hidden = !list.length;
     list.forEach(s => { const d = document.createElement("div"); d.textContent = "◆ " + s; ev.appendChild(d); });
+    THEMES.filter(t => tl.themes.has(t.id)).forEach(t => t.items.forEach(([y, l]) => {
+      if (y !== tl.year) return;
+      const d = document.createElement("div"); d.innerHTML = '<i class="sw" style="border-radius:50%;width:9px;height:9px;margin-right:6px"></i>'; d.firstChild.style.background = t.c; d.append(`${t.name}: ${l}`); ev.appendChild(d); ev.hidden = false;
+    }));
   }
   function renderDetail() {
     const box = document.getElementById("detail"); box.innerHTML = "";
+    if (tl.selTheme) {
+      const t = THEMES.find(x => x.id === tl.selTheme.t), it = t && t.items[tl.selTheme.k];
+      if (it) {
+        const pill = document.createElement("span"); pill.className = "pill"; pill.textContent = t.name; pill.style.background = t.c; pill.style.color = "var(--surface)"; pill.style.alignSelf = "flex-start";
+        const meta = document.createElement("div"); meta.className = "meta"; meta.textContent = "Năm " + it[0];
+        const h = document.createElement("h3"); h.textContent = it[1];
+        box.append(pill, meta, h);
+        if (it[2]) { const d = document.createElement("p"); d.style.fontSize = "14px"; d.textContent = it[2]; box.appendChild(d); }
+        const ctx = COUNTRIES.map(c => { const p = phaseAt(c, it[0]); return p && p[2] === "crisis" ? c.name : null; }).filter(Boolean);
+        if (ctx.length) { const d = document.createElement("p"); d.className = "hint"; d.textContent = `Cùng năm, đang khủng hoảng: ${ctx.join(", ")}.`; box.appendChild(d); }
+        gloss(box);
+        return;
+      }
+    }
     const c = tl.sel && COUNTRIES.find(x => x.id === tl.sel.c);
     const p = c && c.phases.find(x => x[0] === tl.sel.s);
     if (!p) { box.innerHTML = '<p class="hint">Bấm một dải màu để xem chi tiết giai đoạn.</p>'; return; }
@@ -794,8 +1267,9 @@ footer { font-size: 12px; color: var(--muted); }
     box.append(pill, meta, h);
     if (p[5]) { const d = document.createElement("p"); d.style.fontSize = "14px"; d.textContent = p[5]; box.appendChild(d); }
     if (p[6]) { const l = document.createElement("p"); l.className = "lesson"; l.innerHTML = "<b>Bài học: </b>"; l.append(p[6]); box.appendChild(l); }
+    gloss(box);
   }
-  setRange(1945, 2026);
+  setRange(1700, 2026);
 
   // ---------- PLANNER ----------
   const GROUPS = [
@@ -947,6 +1421,7 @@ footer { font-size: 12px; color: var(--muted); }
     }
     if (P.ret > 10) add("warn", `Lợi suất ${P.ret}%/năm trong 30+ năm là giả định lạc quan. Thử 5–7% để có kế hoạch an toàn hơn.`);
     if (P.growth >= 15) add("warn", `Tăng thu nhập ${P.growth}%/năm đến 45 tuổi đòi hỏi bạn liên tục leo lên vai trò giá trị cao hơn (senior, lead, làm cho nước ngoài).`);
+    gloss(adv);
 
     // house
     const price = P.house * 1000, downAmt = price * P.down / 100, loan = price - downAmt;
@@ -1092,7 +1567,8 @@ footer { font-size: 12px; color: var(--muted); }
     const c = COUNTRIES.find(x => x.id === ctrySel);
     ctryTabs.querySelectorAll(".chip").forEach(b => { b.setAttribute("aria-pressed", b.dataset.id === ctrySel); b.setAttribute("aria-selected", b.dataset.id === ctrySel); });
     const strip = document.getElementById("ctry-strip"); strip.innerHTML = "";
-    const a0 = 1945, a1 = 2026, tot = a1 - a0 + 1;
+    renderProfile(document.getElementById("ctry-profile"), c.id, false);
+    const a0 = 1700, a1 = 2026, tot = a1 - a0 + 1;
     let cursor = a0;
     const pushSeg = (w, color, title, target, i) => { const s = document.createElement("i"); s.style.width = (w / tot * 100) + "%"; s.style.background = color; s.style.animationDelay = (i * 40) + "ms"; s.title = title; if (target) { s.style.cursor = "pointer"; s.onclick = () => { const li = document.getElementById(target); li.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }); li.classList.remove("pop"); void li.offsetWidth; li.classList.add("pop"); }; } strip.appendChild(s); };
     c.phases.forEach((p, i) => { if (p[0] > cursor) pushSeg(p[0] - cursor, "var(--surface-2)", "Chưa có dữ liệu", null, i); pushSeg(p[1] - p[0] + 1, TYPES[p[2]].c, `${p[0]}–${p[1]}: ${p[4]}`, `ph-${i}`, i); cursor = p[1] + 1; });
@@ -1112,12 +1588,16 @@ footer { font-size: 12px; color: var(--muted); }
     Object.keys(TYPES).forEach(k => { const n = c.phases.filter(p => p[2] === k).reduce((s, p) => s + p[1] - p[0] + 1, 0); const d = document.createElement("div"); d.innerHTML = "<b></b><span></span>"; d.children[0].textContent = n + " năm"; d.children[0].style.color = TYPES[k].c; d.children[1].textContent = TYPES[k].name; st.appendChild(d); });
     const ev = document.getElementById("ctry-events"); ev.innerHTML = "";
     c.events.forEach(([y, l]) => { const li = document.createElement("li"); li.textContent = `◆ ${y}: ${l}`; ev.appendChild(li); });
+    gloss(document.querySelector('[data-page="quoc-gia"]'));
   }
 
   // ---------- WORLD MAP ----------
   const GEO = {
     us: { names: ["United States"], at: [-98, 39] },
     eu: { names: ["Germany", "France", "Italy", "Spain", "Netherlands", "Belgium", "Austria", "Portugal", "Greece", "Ireland", "Finland", "Luxembourg", "Slovakia", "Slovenia", "Estonia", "Latvia", "Lithuania", "Poland", "Sweden", "Denmark", "Czech Rep.", "Czechia", "Czech Republic", "Hungary", "Romania", "Bulgaria", "Croatia", "Cyprus"], at: [10, 50] },
+    ru: { names: ["Russia"], at: [60, 58] },
+    in: { names: ["India"], at: [78, 22] },
+    id: { names: ["Indonesia"], at: [117, -2] },
     jp: { names: ["Japan"], at: [138, 37] },
     kr: { names: ["Korea", "South Korea", "Republic of Korea"], at: [127.8, 36.4] },
     tw: { names: ["Taiwan"], at: [121, 23.7] },
@@ -1127,18 +1607,39 @@ footer { font-size: 12px; color: var(--muted); }
     vn: { names: ["Vietnam", "Viet Nam"], at: [106, 16] }
   };
   let map = null, mapYear = 1997, mapTimer = null, mapSel = null;
+  const mapActive = new Set(COUNTRIES.map(c => c.id));
+  const mapChips = document.getElementById("map-chips");
+  function syncMapChips() { mapChips.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", mapActive.has(b.dataset.id))); }
+  COUNTRIES.forEach(c => {
+    const b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.dataset.id = c.id; b.textContent = c.name;
+    b.onclick = () => { if (mapActive.has(c.id)) { if (mapActive.size > 1) mapActive.delete(c.id); } else mapActive.add(c.id); syncMapChips(); refreshMap(true); };
+    mapChips.appendChild(b);
+  });
+  const setMapSet = ids => { mapActive.clear(); ids.forEach(i => mapActive.add(i)); syncMapChips(); refreshMap(true); };
+  document.getElementById("map-all").onclick = () => setMapSet(COUNTRIES.map(c => c.id));
+  document.getElementById("map-asia").onclick = () => setMapSet(["jp", "kr", "tw", "cn", "in", "sg", "th", "id", "vn"]);
+  syncMapChips();
+  function mapFit() {
+    const pts = [...mapActive].map(id => GEO[id].at);
+    const lons = pts.map(p => p[0]), lats = pts.map(p => p[1]);
+    const span = Math.max(Math.max(...lons) - Math.min(...lons), (Math.max(...lats) - Math.min(...lats)) * 2, 24);
+    return { center: [(Math.max(...lons) + Math.min(...lons)) / 2, (Math.max(...lats) + Math.min(...lats)) / 2], zoom: Math.max(1, Math.min(6, 330 / (span + 60))) };
+  }
+  function refreshMap(fit) { if (map) map.setOption(mapOption(true, fit)); renderMapSide(); }
   const mapYearIn = document.getElementById("map-year-in");
   const ml = document.getElementById("map-legend");
   Object.values(TYPES).forEach(t => { const s = document.createElement("span"); s.innerHTML = '<i class="sw"></i>'; s.firstChild.style.background = t.c; s.append(t.name); ml.appendChild(s); });
   function mapColors() { const o = {}; Object.keys(TYPES).forEach(k => o[k] = css("--" + k)); return o; }
-  function mapOption(animate) {
+  function mapOption(animate, fit) {
     const col = mapColors();
     const regions = [], points = [];
-    const LBL = { th: "left", kr: "top", jp: "right", cn: "left", sg: "bottom", tw: "right", vn: "right", us: "right", eu: "right" };
+    const LBL = { th: "left", kr: "top", jp: "right", cn: "left", sg: "bottom", tw: "right", vn: "right", us: "right", eu: "right", ru: "right", in: "left", id: "bottom" };
     COUNTRIES.forEach(c => {
       const p = phaseAt(c, mapYear), g = GEO[c.id];
-      const color = p ? col[p[2]] : css("--line");
-      g.names.forEach(n => regions.push({ name: n, itemStyle: { areaColor: color, borderColor: css("--surface") }, emphasis: { itemStyle: { areaColor: color } } }));
+      const on = mapActive.has(c.id);
+      const color = !on ? css("--surface") : p ? col[p[2]] : css("--line");
+      g.names.forEach(n => regions.push({ name: n, itemStyle: { areaColor: color, borderColor: on ? css("--surface") : css("--line") }, emphasis: { itemStyle: { areaColor: on ? color : css("--accent-soft") } } }));
+      if (!on) return;
       const crisis = p && p[2] === "crisis";
       points.push({ name: c.name, id: c.id, value: g.at.concat([crisis ? 1 : 0]), itemStyle: { color, borderColor: css("--ink"), borderWidth: c.id === mapSel ? 2 : 1 }, symbolSize: c.id === mapSel ? 18 : crisis ? 14 : 10, label: { position: LBL[c.id] } });
     });
@@ -1146,9 +1647,9 @@ footer { font-size: 12px; color: var(--muted); }
       animationDurationUpdate: animate ? 600 : 0,
       tooltip: { trigger: "item", backgroundColor: css("--surface"), borderColor: css("--line"), textStyle: { color: css("--ink"), fontFamily: "Be Vietnam Pro" },
         formatter: prm => { const id = prm.data && (prm.data.id || prm.data.value); const c = COUNTRIES.find(x => x.id === id); if (!c) return prm.name; const p = phaseAt(c, mapYear); return `<b>${c.name}</b><br>${mapYear}: ${p ? p[4] : "Chưa có dữ liệu"}`; } },
-      geo: { map: "world", roam: true, zoom: 2.1, center: [100, 28], scaleLimit: { min: 1, max: 12 },
+      geo: Object.assign({ map: "world", roam: true, scaleLimit: { min: 1, max: 12 } }, fit ? mapFit() : {}, {
         itemStyle: { areaColor: css("--surface"), borderColor: css("--line"), borderWidth: 0.6 },
-        emphasis: { itemStyle: { areaColor: css("--accent-soft") }, label: { show: false } }, label: { show: false }, regions },
+        emphasis: { itemStyle: { areaColor: css("--accent-soft") }, label: { show: false } }, label: { show: false }, regions }),
       series: [
         { type: "effectScatter", coordinateSystem: "geo", data: points, rippleEffect: { scale: 3.2, brushType: "stroke" }, showEffectOn: "render",
           symbolSize: (v, prm) => prm.data.symbolSize, label: { show: true, formatter: "{b}", position: "right", color: css("--ink"), fontSize: 11, fontWeight: 600, fontFamily: "Be Vietnam Pro" }, zlevel: 2 }
@@ -1160,7 +1661,7 @@ footer { font-size: 12px; color: var(--muted); }
     const g = GLOBAL.filter(([y]) => y === mapYear).map(([, l]) => "Toàn cầu: " + l);
     document.getElementById("map-global").textContent = g.join(" · ");
     const ul = document.getElementById("map-list"); ul.innerHTML = "";
-    COUNTRIES.forEach(c => {
+    COUNTRIES.filter(c => mapActive.has(c.id)).forEach(c => {
       const p = phaseAt(c, mapYear);
       const li = document.createElement("li"); li.style.cursor = "pointer";
       const dot = document.createElement("i"); dot.className = "dot"; dot.style.background = p ? TYPES[p[2]].c : "var(--line)";
@@ -1184,6 +1685,8 @@ footer { font-size: 12px; color: var(--muted); }
     box.append(pill, meta);
     if (p[5]) { const d = document.createElement("p"); d.style.fontSize = "14px"; d.textContent = p[5]; box.appendChild(d); }
     if (p[6]) { const l = document.createElement("p"); l.className = "lesson"; l.innerHTML = "<b>Bài học: </b>"; l.append(p[6]); box.appendChild(l); }
+    const mini = document.createElement("div"); box.appendChild(mini); renderProfile(mini, c.id, true);
+    gloss(box);
     const more = document.createElement("a"); more.href = "#quoc-gia"; more.textContent = "Xem toàn bộ lịch sử " + c.name + " →"; more.style.color = "var(--accent)"; more.style.fontWeight = 600; more.style.fontSize = "13px";
     more.onclick = () => { ctrySel = c.id; };
     box.appendChild(more);
@@ -1195,7 +1698,7 @@ footer { font-size: 12px; color: var(--muted); }
     const box = document.getElementById("map");
     if (!window.echarts || !echarts.getMap || !echarts.getMap("world")) { box.innerHTML = '<p class="hint" style="padding:16px">Không tải được thư viện bản đồ. Kiểm tra kết nối mạng rồi tải lại trang.</p>'; renderMapSide(); return; }
     map = echarts.init(box);
-    map.setOption(mapOption(false));
+    map.setOption(mapOption(false, true));
     map.on("click", prm => {
       let id = prm.data && prm.data.id;
       if (!id && prm.componentType === "geo") id = Object.keys(GEO).find(k => GEO[k].names.includes(prm.name));
@@ -1246,8 +1749,111 @@ footer { font-size: 12px; color: var(--muted); }
   });
   refreshBar();
 
+  // ---------- LONG-TERM TRENDS ----------
+  const lerp = (pts, x) => { if (x <= pts[0][0]) return pts[0][1]; for (let i = 1; i < pts.length; i++) if (x <= pts[i][0]) { const [a, b] = [pts[i - 1], pts[i]]; return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]); } return pts[pts.length - 1][1]; };
+  function lineChart(id, cfg, anim) {
+    const s = document.getElementById(id); if (!s) return;
+    const vb = s.viewBox.baseVal, W = vb.width, H = vb.height, ml = 66, mr = 24, mt = 22, mb = 34;
+    s.innerHTML = "";
+    const X = x => ml + (x - cfg.x0) / (cfg.x1 - cfg.x0) * (W - ml - mr);
+    const Y = y => mt + (1 - (y - cfg.y0) / (cfg.y1 - cfg.y0)) * (H - mt - mb);
+    cfg.yticks.forEach(t => { el("line", { x1: ml, x2: W - mr, y1: Y(t), y2: Y(t), stroke: "var(--line)" }, s); el("text", { x: ml - 8, y: Y(t) + 4, "text-anchor": "end", "font-size": 13, "font-family": "var(--font-data)", fill: "var(--muted)" }, s, cfg.yfmt(t)); });
+    cfg.xticks.forEach(t => el("text", { x: X(t), y: H - 10, "text-anchor": "middle", "font-size": 13, "font-family": "var(--font-data)", fill: "var(--muted)" }, s, t));
+    (cfg.bands || []).forEach(([a, b, label]) => { el("rect", { x: X(a), y: mt, width: X(b) - X(a), height: H - mt - mb, fill: "var(--crisis)", "fill-opacity": .08 }, s); if (label) el("text", { x: (X(a) + X(b)) / 2, y: mt + 14, "text-anchor": "middle", "font-size": 12, fill: "var(--muted)" }, s, label); });
+    (cfg.refs || []).forEach(([y, label]) => { el("line", { x1: ml, x2: W - mr, y1: Y(y), y2: Y(y), stroke: "var(--crisis)", "stroke-width": 2, "stroke-dasharray": "6 5" }, s); el("text", { x: ml + 8, y: Y(y) - 6, "font-size": 13, "font-weight": 600, fill: "var(--crisis)" }, s, label); });
+    if (cfg.stack) {
+      const yrs = cfg.stack.years, ser = cfg.stack.series;
+      let base = yrs.map(() => 0);
+      ser.forEach((sr, si) => {
+        const top = base.map((b, i) => b + sr.v[i]);
+        const d = "M" + yrs.map((y, i) => `${X(y)} ${Y(top[i])}`).join(" L") + " L" + yrs.slice().reverse().map((y, i) => `${X(y)} ${Y(base[base.length - 1 - i])}`).join(" L") + " Z";
+        el("path", { d, fill: sr.c, "fill-opacity": .85, stroke: "var(--surface)", "stroke-width": 1.5, class: anim ? "rise" : "", style: anim ? `animation-delay:${si * 120}ms` : "" }, s);
+        const li = yrs.length - 1, mid = (top[li] + base[li]) / 2;
+        if (sr.v[li] > 5) el("text", { x: X(yrs[li]) - 8, y: Y(mid) + 5, "text-anchor": "end", "font-size": 14, "font-weight": 700, fill: "var(--surface)" }, s, sr.name);
+        base = top;
+      });
+    }
+    (cfg.series || []).forEach(sr => {
+      const d = "M" + sr.pts.map(p => `${X(p[0]).toFixed(1)} ${Y(p[1]).toFixed(1)}`).join(" L");
+      if (sr.area) el("path", { d: d + ` L${X(sr.pts[sr.pts.length - 1][0])} ${Y(cfg.y0)} L${X(sr.pts[0][0])} ${Y(cfg.y0)} Z`, fill: sr.c, "fill-opacity": .14, class: anim ? "rise" : "" }, s);
+      const line = el("path", { d, fill: "none", stroke: sr.c, "stroke-width": 3.5, "stroke-linejoin": "round" }, s);
+      if (anim) { line.setAttribute("pathLength", 1); line.setAttribute("class", "draw"); }
+    });
+    (cfg.marks || []).forEach(([x, y, label, up], i) => {
+      const g = el("g", { class: anim ? "rise" : "", style: anim ? `animation-delay:${700 + i * 90}ms` : "" }, s);
+      el("circle", { cx: X(x), cy: Y(y), r: 6, fill: "var(--surface)", stroke: cfg.markColor || "var(--ink)", "stroke-width": 3 }, g);
+      el("text", { x: X(x) + (up === "l" ? -10 : up === "r" ? 10 : 0), y: Y(y) + (up === "b" ? 24 : -12), "text-anchor": up === "l" ? "end" : up === "r" ? "start" : "middle", "font-size": 13, "font-weight": 700, fill: "var(--ink)" }, g, label);
+    });
+    const hl = el("line", { y1: mt, y2: H - mb, stroke: "var(--ink)", "stroke-opacity": .5, visibility: "hidden" }, s);
+    const hit = el("rect", { x: ml, y: mt, width: W - ml - mr, height: H - mt - mb, fill: "transparent" }, s);
+    const rd = cfg.readout && document.getElementById(cfg.readout);
+    hit.addEventListener("pointermove", e => {
+      const r = s.getBoundingClientRect(); const sx = (e.clientX - r.left) * W / r.width;
+      let x = cfg.x0 + (sx - ml) / (W - ml - mr) * (cfg.x1 - cfg.x0);
+      if (cfg.snap) x = cfg.snap.reduce((a, b) => Math.abs(b - x) < Math.abs(a - x) ? b : a);
+      x = Math.round(Math.max(cfg.x0, Math.min(cfg.x1, x)));
+      hl.setAttribute("x1", X(x)); hl.setAttribute("x2", X(x)); hl.setAttribute("visibility", "visible");
+      if (rd) rd.textContent = cfg.read(x);
+    });
+    hit.addEventListener("pointerleave", () => hl.setAttribute("visibility", "hidden"));
+  }
+  const GDP = { years: [1700, 1820, 1870, 1913, 1950, 1973, 2000, 2023], series: [
+    { name: "Mỹ", c: "var(--s1)", v: [0.1, 1.8, 8.9, 18.9, 27.3, 22.1, 20.5, 15.5] },
+    { name: "Tây Âu", c: "var(--s2)", v: [21.9, 23.0, 33.0, 33.0, 26.2, 25.6, 20.0, 14.5] },
+    { name: "Nhật Bản", c: "var(--s3)", v: [4.1, 3.0, 2.3, 2.6, 3.0, 7.8, 6.9, 3.7] },
+    { name: "Trung Quốc", c: "var(--s4)", v: [22.3, 32.9, 17.1, 8.8, 4.6, 4.6, 7.4, 18.8] },
+    { name: "Ấn Độ", c: "var(--s5)", v: [24.4, 16.0, 12.1, 7.5, 4.2, 3.1, 4.2, 7.6] }
+  ] };
+  GDP.series.push({ name: "Còn lại", c: "var(--s6)", v: GDP.years.map((_, i) => +(100 - GDP.series.reduce((s, x) => s + x.v[i], 0)).toFixed(1)) });
+  const gl = document.getElementById("gdp-legend");
+  GDP.series.forEach(s => { const sp = document.createElement("span"); sp.innerHTML = '<i class="sw"></i>'; sp.firstChild.style.background = s.c; sp.append(s.name); gl.appendChild(sp); });
+  const POP = [[1700, 0.6], [1750, 0.79], [1800, 0.98], [1804, 1], [1850, 1.26], [1900, 1.65], [1927, 2], [1950, 2.5], [1960, 3], [1974, 4], [1987, 5], [1999, 6], [2011, 7], [2022, 8], [2026, 8.25]];
+  const CO2 = [[1700, 277], [1750, 278], [1800, 283], [1850, 285], [1900, 296], [1930, 307], [1950, 311], [1960, 317], [1970, 326], [1980, 339], [1990, 354], [2000, 370], [2010, 390], [2015, 401], [2020, 414], [2024, 424], [2026, 429]];
+  const TEMP = [[1850, 0], [1880, -0.05], [1900, 0], [1920, 0.05], [1940, 0.3], [1950, 0.25], [1960, 0.3], [1970, 0.3], [1980, 0.45], [1990, 0.6], [2000, 0.75], [2010, 0.95], [2016, 1.25], [2020, 1.25], [2023, 1.45], [2024, 1.55]];
+  const NUKE = [[1945, 2], [1950, 300], [1955, 2500], [1960, 20000], [1965, 38000], [1970, 38000], [1975, 47000], [1980, 55000], [1986, 70300], [1990, 56000], [1995, 40000], [2000, 31000], [2005, 26000], [2010, 22000], [2015, 16000], [2020, 13400], [2024, 12100]];
+  const nf = v => v.toLocaleString("vi-VN", { maximumFractionDigits: 2 });
+  function drawTrends(anim) {
+    lineChart("ch-gdp", { x0: 1700, x1: 2023, y0: 0, y1: 100, yticks: [0, 25, 50, 75, 100], yfmt: v => v + "%", xticks: GDP.years, snap: GDP.years, stack: GDP, readout: "rd-gdp",
+      read: x => { const i = GDP.years.indexOf(x); return `${x}: ` + GDP.series.map(s => `${s.name} ${nf(s.v[i])}%`).join(" · "); } }, anim);
+    lineChart("ch-pop", { x0: 1700, x1: 2026, y0: 0, y1: 9, yticks: [0, 2, 4, 6, 8], yfmt: v => v + " tỷ", xticks: [1700, 1800, 1900, 2000], series: [{ c: "var(--t-pop)", pts: POP, area: true }], markColor: "var(--t-pop)", readout: "rd-pop",
+      marks: [[1804, 1, "1 tỷ", "l"], [1927, 2, "2 tỷ", "l"], [1960, 3, "3 tỷ", "l"], [1974, 4, "4 tỷ", "l"], [1987, 5, "5 tỷ", "l"], [1999, 6, "6 tỷ", "l"], [2011, 7, "7 tỷ", "l"], [2022, 8, "8 tỷ", "l"]],
+      read: x => `${x}: khoảng ${nf(lerp(POP, x))} tỷ người` }, anim);
+    lineChart("ch-co2", { x0: 1700, x1: 2026, y0: 260, y1: 440, yticks: [260, 300, 340, 380, 420], yfmt: v => v, xticks: [1700, 1800, 1900, 2000], series: [{ c: "var(--t-climate)", pts: CO2, area: true }], markColor: "var(--t-climate)", readout: "rd-co2",
+      refs: [[350, "350 ppm: mức an toàn theo nhiều nhà khoa học"]], marks: [[1769, 279, "Máy hơi nước Watt", "b"], [1958, 315, "Bắt đầu đo liên tục", "l"], [2013, 397, "Vượt 400", "l"]],
+      read: x => `${x}: khoảng ${Math.round(lerp(CO2, x))} ppm CO₂` }, anim);
+    lineChart("ch-temp", { x0: 1850, x1: 2024, y0: -0.2, y1: 1.8, yticks: [0, 0.5, 1, 1.5], yfmt: v => "+" + nf(v) + "°C", xticks: [1850, 1900, 1950, 2000], series: [{ c: "var(--crisis)", pts: TEMP }], readout: "rd-temp",
+      refs: [[1.5, "Ngưỡng 1,5°C của Hiệp định Paris"]], marks: [[2024, 1.55, "2024: khoảng +1,55°C", "l"]],
+      read: x => x < 1850 ? "" : `${x}: khoảng +${nf(lerp(TEMP, x))}°C so với 1850–1900` }, anim);
+    lineChart("ch-nuke", { x0: 1945, x1: 2024, y0: 0, y1: 75000, yticks: [0, 20000, 40000, 60000], yfmt: v => v === 0 ? "0" : (v / 1000) + " nghìn", xticks: [1950, 1970, 1990, 2010], series: [{ c: "var(--t-weapon)", pts: NUKE, area: true }], markColor: "var(--t-weapon)", readout: "rd-nuke",
+      bands: [[1962, 1963, "Cuba 1962"]], marks: [[1986, 70300, "Đỉnh 1986: khoảng 70.000", "r"], [1991, 54000, "Liên Xô tan rã", "r"]],
+      read: x => `${x}: khoảng ${Math.round(lerp(NUKE, x)).toLocaleString("vi-VN")} đầu đạn` }, anim);
+    drawWaves(anim);
+  }
+  function drawWaves(anim) {
+    const s = document.getElementById("ch-waves"); s.innerHTML = "";
+    const W = 1000, x0 = 1770, x1 = 2075, base = 250, h = 175, ml = 20, mr = 20;
+    const X = x => ml + (x - x0) / (x1 - x0) * (W - ml - mr);
+    const WV = [[1780, 1848, "Hơi nước, dệt", "--s5"], [1845, 1898, "Đường sắt, thép", "--s6"], [1893, 1948, "Điện, hóa chất", "--s1"], [1945, 1993, "Dầu mỏ, ô tô, sản xuất hàng loạt", "--s3"], [1990, 2028, "CNTT, Internet", "--s2"], [2020, 2075, "AI, năng lượng sạch", "--s4"]];
+    el("line", { x1: ml, x2: W - mr, y1: base, y2: base, stroke: "var(--line)", "stroke-width": 2 }, s);
+    [1800, 1850, 1900, 1950, 2000, 2050].forEach(t => el("text", { x: X(t), y: base + 24, "text-anchor": "middle", "font-size": 13, "font-family": "var(--font-data)", fill: "var(--muted)" }, s, t));
+    const yOf = (w, x) => { const t = (x - w[0]) / (w[1] - w[0]); return t < 0 || t > 1 ? base : base - h * Math.sin(Math.PI * t); };
+    WV.forEach((w, i) => {
+      let d = `M${X(w[0])} ${base}`;
+      for (let x = w[0]; x <= w[1]; x += 1) d += ` L${X(x).toFixed(1)} ${yOf(w, x).toFixed(1)}`;
+      const g = el("g", { class: anim ? "rise" : "", style: anim ? `animation-delay:${i * 150}ms` : "" }, s);
+      el("path", { d: d + " Z", fill: `var(${w[3]})`, "fill-opacity": .22, stroke: `var(${w[3]})`, "stroke-width": 3 }, g);
+      const lines = w[2].split(", "), mid = X((w[0] + w[1]) / 2);
+      lines.forEach((ln, k) => el("text", { x: mid, y: base - h - 14 + k * 0 + (i % 2 ? 60 : 0) + k * 17 - (lines.length - 1) * 17 + (i % 2 ? 0 : 0), "text-anchor": "middle", "font-size": 14, "font-weight": 700, fill: "var(--ink)" }, g, ln));
+    });
+    const yx = X(2026), yy = yOf(WV[5], 2026);
+    el("line", { x1: yx, x2: yx, y1: yy - 40, y2: base, stroke: "var(--ink)", "stroke-width": 2, "stroke-dasharray": "4 4" }, s);
+    const c = el("circle", { cx: yx, cy: yy, r: 8, fill: "var(--accent)" }, s);
+    if (!reduce) { const a = el("circle", { cx: yx, cy: yy, r: 8, fill: "none", stroke: "var(--accent)", "stroke-width": 3 }, s); el("animate", { attributeName: "r", values: "8;22", dur: "1.6s", repeatCount: "indefinite" }, a); el("animate", { attributeName: "opacity", values: "1;0", dur: "1.6s", repeatCount: "indefinite" }, a); }
+    el("text", { x: yx + 14, y: base - 12, "font-size": 14, "font-weight": 800, fill: "var(--accent)" }, s, "Bạn ở đây (2026)");
+  }
+
   // ---------- ROUTER ----------
-  const PAGES = ["tong-quan", "dong-thoi-gian", "ban-do", "quoc-gia", "ke-hoach", "cam-nang"];
+  const PAGES = ["tong-quan", "dong-thoi-gian", "ban-do", "xu-huong", "quoc-gia", "ke-hoach", "cam-nang"];
   let currentPage = null;
   function route() {
     const h = location.hash.replace("#", "");
@@ -1263,9 +1869,11 @@ footer { font-size: 12px; color: var(--muted); }
     if (page === "dong-thoi-gian") drawTimeline(!reduce);
     if (page === "ban-do") initMap();
     if (page === "quoc-gia") renderCountry();
+    if (page === "xu-huong") drawTrends(!reduce);
     if (page === "ke-hoach") { chartAnim = !reduce; update(); }
   }
   window.addEventListener("hashchange", route);
+  document.querySelectorAll(".page").forEach(p => gloss(p));
   route();
 })();
 </script>
