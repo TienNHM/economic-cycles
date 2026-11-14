@@ -1,0 +1,1271 @@
+<!doctype html>
+<title>Bản đồ Chu kỳ Kinh tế</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column of two working tools (timeline, planner), each a ledger-like panel; data in mono, phases as colored bands */
+:root {
+  --bg: #EEF1F4;
+  --surface: #FFFFFF;
+  --surface-2: #F6F8FA;
+  --ink: #13202B;
+  --muted: #5A6A77;
+  --line: #D6DDE3;
+  --accent: #0C6B64;
+  --accent-soft: #D7ECE9;
+  --boom: #1E8C5A;
+  --growth: #8FCBA9;
+  --bubble: #E3A23B;
+  --stagnation: #A5B0BA;
+  --crisis: #CF4235;
+  --on-boom: #FFFFFF;
+  --on-growth: #10301F;
+  --on-bubble: #3A2506;
+  --on-stagnation: #1C2630;
+  --on-crisis: #FFFFFF;
+  --good: #1E8C5A;
+  --warn: #B7791F;
+  --bad: #C2392C;
+  --font-display: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D141A; --surface: #141E26; --surface-2: #1A262F; --ink: #E4EBF0; --muted: #93A3B0; --line: #283741;
+    --accent: #4DBDB1; --accent-soft: #173A38;
+    --boom: #2FA56E; --growth: #4E8E6C; --bubble: #D7952F; --stagnation: #56636E; --crisis: #D9503F;
+    --on-boom: #FFFFFF; --on-growth: #FFFFFF; --on-bubble: #1E1303; --on-stagnation: #FFFFFF; --on-crisis: #FFFFFF;
+    --good: #45C08A; --warn: #E0A647; --bad: #EE6B5C;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D141A; --surface: #141E26; --surface-2: #1A262F; --ink: #E4EBF0; --muted: #93A3B0; --line: #283741;
+  --accent: #4DBDB1; --accent-soft: #173A38;
+  --boom: #2FA56E; --growth: #4E8E6C; --bubble: #D7952F; --stagnation: #56636E; --crisis: #D9503F;
+  --on-boom: #FFFFFF; --on-growth: #FFFFFF; --on-bubble: #1E1303; --on-stagnation: #FFFFFF; --on-crisis: #FFFFFF;
+  --good: #45C08A; --warn: #E0A647; --bad: #EE6B5C;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.55; margin: 0; }
+.wrap { max-width: 1600px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; display: flex; flex-direction: column; gap: 28px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: clamp(26px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 15px; font-weight: 700; }
+p { margin: 0; }
+.eyebrow { font-family: var(--font-data); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.lede { color: var(--muted); max-width: 68ch; font-size: 16px; }
+header { display: flex; flex-direction: column; gap: 10px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.topbar-in { max-width: 1600px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 10px; display: flex; align-items: center; gap: 16px; }
+.brand { font: 800 15px var(--font-display); color: var(--ink); text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; }
+.brand i { width: 18px; height: 12px; border-radius: 2px; background: linear-gradient(90deg, var(--boom) 0 35%, var(--bubble) 35% 55%, var(--crisis) 55% 75%, var(--growth) 75%); }
+nav.menu { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+nav.menu::-webkit-scrollbar { display: none; }
+nav.menu a { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none; padding: 7px 12px; border-radius: 8px; white-space: nowrap; }
+nav.menu a:hover { color: var(--ink); background: var(--surface-2); }
+nav.menu a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+nav.menu a:focus-visible, .brand:focus-visible, .go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.go { display: flex; flex-direction: column; gap: 6px; padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); text-decoration: none; }
+.go:hover { border-color: var(--accent); }
+.go .n { font: 600 12px var(--font-data); color: var(--accent); letter-spacing: .06em; text-transform: uppercase; }
+.go p { font-size: 13px; color: var(--muted); }
+.lessons { counter-reset: l; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.lessons li { counter-increment: l; display: grid; grid-template-columns: 34px 1fr; gap: 10px; font-size: 14px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); }
+.lessons li::before { content: counter(l); font: 600 20px var(--font-data); color: var(--accent); line-height: 1.2; }
+.lessons b { display: block; }
+.cycles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.cycle-step { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; }
+.cycle-step span { padding: 4px 10px; border-radius: 999px; font-weight: 600; }
+.ctry-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.ctry-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: start; }
+.strip { display: flex; height: 18px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+.strip i { display: block; height: 100%; }
+.strip-axis { display: flex; justify-content: space-between; font: 11px var(--font-data); color: var(--muted); }
+.phases { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.phases li { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.phases .yrs { font: 600 13px var(--font-data); color: var(--muted); display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.phases .body { display: flex; flex-direction: column; gap: 6px; min-width: 0; font-size: 14px; }
+.phases .lesson { border-left: 3px solid var(--accent); padding-left: 10px; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.stats div { border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+.stats b { display: block; font: 600 20px var(--font-data); }
+.stats span { font-size: 12px; color: var(--muted); }
+.page { display: flex; flex-direction: column; gap: 28px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+.hero-text { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.wave-box { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.wave-box svg { width: 100%; height: auto; display: block; cursor: pointer; }
+.wave-cap { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--muted); min-height: 42px; }
+.wave-cap b { color: var(--ink); font-size: 15px; }
+.signals { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.sig { border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: var(--surface-2); text-align: left; font: inherit; color: var(--ink); cursor: pointer; display: flex; flex-direction: column; gap: 6px; }
+.sig:hover { border-color: var(--accent); }
+.sig[aria-expanded="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.sig b { font-size: 14px; }
+.sig .more { font-size: 13px; color: var(--muted); display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
+.sig .more > span { overflow: hidden; }
+.sig[aria-expanded="true"] .more { grid-template-rows: 1fr; }
+.todo { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.todo label { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; cursor: pointer; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); }
+.todo input { accent-color: var(--accent); margin-top: 4px; }
+.todo input:checked + span { color: var(--muted); text-decoration: line-through; }
+.progress { height: 8px; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
+.progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .4s ease; }
+.btn.play { display: inline-flex; gap: 6px; align-items: center; background: var(--accent); color: var(--surface); border-color: var(--accent); }
+.btn.play[aria-pressed="true"] { background: var(--surface); color: var(--accent); }
+.map-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; align-items: start; }
+#map { width: 100%; height: 480px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); }
+.map-year { font: 600 44px var(--font-data); line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.map-ctrl { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.map-ctrl input[type=range] { flex: 1; min-width: 160px; accent-color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .page.enter { animation: pageIn .45s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes pageIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .grow rect.bar { transform-box: fill-box; transform-origin: left center; animation: growX .6s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes growX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .stagger > * { animation: pageIn .4s ease both; }
+  .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.1s ease-out forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .strip i { transform-origin: left; animation: growX .5s ease both; }
+  .go { transition: transform .2s ease, border-color .2s ease; }
+  .go:hover { transform: translateY(-3px); }
+  .kpi .v { transition: color .3s; }
+  .yr-list li { transition: opacity .2s; }
+  .pop { animation: pop .35s ease; }
+  @keyframes pop { 0% { transform: scale(.96); opacity: .4; } 100% { transform: none; opacity: 1; } }
+}
+section.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.panel-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.panel-head p { color: var(--muted); font-size: 14px; max-width: 70ch; }
+.controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 600 13px var(--font-body); padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent-soft); color: var(--ink); border-color: var(--accent); }
+.chip:focus-visible, button:focus-visible, input:focus-visible, .band:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.range-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.range-row input[type=range] { width: 130px; accent-color: var(--accent); }
+.range-row output { font-family: var(--font-data); color: var(--ink); min-width: 36px; display: inline-block; }
+.btn { font: 600 13px var(--font-body); padding: 5px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.btn:hover { border-color: var(--accent); }
+label.check { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); cursor: pointer; }
+label.check input { accent-color: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 14px; height: 10px; border-radius: 2px; display: inline-block; }
+.tl-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: start; }
+.svg-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); }
+.svg-scroll svg { display: block; width: 100%; height: auto; user-select: none; }
+@media (max-width: 900px) { .svg-scroll svg { min-width: 820px; } }
+.band { cursor: pointer; }
+.side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: var(--surface-2); display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.card .yr { font-family: var(--font-data); font-size: 28px; font-weight: 600; line-height: 1; }
+.yr-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.yr-list li { display: grid; grid-template-columns: 10px 78px 1fr; gap: 8px; align-items: baseline; }
+.yr-list .dot { width: 10px; height: 10px; border-radius: 50%; transform: translateY(1px); }
+.yr-list b { font-weight: 600; }
+.yr-events { font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; border-top: 1px dashed var(--line); padding-top: 8px; }
+.pill { display: inline-block; font: 600 11px var(--font-data); letter-spacing: .04em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
+.detail .meta { font-family: var(--font-data); font-size: 12px; color: var(--muted); }
+.detail .lesson { border-left: 3px solid var(--accent); padding-left: 10px; font-size: 14px; }
+.hint { font-size: 12px; color: var(--muted); }
+/* planner */
+.plan-grid { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 20px; align-items: start; }
+.inputs { display: flex; flex-direction: column; gap: 16px; }
+fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px 14px; margin: 0; display: flex; flex-direction: column; gap: 12px; background: var(--surface-2); }
+legend { font: 700 12px var(--font-data); text-transform: uppercase; letter-spacing: .07em; color: var(--accent); padding: 0 6px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field .top { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; }
+.field .top span { color: var(--muted); }
+.field output { font-family: var(--font-data); font-weight: 600; white-space: nowrap; }
+.field input[type=range] { width: 100%; accent-color: var(--accent); }
+.results { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.kpi { border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.kpi .k { font-size: 12px; color: var(--muted); }
+.kpi .v { font-family: var(--font-data); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.kpi .s { font-size: 12px; color: var(--muted); }
+.chart-box { border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.chart-box svg { width: 100%; height: auto; display: block; }
+.chart-head { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: center; }
+.readout { font-family: var(--font-data); font-size: 12px; color: var(--muted); min-height: 18px; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.advice { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.advice li { display: grid; grid-template-columns: 74px 1fr; gap: 10px; font-size: 14px; align-items: baseline; }
+.st-good { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+.st-warn { background: color-mix(in srgb, var(--warn) 20%, transparent); color: var(--warn); }
+.st-bad { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 600 11px var(--font-data); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+td.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.playbook { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.pb { border: 1px solid var(--line); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.pb ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.pb .tag { height: 6px; border-radius: 3px; }
+.note { font-size: 12px; color: var(--muted); }
+footer { font-size: 12px; color: var(--muted); }
+@media (max-width: 980px) {
+  .tl-grid, .plan-grid, .ctry-grid { grid-template-columns: minmax(0, 1fr); }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero, .map-grid { grid-template-columns: minmax(0, 1fr); }
+  .signals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #map { height: 360px; }
+  .lessons, .cycles { grid-template-columns: minmax(0, 1fr); }
+  .brand span { display: none; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .playbook { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .two, .playbook, .cards { grid-template-columns: minmax(0, 1fr); }
+  .phases li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  section.panel { padding: 14px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .band rect { transition: opacity .15s; }
+}
+</style>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#tong-quan"><i aria-hidden="true"></i><span>Chu kỳ Kinh tế</span></a>
+    <nav class="menu" aria-label="Các trang">
+      <a href="#tong-quan" data-nav="tong-quan">Tổng quan</a>
+      <a href="#dong-thoi-gian" data-nav="dong-thoi-gian">Dòng thời gian</a>
+      <a href="#ban-do" data-nav="ban-do">Bản đồ</a>
+      <a href="#quoc-gia" data-nav="quoc-gia">Từng quốc gia</a>
+      <a href="#ke-hoach" data-nav="ke-hoach">Công cụ kế hoạch</a>
+      <a href="#cam-nang" data-nav="cam-nang">Cẩm nang</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="page" data-page="tong-quan">
+    <header class="hero">
+      <div class="hero-text">
+        <span class="eyebrow">1945 – 2026 · 8 nền kinh tế + Việt Nam</span>
+        <h1>Chu kỳ kinh tế và kế hoạch của bạn</h1>
+        <p class="lede">Các nền kinh tế lặp lại một mẫu: tiền rẻ, vay nhiều, bong bóng, cú sốc, sụp đổ, rồi phục hồi. Hiểu mẫu này giúp bạn, một lập trình viên trẻ ở TP.HCM, sống sót qua 3–4 đợt suy thoái trong sự nghiệp và dùng chúng làm cơ hội.</p>
+        <div class="cycle-step" aria-label="Mẫu của một chu kỳ">
+          <span style="background:var(--growth);color:var(--on-growth)">Tiền rẻ</span>→
+          <span style="background:var(--boom);color:var(--on-boom)">Vay nhiều</span>→
+          <span style="background:var(--bubble);color:var(--on-bubble)">Bong bóng</span>→
+          <span style="background:var(--crisis);color:var(--on-crisis)">Cú sốc, sụp đổ</span>→
+          <span style="background:var(--stagnation);color:var(--on-stagnation)">Sửa chữa</span>
+        </div>
+      </div>
+      <div class="wave-box">
+        <svg id="wave" viewBox="0 0 420 220" role="img" aria-label="Sơ đồ chu kỳ kinh tế động"></svg>
+        <div class="wave-cap"><b id="wave-phase">Phục hồi</b><span id="wave-tip">Công ty tuyển lại. Lúc tốt để nhảy việc.</span></div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <h2>Bắt đầu từ đâu</h2>
+      <div class="cards">
+        <a class="go" href="#dong-thoi-gian"><span class="n">Trang 1</span><h3>Dòng thời gian</h3><p>So sánh 9 nền kinh tế trên cùng một trục, bấm “Phát” để xem lịch sử chạy từng năm.</p></a>
+        <a class="go" href="#quoc-gia"><span class="n">Trang 2</span><h3>Từng quốc gia</h3><p>Đọc từng giai đoạn của một nước, kèm bài học rút ra.</p></a>
+        <a class="go" href="#ke-hoach"><span class="n">Trang 3</span><h3>Công cụ kế hoạch</h3><p>Kéo slider để thử thu nhập, tiết kiệm, khủng hoảng và mua nhà.</p></a>
+        <a class="go" href="#cam-nang"><span class="n">Trang 4</span><h3>Cẩm nang</h3><p>Làm gì ở mỗi pha: bùng nổ, bong bóng, khủng hoảng, phục hồi.</p></a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>3 loại chu kỳ chạy cùng lúc</h2>
+      <div class="cycles">
+        <div class="card"><span class="eyebrow">5–10 năm</span><h3>Chu kỳ kinh doanh</h3><p class="note">Lãi suất, tín dụng, tồn kho. Ngân hàng trung ương tăng lãi suất thì kinh tế chậm lại, giảm thì phục hồi.</p></div>
+        <div class="card"><span class="eyebrow">50–75 năm</span><h3>Chu kỳ nợ dài</h3><p class="note">Nợ tăng nhanh hơn thu nhập trong nhiều thập kỷ, rồi sụp đổ và giảm nợ. Mỹ 1929, Nhật 1990, Mỹ 2008, bất động sản Trung Quốc sau 2021.</p></div>
+        <div class="card"><span class="eyebrow">40–60 năm</span><h3>Làn sóng công nghệ</h3><p class="note">Hơi nước, điện, ô tô và dầu mỏ, CNTT và Internet, và bây giờ là AI.</p></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>7 bài học cho bạn</h2>
+      <ol class="lessons">
+        <li><div><b>Bạn sẽ trải qua 3–4 đợt suy thoái.</b>Đó không phải dự đoán mà là lịch sử. Mục tiêu là sống sót và tận dụng chúng.</div></li>
+        <li><div><b>Nợ biến suy thoái thành thảm họa.</b>Thái và Hàn 1997, Nhật 1990, Mỹ 2008, VN 2008 và 2022 đều có chung đòn bẩy cao.</div></li>
+        <li><div><b>Leo chuỗi giá trị hoặc mắc kẹt.</b>Hàn, Đài, Sing leo lên; Thái dừng giữa chừng. Đừng mãi là “coder giá rẻ”, vì AI đang tự động hóa tầng đó.</div></li>
+        <li><div><b>Đứng gần dòng tiền địa chính trị.</b>Bán dẫn, AI, fintech, làm cho khách hàng nước ngoài và có thu nhập bằng USD.</div></li>
+        <li><div><b>Bong bóng luôn nói “lần này khác”.</b>Khi ai xung quanh cũng giàu lên dễ dàng, hãy thận trọng hơn.</div></li>
+        <li><div><b>Tiền mặt lúc khủng hoảng là cơ hội.</b>Người có quỹ khẩn cấp và việc ổn định mua được tài sản rẻ.</div></li>
+        <li><div><b>Tài sản lớn nhất ở tuổi 26 là vốn con người.</b>Kỹ năng mang đi được thì vẫn có giá trị kể cả khi tài sản trì trệ 30 năm.</div></li>
+      </ol>
+    </section>
+  </div>
+
+  <div class="page" data-page="dong-thoi-gian" hidden>
+  <section class="panel" id="timeline" aria-labelledby="tl-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="tl-title">Dòng thời gian so sánh</h2>
+        <p>Rê chuột trên biểu đồ để xem tất cả các nước ở cùng một năm. Bấm vào một dải màu để đọc chi tiết và bài học.</p>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="chips" id="country-chips" role="group" aria-label="Chọn nền kinh tế"></div>
+    </div>
+    <div class="controls">
+      <div class="range-row">
+        <label for="from">Từ</label><input type="range" id="from" min="1945" max="2016" value="1945"><output id="from-out">1945</output>
+        <label for="to">đến</label><input type="range" id="to" min="1955" max="2026" value="2026"><output id="to-out">2026</output>
+      </div>
+      <div class="range-row" role="group" aria-label="Khoảng thời gian có sẵn">
+        <button class="btn" data-preset="1945,2026">Toàn bộ</button>
+        <button class="btn" data-preset="1983,2002">Plaza → 1997</button>
+        <button class="btn" data-preset="2000,2026">2000 → nay</button>
+      </div>
+      <label class="check"><input type="checkbox" id="show-global" checked> Sự kiện toàn cầu</label>
+      <div class="range-row">
+        <button class="btn play" id="play" type="button" aria-pressed="false"><span id="play-icon" aria-hidden="true">▶</span> <span id="play-label">Phát lịch sử</span></button>
+        <label for="speed">Tốc độ</label><input type="range" id="speed" min="1" max="10" value="5" style="width:90px">
+      </div>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="tl-grid">
+      <div class="svg-scroll"><svg id="tl" role="img" aria-label="Dòng thời gian các pha kinh tế theo quốc gia"></svg></div>
+      <div class="side">
+        <div class="card" aria-live="polite">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
+            <span class="yr" id="yr-num">1997</span>
+            <span class="hint" id="yr-lock">Bấm biểu đồ để khóa năm</span>
+          </div>
+          <ul class="yr-list" id="yr-list"></ul>
+          <div class="yr-events" id="yr-events"></div>
+        </div>
+        <div class="card detail" id="detail" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="page" data-page="ban-do" hidden>
+  <section class="panel" aria-labelledby="map-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="map-title">Bản đồ thế giới theo năm</h2>
+        <p>Mỗi nền kinh tế được tô màu theo pha của nó trong năm đang chọn. Bấm “Phát” để xem các làn sóng khủng hoảng lan qua thế giới (ví dụ 1997 ở châu Á, 2008 toàn cầu). Bấm vào một nước để xem chi tiết. Kéo hoặc cuộn để phóng to bản đồ.</p>
+      </div>
+    </div>
+    <div class="map-ctrl">
+      <button class="btn play" id="map-play" type="button" aria-pressed="false"><span aria-hidden="true" id="map-play-icon">▶</span> <span id="map-play-label">Phát</span></button>
+      <label for="map-year-in" class="hint">Năm</label>
+      <input type="range" id="map-year-in" min="1945" max="2026" value="1997">
+      <div class="chips" role="group" aria-label="Năm đáng chú ý">
+        <button class="chip" type="button" data-y="1973">1973</button>
+        <button class="chip" type="button" data-y="1989">1989</button>
+        <button class="chip" type="button" data-y="1997">1997</button>
+        <button class="chip" type="button" data-y="2008">2008</button>
+        <button class="chip" type="button" data-y="2022">2022</button>
+      </div>
+    </div>
+    <div class="legend" id="map-legend"></div>
+    <div class="map-grid">
+      <div id="map" role="img" aria-label="Bản đồ thế giới tô màu theo pha kinh tế"></div>
+      <div class="side">
+        <div class="card"><span class="map-year" id="map-year">1997</span><span class="hint" id="map-global"></span><ul class="yr-list" id="map-list"></ul></div>
+        <div class="card detail" id="map-detail"><p class="hint">Bấm vào một nước trên bản đồ hoặc trong danh sách.</p></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="page" data-page="quoc-gia" hidden>
+  <section class="panel" aria-labelledby="ct-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="ct-title">Từng quốc gia</h2>
+        <p>Chọn một nền kinh tế để đọc các giai đoạn theo thứ tự. Bấm vào dải màu để nhảy đến giai đoạn đó.</p>
+      </div>
+    </div>
+    <div class="ctry-tabs" id="ctry-tabs" role="tablist" aria-label="Chọn quốc gia"></div>
+    <div class="ctry-grid">
+      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+        <div class="strip" id="ctry-strip"></div>
+        <div class="strip-axis"><span id="strip-a">1945</span><span>1985</span><span>2026</span></div>
+        <ol class="phases" id="ctry-phases"></ol>
+      </div>
+      <div class="side">
+        <div class="card"><h3>Thời gian trong từng pha</h3><div class="stats" id="ctry-stats"></div></div>
+        <div class="card"><h3>Sự kiện chính</h3><ul class="yr-events" id="ctry-events" style="list-style:none;margin:0;padding:0;border:0"></ul></div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="page" data-page="ke-hoach" hidden>
+  <section class="panel" id="planner" aria-labelledby="pl-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="pl-title">Công cụ kế hoạch tài chính</h2>
+        <p>Đơn vị: triệu VND. Số đang hiển thị là <b>số liệu mẫu</b> cho một lập trình viên 26 tuổi ở TP.HCM. Kéo slider để nhập số của bạn. Trình duyệt sẽ nhớ lựa chọn trên máy này.</p>
+      </div>
+      <button class="btn" id="reset">Về số liệu mẫu</button>
+    </div>
+    <div class="plan-grid">
+      <form class="inputs" id="inputs" onsubmit="return false"></form>
+      <div class="results">
+        <div class="kpis" id="kpis"></div>
+        <div class="chart-box">
+          <div class="chart-head">
+            <h3>Tài sản ròng theo tuổi</h3>
+            <label class="check"><input type="checkbox" id="real" checked> Quy về giá trị hôm nay (đã trừ lạm phát)</label>
+          </div>
+          <div class="legend">
+            <span><i class="sw" style="background:var(--accent)"></i>Có khủng hoảng</span>
+            <span><i class="sw" style="background:var(--muted);height:2px"></i>Không khủng hoảng</span>
+            <span><i class="sw" style="background:var(--bubble);height:2px"></i>Mốc tự do tài chính (25 × chi tiêu năm)</span>
+            <span><i class="sw" style="background:var(--crisis);opacity:.25"></i>Năm khủng hoảng giả định</span>
+          </div>
+          <svg id="chart" viewBox="0 0 800 300" role="img" aria-label="Biểu đồ tài sản ròng theo tuổi"></svg>
+          <div class="readout" id="readout">Rê chuột trên biểu đồ để xem từng năm.</div>
+        </div>
+        <div class="two">
+          <div class="card">
+            <h3>Đánh giá nhanh</h3>
+            <ul class="advice" id="advice"></ul>
+          </div>
+          <div class="card">
+            <h3>Kiểm tra mua nhà</h3>
+            <div class="table-scroll"><table><tbody id="house"></tbody></table></div>
+            <p class="note">Quy tắc an toàn: tiền trả góp không quá 30–35% thu nhập, và vẫn giữ nguyên quỹ khẩn cấp sau khi mua.</p>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Các mốc theo giai đoạn</h3>
+          <div class="table-scroll"><table>
+            <thead><tr><th>Tuổi</th><th>Thu nhập/tháng</th><th>Chi tiêu/tháng</th><th>Tài sản (có khủng hoảng)</th><th>Việc chính</th></tr></thead>
+            <tbody id="milestones"></tbody>
+          </table></div>
+        </div>
+        <p class="note">Mô hình đơn giản để học về chu kỳ, không phải tư vấn đầu tư. Lợi suất là giả định do bạn chọn, không phải dự báo. Quỹ khẩn cấp được tính lãi 4,5%/năm; nợ phát sinh khi hết tiền được tính lãi 12%/năm. Khi khủng hoảng: tài sản đầu tư giảm theo mức bạn chọn rồi hồi phục dần trong 3 năm, và bạn mất thu nhập trong số tháng đã chọn.</p>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="page" data-page="cam-nang" hidden>
+  <section class="panel" id="playbook" aria-labelledby="pb-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="pb-title">Làm gì ở mỗi pha của chu kỳ</h2>
+        <p>Rút ra từ các giai đoạn trên dòng thời gian. Bạn không cần đoán đúng đỉnh hay đáy, chỉ cần biết mình đang ở pha nào và hành động phù hợp.</p>
+      </div>
+    </div>
+    <div class="playbook">
+      <div class="pb"><i class="tag" style="background:var(--boom)"></i><h3>Bùng nổ</h3><p class="note">Việc dễ tìm, lương tăng, tài sản tăng giá nhanh.</p><ul><li>Đàm phán lương, nhảy việc nếu có lời mời tốt.</li><li>Tăng tỷ lệ tiết kiệm, không tăng chi tiêu theo lương.</li><li>Không vay để đầu tư, không FOMO.</li></ul></div>
+      <div class="pb"><i class="tag" style="background:var(--bubble)"></i><h3>Bong bóng / bắt đầu chậm</h3><p class="note">Lãi suất tăng, tin sa thải xuất hiện, ai cũng nói "lần này khác".</p><ul><li>Đổ đầy quỹ khẩn cấp.</li><li>Giảm chi phí cố định, trả bớt nợ.</li><li>Củng cố vị trí ở công ty: nhận việc quan trọng.</li></ul></div>
+      <div class="pb"><i class="tag" style="background:var(--crisis)"></i><h3>Khủng hoảng</h3><p class="note">Sa thải, tài sản giảm 30–80% (Nhật 1990, Thái 1997, VN 2008, 2022).</p><ul><li>Giữ việc và giữ tiền mặt là ưu tiên số 1.</li><li>Không bán tài sản lúc đáy vì thiếu tiền.</li><li>Học kỹ năng mới; nếu còn dư tiền thì đầu tư từ từ, đều đặn.</li></ul></div>
+      <div class="pb"><i class="tag" style="background:var(--growth)"></i><h3>Phục hồi</h3><p class="note">Công ty tuyển lại, lãi suất giảm.</p><ul><li>Đây là lúc nhảy việc, đòi tăng lương tốt nhất.</li><li>Dùng kỹ năng mới học trong khủng hoảng.</li><li>Giữ thói quen tiết kiệm đã có.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="sig-title">
+    <h2 id="sig-title">5 tín hiệu nên xem mỗi tháng</h2>
+    <p class="note">Mất khoảng 15 phút. Bấm vào từng tín hiệu để xem nó nói gì.</p>
+    <div class="signals" id="signals"></div>
+  </section>
+
+  <section class="panel" aria-labelledby="plan-title">
+    <h2 id="plan-title">Kế hoạch theo giai đoạn</h2>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Tuổi</th><th>Trọng tâm</th><th>Việc cụ thể</th></tr></thead>
+      <tbody>
+        <tr><td class="num">26–30</td><td>Vốn con người và lưới an toàn</td><td>Một chuyên môn sâu + AI ứng dụng; tiếng Anh đủ phỏng vấn và họp với team nước ngoài; quỹ khẩn cấp 6–12 tháng; tiết kiệm 20–30%; không nợ tiêu dùng.</td></tr>
+        <tr><td class="num">30–35</td><td>Đòn bẩy</td><td>Senior, lead hoặc làm remote cho công ty nước ngoài; nguồn thu nhập thứ hai; đầu tư đều đặn và đa dạng; mua nhà khi trả góp dưới 30–35% thu nhập.</td></tr>
+        <tr><td class="num">35–45</td><td>Sở hữu</td><td>Cổ phần trong startup, kinh doanh riêng hoặc danh mục đầu tư tăng dần.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>90 ngày tới</h3>
+    <ul class="todo" id="todo"></ul>
+  </section>
+
+  <footer>Dữ liệu dòng thời gian là tóm tắt giản lược để học, năm và con số mang tính gần đúng. Mô hình tài chính chỉ mang tính minh họa.</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+<script>
+(function () {
+  // ---------- DATA ----------
+  const TYPES = {
+    boom: { name: "Tăng trưởng nóng", c: "var(--boom)", on: "var(--on-boom)" },
+    growth: { name: "Tăng trưởng", c: "var(--growth)", on: "var(--on-growth)" },
+    bubble: { name: "Bong bóng", c: "var(--bubble)", on: "var(--on-bubble)" },
+    stagnation: { name: "Trì trệ / chậm lại", c: "var(--stagnation)", on: "var(--on-stagnation)" },
+    crisis: { name: "Khủng hoảng / suy thoái", c: "var(--crisis)", on: "var(--on-crisis)" }
+  };
+  // phase: [start, end, type, short, title, desc, lesson?]
+  const COUNTRIES = [
+    { id: "us", name: "Mỹ", phases: [
+      [1945, 1969, "boom", "Hoàng kim hậu chiến", "Thời kỳ hoàng kim hậu chiến", "Bretton Woods đưa USD thành tiền tệ của thế giới. Kế hoạch Marshall, tầng lớp trung lưu lớn mạnh."],
+      [1970, 1979, "stagnation", "Lạm phát đình trệ", "Lạm phát đình trệ (stagflation)", "Bỏ bản vị vàng 1971, hai cú sốc dầu 1973 và 1979 (chiến tranh Trung Đông, cách mạng Iran). Lạm phát cao, tăng trưởng thấp."],
+      [1980, 1982, "crisis", "Volcker", "Suy thoái do Volcker", "Fed tăng lãi suất lên khoảng 20% để dập lạm phát. Thất nghiệp vượt 10%.", "Lãi suất là 'trọng lực' của mọi tài sản. Khi ngân hàng trung ương quyết tâm chống lạm phát, tài sản và việc làm đều chịu áp lực."],
+      [1983, 1999, "boom", "Reagan → Internet", "Bùng nổ dài: Reagan, hậu Chiến tranh Lạnh, Internet", "Lạm phát giảm, toàn cầu hóa, Liên Xô tan rã 1991, cách mạng Internet cuối thập niên 90."],
+      [2000, 2002, "crisis", "Dot-com", "Bong bóng dot-com vỡ", "Nasdaq giảm khoảng 78%. Sự kiện 9/11 năm 2001. Nhiều công ty Internet biến mất.", "Công nghệ thật (Internet) vẫn thay đổi thế giới, nhưng giá trả cho nó có thể quá đắt. Với AI hôm nay cũng vậy: tin vào công nghệ không có nghĩa là mua với mọi giá."],
+      [2003, 2007, "bubble", "Bong bóng nhà", "Bong bóng nhà đất", "Lãi suất thấp, cho vay dưới chuẩn (subprime), giá nhà tăng liên tục."],
+      [2008, 2009, "crisis", "GFC", "Khủng hoảng tài chính toàn cầu", "Lehman Brothers sụp đổ tháng 9/2008. Giá nhà giảm khoảng 30%, chứng khoán giảm hơn 50%. Fed bắt đầu in tiền (QE).", "Đòn bẩy (vay nợ) biến một đợt giảm giá thành thảm họa. Người có tiền mặt và việc ổn định lại mua được tài sản rẻ."],
+      [2010, 2019, "growth", "Mở rộng dài nhất", "Chu kỳ mở rộng dài nhất lịch sử Mỹ", "Lãi suất gần 0, Big Tech thống trị. Chiến tranh thương mại Mỹ–Trung từ 2018."],
+      [2020, 2020, "crisis", "COVID", "Cú sốc COVID-19", "Suy thoái ngắn và sâu nhất, sau đó phục hồi nhanh nhờ kích thích khổng lồ."],
+      [2021, 2021, "bubble", "Tiền rẻ", "Tiền rẻ, tài sản tăng nóng", "Cổ phiếu công nghệ, crypto, nhà đất đều tăng mạnh. Các công ty tech tuyển dụng ồ ạt."],
+      [2022, 2022, "stagnation", "Lạm phát 9%", "Lạm phát 9,1%, Fed tăng lãi suất nhanh", "Fed tăng lãi suất lên khoảng 5,25–5,5%. Làn sóng sa thải trong ngành công nghệ 2022–2023.", "Ngành tech cũng có chu kỳ. Tuyển ồ ạt lúc tiền rẻ, sa thải khi lãi suất tăng. Quỹ khẩn cấp 6–12 tháng là bảo hiểm nghề nghiệp."],
+      [2023, 2026, "boom", "Bùng nổ AI", "Bùng nổ AI, thuế quan mới", "Đầu tư khổng lồ vào AI và trung tâm dữ liệu. Thuế quan cao từ 2025, xu hướng phi toàn cầu hóa."]
+    ], events: [[1971, "Nixon bỏ bản vị vàng"], [1987, "Black Monday: Dow giảm 22% trong 1 ngày"], [2001, "Sự kiện 11/9"], [2008, "Lehman Brothers phá sản"], [2022, "Lạm phát đỉnh 9,1%"], [2025, "Thuế quan diện rộng"]] },
+    { id: "eu", name: "Châu Âu", phases: [
+      [1945, 1949, "growth", "Tái thiết", "Tái thiết sau chiến tranh", "Kế hoạch Marshall giúp châu Âu xây dựng lại."],
+      [1950, 1972, "boom", "Phép màu Đức", "Phép màu kinh tế Đức, thành lập EEC", "Đức và Pháp tăng trưởng nhanh. Hiệp ước Rome 1957 lập Cộng đồng Kinh tế châu Âu."],
+      [1973, 1985, "stagnation", "Eurosclerosis", "Eurosclerosis: tăng trưởng chậm, thất nghiệp cao", "Sau các cú sốc dầu, châu Âu trì trệ kéo dài."],
+      [1986, 1991, "growth", "Thống nhất Đức", "Thị trường chung, thống nhất Đức", "Đạo luật Thị trường chung 1986. Bức tường Berlin sụp 1989, Đức thống nhất 1990."],
+      [1992, 1993, "crisis", "ERM", "Khủng hoảng tiền tệ ERM", "Bảng Anh và lira bị tấn công, phải rời cơ chế tỷ giá. Châu Âu suy thoái."],
+      [1994, 2007, "growth", "Ra đời Euro", "Đồng Euro ra đời", "Euro ra đời 1999. Các nước Nam Âu vay rẻ như Đức, nợ tăng dần."],
+      [2008, 2009, "crisis", "GFC", "Khủng hoảng tài chính toàn cầu", "Ngân hàng châu Âu chịu thiệt hại lớn từ tài sản Mỹ."],
+      [2010, 2012, "crisis", "Nợ công", "Khủng hoảng nợ công châu Âu", "Hy Lạp, Ireland, Bồ Đào Nha, Tây Ban Nha cần cứu trợ. Thất nghiệp thanh niên ở Hy Lạp, Tây Ban Nha vượt 50%. Kết thúc khi Draghi tuyên bố 'làm mọi thứ cần thiết' (2012).", "Một đồng tiền chung nhưng năng suất khác nhau thì nước yếu sẽ tích nợ. Với cá nhân: thu nhập phải đến từ năng lực thật, không phải từ tiền rẻ."],
+      [2013, 2019, "stagnation", "Lãi suất âm", "Phục hồi chậm, lãi suất âm, Brexit", "ECB đưa lãi suất xuống dưới 0. Anh bỏ phiếu rời EU năm 2016."],
+      [2020, 2020, "crisis", "COVID", "Cú sốc COVID-19", "Phong tỏa diện rộng, GDP giảm mạnh."],
+      [2021, 2021, "growth", "Phục hồi", "Phục hồi sau COVID", ""],
+      [2022, 2026, "stagnation", "Sốc năng lượng", "Cú sốc năng lượng, Đức trì trệ", "Chiến tranh Nga–Ukraine làm giá khí đốt tăng vọt. Công nghiệp Đức mất lợi thế khí đốt Nga giá rẻ và thị trường Trung Quốc.", "Mô hình thành công có thể dựa vào điều kiện không còn tồn tại (năng lượng rẻ, một thị trường lớn). Kỹ năng của bạn cũng cần cập nhật khi điều kiện thay đổi."]
+    ], events: [[1957, "Hiệp ước Rome"], [1990, "Đức thống nhất"], [1999, "Ra đời đồng Euro"], [2012, "Draghi: 'whatever it takes'"], [2016, "Anh bỏ phiếu Brexit"]] },
+    { id: "jp", name: "Nhật Bản", phases: [
+      [1945, 1949, "stagnation", "Hậu chiến", "Hậu chiến, Mỹ chiếm đóng", "Kinh tế kiệt quệ, cải cách ruộng đất và giải thể zaibatsu."],
+      [1950, 1973, "boom", "Thần kỳ Nhật Bản", "Thần kỳ Nhật Bản", "Tăng trưởng khoảng 9–10%/năm. Đơn hàng từ chiến tranh Triều Tiên, xuất khẩu thép, ô tô, điện tử."],
+      [1974, 1974, "crisis", "Dầu", "Cú sốc dầu", "Tăng trưởng âm lần đầu sau chiến tranh."],
+      [1975, 1985, "growth", "Xuất khẩu", "Cường quốc xuất khẩu", "Ô tô và điện tử Nhật chiếm lĩnh thế giới."],
+      [1986, 1990, "bubble", "Bong bóng", "Bong bóng tài sản lớn nhất lịch sử", "Sau Hiệp ước Plaza 1985, đồng yên tăng mạnh, Nhật hạ lãi suất. Tiền rẻ chảy vào cổ phiếu và đất. Nikkei đỉnh 38.915 điểm (12/1989).", "Khi 'đất ở Tokyo đắt hơn cả nước Mỹ', đó là tín hiệu bong bóng. Khi ai cũng giàu lên dễ dàng, hãy thận trọng hơn."],
+      [1991, 1996, "stagnation", "Thập kỷ mất mát", "Những thập kỷ mất mát bắt đầu", "Giá cổ phiếu và đất giảm 60–80%. Ngân hàng 'zombie' giữ nợ xấu."],
+      [1997, 1998, "crisis", "Khủng hoảng NH", "Khủng hoảng ngân hàng", "Nhiều ngân hàng và công ty chứng khoán lớn sụp đổ (Yamaichi 1997)."],
+      [1999, 2007, "stagnation", "Giảm phát", "Giảm phát kéo dài", "Giá cả giảm, lương đứng yên, dân số già nhanh."],
+      [2008, 2009, "crisis", "GFC", "Khủng hoảng tài chính toàn cầu", "Xuất khẩu sụp mạnh."],
+      [2010, 2012, "stagnation", "Sóng thần", "Động đất, sóng thần 2011", "Thảm họa Fukushima, yên tăng quá mạnh."],
+      [2013, 2019, "growth", "Abenomics", "Abenomics", "Nới lỏng tiền tệ mạnh, đồng yên yếu đi, lợi nhuận doanh nghiệp cải thiện."],
+      [2020, 2020, "crisis", "COVID", "Cú sốc COVID-19", ""],
+      [2021, 2026, "growth", "Nikkei vượt đỉnh", "Nikkei vượt đỉnh 1989", "Năm 2024 Nikkei vượt đỉnh cũ sau 34 năm. BOJ chấm dứt lãi suất âm.", "Mua ở đỉnh bong bóng có thể mất 34 năm mới hòa vốn. Thời điểm và giá mua quan trọng không kém tài sản tốt."]
+    ], events: [[1950, "Đơn hàng chiến tranh Triều Tiên"], [1964, "Olympic Tokyo, tàu Shinkansen"], [1985, "Hiệp ước Plaza"], [1989, "Nikkei đỉnh 38.915"], [2011, "Động đất, sóng thần"], [2024, "Nikkei vượt đỉnh 1989"]] },
+    { id: "kr", name: "Hàn Quốc", phases: [
+      [1945, 1953, "crisis", "Chiến tranh", "Chia cắt và chiến tranh Triều Tiên", "Đất nước bị tàn phá, thuộc nhóm nghèo nhất thế giới."],
+      [1954, 1961, "stagnation", "Viện trợ", "Phụ thuộc viện trợ Mỹ", ""],
+      [1962, 1979, "boom", "Kỳ tích sông Hàn", "Kỳ tích sông Hàn", "Park Chung-hee công nghiệp hóa hướng xuất khẩu, xây dựng các chaebol (tập đoàn gia đình) như Samsung, Hyundai."],
+      [1980, 1980, "crisis", "Bất ổn", "Bất ổn chính trị, tăng trưởng âm", ""],
+      [1981, 1996, "boom", "Điện tử, ô tô", "Leo chuỗi giá trị: điện tử, ô tô, đóng tàu", "Olympic Seoul 1988. Gia nhập OECD 1996."],
+      [1997, 1998, "crisis", "IMF 1997", "Khủng hoảng tài chính châu Á", "Doanh nghiệp vay nợ USD ngắn hạn quá nhiều. Hàn Quốc nhận gói cứu trợ IMF 58 tỷ USD. Người dân quyên góp vàng. Daewoo và nhiều chaebol sụp đổ.", "Nợ bằng ngoại tệ là cực kỳ nguy hiểm: khi đồng nội tệ mất giá, nợ tự nhiên tăng gấp đôi. Không vay để tiêu và không vay bằng đồng tiền mà bạn không kiếm ra."],
+      [1999, 2007, "growth", "Tái cấu trúc", "Tái cấu trúc, Samsung vươn lên toàn cầu", "Sau khủng hoảng, các tập đoàn mạnh hơn, minh bạch hơn."],
+      [2008, 2009, "stagnation", "GFC", "Khủng hoảng toàn cầu, đồng won mất giá", ""],
+      [2010, 2019, "growth", "K-pop, chip nhớ", "Chip nhớ, văn hóa K-pop", "Tăng trưởng chậm dần khi đã thành nước giàu."],
+      [2020, 2020, "stagnation", "COVID", "COVID-19", ""],
+      [2021, 2026, "growth", "Chip AI, dân số già", "Chip AI (HBM), dân số già nhanh", "Tỷ lệ sinh thấp nhất thế giới (khoảng 0,72 năm 2023), nợ hộ gia đình cao."]
+    ], events: [[1950, "Chiến tranh Triều Tiên"], [1988, "Olympic Seoul"], [1997, "Cứu trợ IMF 58 tỷ USD"], [2023, "Tỷ lệ sinh 0,72"]] },
+    { id: "tw", name: "Đài Loan", phases: [
+      [1945, 1949, "crisis", "Nội chiến", "Nội chiến, siêu lạm phát", ""],
+      [1950, 1963, "growth", "Cải cách ruộng đất", "Cải cách ruộng đất, viện trợ Mỹ", ""],
+      [1964, 1996, "boom", "Xuất khẩu → TSMC", "Khu chế xuất đến bán dẫn", "Khu chế xuất Cao Hùng (1966), Công viên khoa học Tân Trúc (1980), TSMC thành lập năm 1987. Nhiều doanh nghiệp nhỏ và vừa linh hoạt."],
+      [1997, 2000, "growth", "Vượt 1997", "Vượt qua khủng hoảng châu Á", "Ít nợ nước ngoài, dự trữ ngoại hối lớn nên bị ảnh hưởng nhẹ.", "Ít nợ + nhiều dự trữ = sống sót qua khủng hoảng. Với cá nhân, đó là quỹ khẩn cấp và không nợ tiêu dùng."],
+      [2001, 2001, "crisis", "Dot-com", "Dot-com, tăng trưởng âm", ""],
+      [2002, 2007, "growth", "Dịch chuyển sang TQ", "Nhà máy dịch chuyển sang Trung Quốc đại lục", ""],
+      [2008, 2009, "crisis", "GFC", "Khủng hoảng toàn cầu", ""],
+      [2010, 2017, "growth", "Ổn định", "Tăng trưởng ổn định", ""],
+      [2018, 2026, "boom", "Chip AI", "Chiến tranh chip, bùng nổ chip AI", "Mỹ–Trung cạnh tranh công nghệ, Đài Loan thành trung tâm sản xuất chip AI. Rủi ro lớn nhất là căng thẳng quân sự eo biển.", "Địa chính trị có thể biến một ngành thành 'vàng'. Đứng gần dòng tiền (bán dẫn, AI) giúp thu nhập tăng nhanh hơn."]
+    ], events: [[1966, "Khu chế xuất Cao Hùng"], [1980, "Công viên KH Tân Trúc"], [1987, "Thành lập TSMC"], [2022, "Căng thẳng eo biển"]] },
+    { id: "cn", name: "Trung Quốc", phases: [
+      [1945, 1949, "crisis", "Nội chiến", "Nội chiến", ""],
+      [1950, 1958, "stagnation", "Kế hoạch hóa", "Kinh tế kế hoạch", ""],
+      [1959, 1961, "crisis", "Nạn đói", "Đại nhảy vọt, nạn đói lớn", ""],
+      [1962, 1977, "stagnation", "Cách mạng VH", "Kế hoạch hóa, Cách mạng Văn hóa", ""],
+      [1978, 1988, "boom", "Cải cách mở cửa", "Cải cách mở cửa", "Đặng Tiểu Bình mở cửa, đặc khu kinh tế Thâm Quyến (1980)."],
+      [1989, 1991, "stagnation", "Chậm lại", "Chậm lại sau 1989", ""],
+      [1992, 2007, "boom", "Công xưởng thế giới", "Công xưởng thế giới", "Chuyến Nam tuần 1992 khởi động lại cải cách. Gia nhập WTO 2001. Tăng trưởng gần 10%/năm."],
+      [2008, 2016, "growth", "Kích thích, nợ", "Kích thích 4 nghìn tỷ tệ, nợ tăng", "Gói kích thích chủ yếu vào hạ tầng và bất động sản. Chứng khoán sụp 2015."],
+      [2017, 2020, "bubble", "Bong bóng BĐS", "Bong bóng bất động sản", "Bất động sản chiếm khoảng 1/4 nền kinh tế. Chiến tranh thương mại với Mỹ từ 2018."],
+      [2021, 2026, "stagnation", "Khủng hoảng BĐS", "Khủng hoảng bất động sản, giảm phát", "Quy định 'ba lằn ranh đỏ', Evergrande vỡ nợ (2021). Thất nghiệp thanh niên trên 20% (2023). Doanh nghiệp chuyển sản xuất ra ngoài (Trung Quốc +1), Việt Nam hưởng lợi.", "Khi nhà ở thành 'kênh đầu tư' thay vì chỗ ở và nợ tăng nhanh hơn thu nhập, cú điều chỉnh có thể kéo dài nhiều năm."]
+    ], events: [[1978, "Cải cách mở cửa"], [1980, "Đặc khu Thâm Quyến"], [1992, "Nam tuần"], [2001, "Gia nhập WTO"], [2015, "Chứng khoán sụp đổ"], [2021, "Evergrande vỡ nợ"]] },
+    { id: "sg", name: "Singapore", phases: [
+      [1945, 1964, "stagnation", "Thuộc địa", "Thuộc địa Anh, rồi thuộc Malaysia", ""],
+      [1965, 1984, "boom", "Độc lập, FDI", "Độc lập: FDI, cảng biển", "Không có tài nguyên. Lý Quang Diệu thu hút đầu tư nước ngoài, xây cảng, đào tạo nhân lực."],
+      [1985, 1986, "crisis", "Suy thoái 1985", "Suy thoái đầu tiên", "Chi phí lao động tăng quá nhanh. Chính phủ cắt chi phí, chuyển sang ngành giá trị cao hơn."],
+      [1987, 1996, "boom", "Tài chính, điện tử", "Trung tâm tài chính, điện tử", ""],
+      [1997, 1998, "crisis", "Châu Á", "Khủng hoảng châu Á", ""],
+      [1999, 2000, "growth", "Phục hồi", "Phục hồi", ""],
+      [2001, 2001, "crisis", "Dot-com", "Dot-com, 9/11", ""],
+      [2002, 2007, "growth", "Dược, casino", "Dược sinh học, du lịch", ""],
+      [2008, 2009, "crisis", "GFC", "Khủng hoảng toàn cầu", ""],
+      [2010, 2019, "growth", "SkillsFuture", "Đào tạo lại lực lượng lao động", "Chương trình SkillsFuture (2015) cấp tiền cho mọi người dân học kỹ năng mới.", "Mỗi lần khủng hoảng, Singapore đào tạo lại người lao động và tiết kiệm nhiều (quỹ CPF). Học liên tục là cách sống sót qua nhiều chu kỳ."],
+      [2020, 2020, "crisis", "COVID", "COVID-19", ""],
+      [2021, 2026, "growth", "Trung tâm khu vực", "Trung tâm vốn và công nghệ khu vực", "Đón dòng vốn và nhân tài rời Hồng Kông."]
+    ], events: [[1965, "Độc lập"], [1985, "Suy thoái đầu tiên"], [2015, "SkillsFuture"]] },
+    { id: "th", name: "Thái Lan", phases: [
+      [1950, 1984, "growth", "Công nghiệp hóa", "Nông nghiệp, công nghiệp hóa ban đầu", ""],
+      [1985, 1990, "boom", "FDI Nhật", "FDI Nhật Bản đổ vào", "Sau Hiệp ước Plaza, doanh nghiệp Nhật chuyển nhà máy sang Thái. Tăng trưởng 8–13%/năm."],
+      [1991, 1996, "bubble", "Vay USD, BĐS", "Bong bóng: vay USD giá rẻ", "Ngân hàng và doanh nghiệp vay USD lãi thấp, đổ vào bất động sản và chứng khoán. Nhiều người tin Thái Lan sẽ là 'con hổ thứ năm'."],
+      [1997, 1998, "crisis", "Tom Yum Kung", "Khủng hoảng Tom Yum Kung", "Ngày 2/7/1997 thả nổi đồng baht, baht mất khoảng một nửa giá trị. Doanh nghiệp nợ USD phá sản, bất động sản sụp đổ, khủng hoảng lan ra cả châu Á.", "Cảnh báo cho Việt Nam: tăng trưởng nhờ FDI và tiền vay nhưng không nâng cấp năng lực sẽ dẫn đến bẫy thu nhập trung bình. Với cá nhân: đừng mãi là 'lao động giá rẻ'."],
+      [1999, 2005, "growth", "Phục hồi", "Phục hồi", ""],
+      [2006, 2007, "stagnation", "Đảo chính 2006", "Đảo chính 2006, bất ổn chính trị", ""],
+      [2008, 2009, "crisis", "GFC", "Khủng hoảng toàn cầu", ""],
+      [2010, 2013, "growth", "Lũ lụt 2011", "Tăng trưởng, lũ lụt lớn 2011", ""],
+      [2014, 2019, "stagnation", "Bẫy TN trung bình", "Đảo chính 2014, bẫy thu nhập trung bình", ""],
+      [2020, 2020, "crisis", "COVID", "COVID-19: du lịch sụp đổ", "GDP giảm khoảng 6%."],
+      [2021, 2026, "stagnation", "Tăng ~2%", "Tăng trưởng khoảng 2%, già hóa", "Già trước khi giàu, nợ hộ gia đình cao."]
+    ], events: [[1997, "Thả nổi baht 2/7"], [2006, "Đảo chính"], [2011, "Lũ lụt lớn"], [2014, "Đảo chính"]] },
+    { id: "vn", name: "Việt Nam", ref: true, phases: [
+      [1945, 1975, "crisis", "Chiến tranh", "Chiến tranh, chia cắt", "Kháng chiến chống Pháp (1945–1954) và chiến tranh Việt Nam (1955–1975). Mỹ cấm vận miền Bắc từ 1964."],
+      [1976, 1978, "stagnation", "Bao cấp, cấm vận", "Thống nhất, bao cấp và cấm vận", "Mỹ mở rộng cấm vận ra cả nước từ 1975. Kinh tế kế hoạch tập trung, “ngăn sông cấm chợ”, sản xuất trì trệ."],
+      [1979, 1985, "crisis", "Chiến tranh biên giới, cấm vận", "Chiến tranh biên giới hai đầu và bị cô lập", "Chiến tranh biên giới Tây Nam với Khmer Đỏ (từ cuối 1978, quân tình nguyện ở Campuchia đến 1989) và chiến tranh biên giới phía Bắc (2/1979), xung đột kéo dài đến 1989 (Vị Xuyên 1984). Bị Mỹ, phương Tây và nhiều nước ASEAN cấm vận, cô lập; phụ thuộc viện trợ Liên Xô. Thiếu lương thực, phải nhập gạo. “Khoán 100” (1981) là bước “xé rào” đầu tiên. Cải cách giá–lương–tiền 1985 thất bại, đẩy lạm phát lên cao.", "Bị cắt khỏi thị trường thế giới thì dù cố gắng đến đâu cũng khó giàu lên. Mở cửa, kết nối với dòng chảy toàn cầu là điều kiện của tăng trưởng. Với cá nhân: tiếng Anh, mạng lưới quốc tế, khách hàng nước ngoài là cách bạn “mở cửa” cho chính mình."],
+      [1986, 1988, "crisis", "Đổi Mới, lạm phát", "Đổi Mới giữa lạm phát phi mã", "Đại hội VI (12/1986) khởi xướng Đổi Mới. Lạm phát khoảng 774% năm 1986. “Khoán 10” (1988) giao đất cho hộ nông dân.", "Khủng hoảng sâu nhất lại là lúc thay đổi lớn nhất. Khi cách cũ không còn hiệu quả, dám đổi cách làm là lối ra."],
+      [1989, 1991, "stagnation", "Rút quân, mất viện trợ", "Rút quân khỏi Campuchia, mất viện trợ Liên Xô", "Năm 1989 Việt Nam từ nước thiếu gạo thành nước xuất khẩu gạo. Liên Xô tan rã (1991) làm mất nguồn viện trợ và thị trường chính, nhiều doanh nghiệp nhà nước đóng cửa."],
+      [1992, 1996, "boom", "Mở cửa, FDI", "Mở cửa, đón FDI", "Bình thường hóa với Trung Quốc (1991). Mỹ bỏ cấm vận (2/1994), bình thường hóa quan hệ và gia nhập ASEAN (1995). FDI đổ vào, tăng trưởng khoảng 8–9%/năm."],
+      [1997, 1999, "stagnation", "Ảnh hưởng 1997", "Ảnh hưởng khủng hoảng châu Á", ""],
+      [2000, 2006, "growth", "BTA, xuất khẩu", "Hiệp định thương mại Việt–Mỹ (2001)", ""],
+      [2007, 2007, "bubble", "Sốt CK", "Gia nhập WTO, sốt chứng khoán", "VN-Index đỉnh khoảng 1.170 điểm."],
+      [2008, 2012, "crisis", "Lạm phát, nợ xấu", "Lạm phát và nợ xấu", "Lạm phát khoảng 23% (2008). VN-Index về khoảng 235 điểm (2009). Nợ xấu ngân hàng 2011–2012.", "Chỉ trong 2 năm, chứng khoán mất khoảng 80%. Người dùng margin (vay) mất trắng; người có tiền mặt mua được giá rẻ."],
+      [2013, 2019, "growth", "Samsung, China+1", "FDI điện tử, Trung Quốc +1", "Samsung, Intel và nhiều tập đoàn đặt nhà máy. Hưởng lợi từ chiến tranh thương mại Mỹ–Trung."],
+      [2020, 2020, "growth", "COVID", "COVID-19, vẫn tăng trưởng dương", ""],
+      [2021, 2021, "bubble", "Tiền rẻ", "Tiền rẻ, sốt chứng khoán và bất động sản", "Hàng triệu tài khoản chứng khoán mới, VN-Index lên khoảng 1.500."],
+      [2022, 2023, "crisis", "Trái phiếu BĐS", "Khủng hoảng trái phiếu bất động sản", "Các vụ Tân Hoàng Minh, Vạn Thịnh Phát. VN-Index giảm từ khoảng 1.500 xuống khoảng 900. Ngành IT outsourcing cũng cắt giảm.", "Đây là chu kỳ bạn đã sống qua. Hãy nhìn lại: lúc đó bạn đã làm gì, và nếu có quỹ khẩn cấp thì sẽ khác thế nào?"],
+      [2024, 2026, "growth", "Phục hồi, chip", "Phục hồi, FDI bán dẫn và AI", ""]
+    ], events: [[1975, "Mỹ cấm vận cả nước"], [1978, "Chiến tranh biên giới Tây Nam"], [1979, "Chiến tranh biên giới phía Bắc"], [1984, "Mặt trận Vị Xuyên"], [1985, "Giá–lương–tiền thất bại"], [1986, "Đổi Mới"], [1989, "Rút quân khỏi Campuchia"], [1994, "Mỹ bỏ cấm vận"], [1995, "Bình thường hóa với Mỹ, vào ASEAN"], [2007, "Gia nhập WTO"], [2022, "Khủng hoảng trái phiếu"]] }
+  ];
+  const GLOBAL = [[1973, "Sốc dầu"], [1985, "Plaza"], [1991, "Liên Xô tan rã"], [1997, "KH châu Á"], [2001, "TQ vào WTO"], [2008, "Lehman"], [2020, "COVID-19"], [2022, "Chiến tranh Ukraine"]];
+
+  const NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, parent, text) {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function store(key, val) { try { if (val === undefined) return JSON.parse(localStorage.getItem(key)); localStorage.setItem(key, JSON.stringify(val)); } catch (e) { return null; } }
+
+  // ---------- TIMELINE ----------
+  const tl = { from: 1945, to: 2026, active: new Set(COUNTRIES.map(c => c.id)), global: true, year: 1997, locked: false, sel: { c: "th", s: 1997 } };
+  const saved = store("cyc-tl");
+  if (saved && Array.isArray(saved.active)) tl.active = new Set(saved.active);
+  const svg = document.getElementById("tl");
+  const W = 1000, L = 112, R = 12, TOP = 60, LANE = 30, GAP = 10;
+  let geom = null;
+
+  const chipsBox = document.getElementById("country-chips");
+  COUNTRIES.forEach(c => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = c.name + (c.ref ? " (tham chiếu)" : "");
+    b.setAttribute("aria-pressed", tl.active.has(c.id));
+    b.onclick = () => {
+      if (tl.active.has(c.id)) { if (tl.active.size > 1) tl.active.delete(c.id); } else tl.active.add(c.id);
+      b.setAttribute("aria-pressed", tl.active.has(c.id));
+      store("cyc-tl", { active: [...tl.active] });
+      drawTimeline();
+    };
+    chipsBox.appendChild(b);
+  });
+  const legend = document.getElementById("legend");
+  Object.values(TYPES).forEach(t => { const s = document.createElement("span"); s.innerHTML = '<i class="sw"></i>'; s.firstChild.style.background = t.c; s.append(t.name); legend.appendChild(s); });
+
+  const fromEl = document.getElementById("from"), toEl = document.getElementById("to");
+  function setRange(a, b) { tl.from = a; tl.to = b; fromEl.value = a; toEl.value = b; document.getElementById("from-out").textContent = a; document.getElementById("to-out").textContent = b; if (tl.year < a || tl.year > b) tl.year = Math.round((a + b) / 2); drawTimeline(); }
+  fromEl.oninput = () => setRange(Math.min(+fromEl.value, tl.to - 10), tl.to);
+  toEl.oninput = () => setRange(tl.from, Math.max(+toEl.value, tl.from + 10));
+  document.querySelectorAll("[data-preset]").forEach(b => b.onclick = () => { const [a, c] = b.dataset.preset.split(",").map(Number); setRange(a, c); });
+  document.getElementById("show-global").onchange = e => { tl.global = e.target.checked; drawTimeline(); };
+
+  const xOf = y => L + (y - tl.from) / (tl.to - tl.from + 1) * (W - L - R);
+  function phaseAt(c, y) { return c.phases.find(p => y >= p[0] && y <= p[1]); }
+
+  function drawTimeline(anim) {
+    const lanes = COUNTRIES.filter(c => tl.active.has(c.id));
+    const H = TOP + lanes.length * (LANE + GAP) + 22;
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.innerHTML = "";
+    svg.classList.toggle("grow", !!anim);
+    const span = tl.to - tl.from;
+    const step = span > 50 ? 10 : span > 25 ? 5 : 2;
+    const gGrid = el("g", {}, svg);
+    for (let y = Math.ceil(tl.from / step) * step; y <= tl.to; y += step) {
+      const x = xOf(y);
+      el("line", { x1: x, x2: x, y1: TOP - 6, y2: H - 20, stroke: "var(--line)", "stroke-width": 1 }, gGrid);
+      el("text", { x, y: H - 6, "text-anchor": "middle", "font-size": 11, "font-family": "var(--font-data)", fill: "var(--muted)" }, gGrid, y);
+    }
+    if (tl.global) {
+      let i = 0;
+      GLOBAL.forEach(([y, label]) => {
+        if (y < tl.from || y > tl.to) return;
+        const x = xOf(y + 0.5);
+        const row = i % 3, ty = 12 + row * 15;
+        el("line", { x1: x, x2: x, y1: ty + 3, y2: H - 20, stroke: "var(--ink)", "stroke-opacity": .35, "stroke-dasharray": "3 3" }, svg);
+        const anchor = x > W - 110 ? "end" : x < L + 60 ? "start" : "middle";
+        el("text", { x, y: ty, "text-anchor": anchor, "font-size": 11, "font-weight": 600, fill: "var(--ink)" }, svg, `${y} ${label}`);
+        i++;
+      });
+    }
+    lanes.forEach((c, li) => {
+      const y0 = TOP + li * (LANE + GAP);
+      el("text", { x: 8, y: y0 + LANE / 2 + 4, "font-size": 13, "font-weight": 600, fill: c.ref ? "var(--muted)" : "var(--ink)" }, svg, c.name);
+      c.phases.forEach(p => {
+        const s = Math.max(p[0], tl.from), e = Math.min(p[1], tl.to);
+        if (s > e) return;
+        const x1 = xOf(s), x2 = xOf(e + 1), t = TYPES[p[2]];
+        const g = el("g", { class: "band", tabindex: 0, role: "button", "aria-label": `${c.name} ${p[0]}–${p[1]}: ${p[4]}` }, svg);
+        const isSel = tl.sel && tl.sel.c === c.id && tl.sel.s === p[0];
+        el("rect", { class: "bar", style: `animation-delay:${li * 70 + (x1 - L) / 3}ms`, x: x1 + 0.5, y: y0, width: Math.max(1, x2 - x1 - 1), height: LANE, rx: 3, fill: t.c, stroke: isSel ? "var(--ink)" : "none", "stroke-width": 2 }, g);
+        el("title", {}, g, `${c.name} ${p[0]}–${p[1]}: ${p[4]}`);
+        if (x2 - x1 > p[3].length * 6.3 + 10) el("text", { x: x1 + 6, y: y0 + LANE / 2 + 4, "font-size": 11, "font-weight": 600, fill: t.on, "pointer-events": "none" }, g, p[3]);
+        const pick = ev => { ev.stopPropagation(); tl.sel = { c: c.id, s: p[0] }; tl.year = Math.max(tl.from, Math.min(tl.to, Math.max(p[0], Math.min(p[1], tl.year)))); tl.locked = true; drawTimeline(); };
+        g.addEventListener("click", pick);
+        g.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); pick(ev); } });
+      });
+      c.events.forEach(([y, label]) => {
+        if (y < tl.from || y > tl.to) return;
+        const cx = xOf(y + 0.5);
+        const d = el("path", { d: `M${cx} ${y0 - 5} l4 4 l-4 4 l-4 -4 z`, fill: "var(--ink)", stroke: "var(--surface-2)", "stroke-width": 1 }, svg);
+        el("title", {}, d, `${y}: ${label}`);
+      });
+    });
+    const cross = el("line", { y1: TOP - 6, y2: H - 20, stroke: "var(--accent)", "stroke-width": 2, "pointer-events": "none", style: "transition: x1 .25s ease, x2 .25s ease" }, svg);
+    geom = { H, cross };
+    moveCross();
+    renderYear(); renderDetail();
+  }
+  function moveCross() { const x = xOf(tl.year + 0.5); geom.cross.setAttribute("x1", x); geom.cross.setAttribute("x2", x); }
+  function yearFromEvent(e) {
+    const r = svg.getBoundingClientRect();
+    const sx = (e.clientX - r.left) * W / r.width;
+    const y = Math.floor(tl.from + (sx - L) / (W - L - R) * (tl.to - tl.from + 1));
+    return Math.max(tl.from, Math.min(tl.to, y));
+  }
+  svg.addEventListener("pointermove", e => { if (tl.locked) return; const y = yearFromEvent(e); if (y !== tl.year) { tl.year = y; moveCross(); renderYear(); } });
+  svg.addEventListener("click", e => { stopPlay(); tl.year = yearFromEvent(e); tl.locked = !tl.locked; moveCross(); renderYear(); });
+
+  // play history
+  let playTimer = null;
+  const playBtn = document.getElementById("play");
+  function stopPlay() { if (!playTimer) return; clearInterval(playTimer); playTimer = null; playBtn.setAttribute("aria-pressed", "false"); document.getElementById("play-icon").textContent = "▶"; document.getElementById("play-label").textContent = "Phát lịch sử"; }
+  function startPlay() {
+    if (tl.year >= tl.to) tl.year = tl.from;
+    tl.locked = true;
+    playBtn.setAttribute("aria-pressed", "true"); document.getElementById("play-icon").textContent = "❚❚"; document.getElementById("play-label").textContent = "Tạm dừng";
+    const tick = () => {
+      if (tl.year >= tl.to) { stopPlay(); return; }
+      tl.year++; moveCross(); renderYear();
+      const hit = COUNTRIES.find(c => tl.active.has(c.id) && c.phases.some(p => p[0] === tl.year && p[6]));
+      if (hit) { tl.sel = { c: hit.id, s: tl.year }; renderDetail(); document.getElementById("detail").classList.remove("pop"); void document.getElementById("detail").offsetWidth; document.getElementById("detail").classList.add("pop"); }
+    };
+    const ms = () => 1100 - document.getElementById("speed").value * 100;
+    playTimer = setInterval(tick, ms());
+    document.getElementById("speed").oninput = () => { if (playTimer) { clearInterval(playTimer); playTimer = setInterval(tick, ms()); } };
+  }
+  playBtn.onclick = () => playTimer ? stopPlay() : startPlay();
+
+  function renderYear() {
+    document.getElementById("yr-num").textContent = tl.year;
+    document.getElementById("yr-lock").textContent = tl.locked ? "Đã khóa · bấm để mở" : "Bấm biểu đồ để khóa năm";
+    const ul = document.getElementById("yr-list"); ul.innerHTML = "";
+    COUNTRIES.filter(c => tl.active.has(c.id)).forEach(c => {
+      const p = phaseAt(c, tl.year);
+      const li = document.createElement("li");
+      const dot = document.createElement("i"); dot.className = "dot"; dot.style.background = p ? TYPES[p[2]].c : "var(--line)";
+      const n = document.createElement("b"); n.textContent = c.name;
+      const t = document.createElement("span"); t.textContent = p ? p[4] : "Chưa có dữ liệu";
+      li.append(dot, n, t); ul.appendChild(li);
+    });
+    const ev = document.getElementById("yr-events"); ev.innerHTML = "";
+    const list = [];
+    GLOBAL.forEach(([y, l]) => { if (y === tl.year) list.push("Toàn cầu: " + l); });
+    COUNTRIES.forEach(c => c.events.forEach(([y, l]) => { if (y === tl.year && tl.active.has(c.id)) list.push(c.name + ": " + l); }));
+    ev.hidden = !list.length;
+    list.forEach(s => { const d = document.createElement("div"); d.textContent = "◆ " + s; ev.appendChild(d); });
+  }
+  function renderDetail() {
+    const box = document.getElementById("detail"); box.innerHTML = "";
+    const c = tl.sel && COUNTRIES.find(x => x.id === tl.sel.c);
+    const p = c && c.phases.find(x => x[0] === tl.sel.s);
+    if (!p) { box.innerHTML = '<p class="hint">Bấm một dải màu để xem chi tiết giai đoạn.</p>'; return; }
+    const t = TYPES[p[2]];
+    const pill = document.createElement("span"); pill.className = "pill"; pill.textContent = t.name; pill.style.background = t.c; pill.style.color = t.on; pill.style.alignSelf = "flex-start";
+    const meta = document.createElement("div"); meta.className = "meta"; meta.textContent = `${c.name} · ${p[0]}${p[1] !== p[0] ? "–" + p[1] : ""} · ${p[1] - p[0] + 1} năm`;
+    const h = document.createElement("h3"); h.textContent = p[4];
+    box.append(pill, meta, h);
+    if (p[5]) { const d = document.createElement("p"); d.style.fontSize = "14px"; d.textContent = p[5]; box.appendChild(d); }
+    if (p[6]) { const l = document.createElement("p"); l.className = "lesson"; l.innerHTML = "<b>Bài học: </b>"; l.append(p[6]); box.appendChild(l); }
+  }
+  setRange(1945, 2026);
+
+  // ---------- PLANNER ----------
+  const GROUPS = [
+    ["Thu nhập và chi tiêu", [
+      { id: "age", label: "Tuổi hiện tại", min: 20, max: 45, step: 1, def: 26, f: v => v + " tuổi" },
+      { id: "income", label: "Thu nhập ròng / tháng", min: 5, max: 200, step: 1, def: 25, f: v => v + " tr" },
+      { id: "expense", label: "Chi tiêu / tháng", min: 3, max: 150, step: 1, def: 13, f: v => v + " tr" },
+      { id: "savings", label: "Tài sản hiện có", min: 0, max: 3000, step: 10, def: 120, f: v => money(v) }
+    ]],
+    ["Giả định", [
+      { id: "growth", label: "Thu nhập tăng mỗi năm (đến 45 tuổi)", min: 0, max: 30, step: 1, def: 10, f: v => v + "%" },
+      { id: "inflation", label: "Lạm phát chi tiêu", min: 0, max: 10, step: 0.5, def: 4, f: v => v + "%" },
+      { id: "ret", label: "Lợi suất đầu tư giả định / năm", min: 0, max: 15, step: 0.5, def: 7, f: v => v + "%" },
+      { id: "emMonths", label: "Quỹ khẩn cấp", min: 0, max: 12, step: 1, def: 6, f: v => v + " tháng chi tiêu" }
+    ]],
+    ["Mô phỏng khủng hoảng", [
+      { id: "crisisOn", label: "Có khủng hoảng định kỳ", type: "check", def: true },
+      { id: "firstCrisis", label: "Khủng hoảng tiếp theo vào năm", min: 2026, max: 2035, step: 1, def: 2028, f: v => v },
+      { id: "cycle", label: "Lặp lại mỗi", min: 5, max: 15, step: 1, def: 8, f: v => v + " năm" },
+      { id: "drawdown", label: "Tài sản đầu tư giảm", min: 0, max: 70, step: 5, def: 35, f: v => "−" + v + "%" },
+      { id: "jobLoss", label: "Mất thu nhập", min: 0, max: 12, step: 1, def: 4, f: v => v + " tháng" }
+    ]],
+    ["Mua nhà", [
+      { id: "house", label: "Giá nhà (giá hôm nay)", min: 1, max: 15, step: 0.1, def: 4, f: v => v.toLocaleString("vi-VN") + " tỷ" },
+      { id: "down", label: "Trả trước", min: 10, max: 80, step: 5, def: 30, f: v => v + "%" },
+      { id: "rate", label: "Lãi vay", min: 5, max: 15, step: 0.5, def: 10, f: v => v + "%/năm" },
+      { id: "loanYears", label: "Thời hạn vay", min: 10, max: 30, step: 1, def: 25, f: v => v + " năm" }
+    ]]
+  ];
+  const DEF = {}; GROUPS.forEach(g => g[1].forEach(f => DEF[f.id] = f.def));
+  let P = Object.assign({}, DEF, store("cyc-plan") || {});
+  const form = document.getElementById("inputs");
+  const outs = {};
+  function buildInputs() {
+    form.innerHTML = "";
+    GROUPS.forEach(([title, fields]) => {
+      const fs = document.createElement("fieldset");
+      const lg = document.createElement("legend"); lg.textContent = title; fs.appendChild(lg);
+      fields.forEach(f => {
+        if (f.type === "check") {
+          const lab = document.createElement("label"); lab.className = "check";
+          const inp = document.createElement("input"); inp.type = "checkbox"; inp.id = "p-" + f.id; inp.checked = !!P[f.id];
+          inp.onchange = () => { P[f.id] = inp.checked; update(); };
+          lab.append(inp, " " + f.label); fs.appendChild(lab); return;
+        }
+        const wrap = document.createElement("div"); wrap.className = "field";
+        const top = document.createElement("div"); top.className = "top";
+        const lab = document.createElement("label"); lab.htmlFor = "p-" + f.id; lab.textContent = f.label;
+        const out = document.createElement("output"); out.textContent = f.f(P[f.id]); outs[f.id] = [out, f];
+        top.append(lab, out);
+        const inp = document.createElement("input"); inp.type = "range"; inp.id = "p-" + f.id; inp.min = f.min; inp.max = f.max; inp.step = f.step; inp.value = P[f.id];
+        inp.oninput = () => { P[f.id] = +inp.value; out.textContent = f.f(P[f.id]); update(); };
+        wrap.append(top, inp); fs.appendChild(wrap);
+      });
+      form.appendChild(fs);
+    });
+  }
+  document.getElementById("reset").onclick = () => { P = Object.assign({}, DEF); buildInputs(); update(); };
+  document.getElementById("real").onchange = () => update();
+
+  function money(v) {
+    const a = Math.abs(v), sign = v < 0 ? "−" : "";
+    if (a >= 1000) return sign + (a / 1000).toLocaleString("vi-VN", { maximumFractionDigits: a >= 10000 ? 1 : 2 }) + " tỷ";
+    return sign + Math.round(a).toLocaleString("vi-VN") + " tr";
+  }
+
+  const START_YEAR = 2026;
+  function simulate(p, crisisOn) {
+    const years = Math.max(1, 65 - p.age), N = years * 12;
+    const g = p.growth / 100, inf = p.inflation / 100, r = p.ret / 100;
+    const growYears = Math.max(0, 45 - p.age);
+    const crashes = [];
+    if (crisisOn) for (let y = p.firstCrisis; y < START_YEAR + years; y += p.cycle) crashes.push(y);
+    const crashMonths = new Set(crashes.map(y => (y - START_YEAR) * 12));
+    const target0 = p.emMonths * p.expense;
+    let cash = Math.min(p.savings, target0), units = p.savings - cash;
+    let lastCrash = -9999, jobLeft = 0, forced = 0, boughtLow = 0, minCash = cash, price = 1;
+    const pts = [{ age: p.age, nom: p.savings, real: p.savings, inc: p.income, exp: p.expense }];
+    for (let m = 0; m < N; m++) {
+      const yi = Math.floor(m / 12);
+      if (crashMonths.has(m)) { lastCrash = m; jobLeft = p.jobLoss; }
+      const k = m - lastCrash;
+      const f = (k >= 0 && k < 36) ? 1 - (p.drawdown / 100) * (1 - k / 36) : 1;
+      price = Math.pow(1 + r, m / 12) * f;
+      const incF = yi < growYears ? Math.pow(1 + g, yi) : Math.pow(1 + g, growYears) * Math.pow(1 + inf, yi - growYears);
+      const incFull = p.income * incF;
+      const inc = jobLeft > 0 ? 0 : incFull;
+      if (jobLeft > 0) jobLeft--;
+      const exp = p.expense * Math.pow(1 + inf, yi);
+      cash *= cash >= 0 ? Math.pow(1.045, 1 / 12) : Math.pow(1.12, 1 / 12);
+      const s = inc - exp;
+      if (s >= 0) {
+        const toCash = Math.max(0, Math.min(s, p.emMonths * exp - cash));
+        cash += toCash;
+        const rest = s - toCash;
+        units += rest / price;
+        if (f < 1) boughtLow += rest;
+      } else {
+        let d = -s;
+        const fromCash = Math.min(Math.max(cash, 0), d); cash -= fromCash; d -= fromCash;
+        if (d > 0) { const sell = Math.min(units * price, d); units -= sell / price; d -= sell; forced += sell; }
+        if (d > 0) cash -= d;
+      }
+      minCash = Math.min(minCash, cash);
+      if ((m + 1) % 12 === 0) {
+        const nom = cash + units * price;
+        pts.push({ age: p.age + (m + 1) / 12, nom, real: nom / Math.pow(1 + inf, (m + 1) / 12), inc: incFull, exp });
+      }
+    }
+    return { pts, forced, boughtLow, crashes, minCash };
+  }
+
+  function update() {
+    store("cyc-plan", P);
+    const real = document.getElementById("real").checked;
+    const base = simulate(P, false), cr = simulate(P, !!P.crisisOn);
+    const surplus = P.income - P.expense;
+    const rate = P.income > 0 ? surplus / P.income : 0;
+    const target0 = P.emMonths * P.expense;
+    const haveEm = Math.min(P.savings, target0);
+    const emMonthsLeft = haveEm >= target0 ? 0 : surplus > 0 ? Math.ceil((target0 - haveEm) / surplus) : Infinity;
+    const fiOf = sim => { const pt = sim.pts.find(q => q.nom >= 25 * q.exp * 12 && q.age > P.age); return pt ? Math.round(pt.age) : null; };
+    const fiC = fiOf(cr), fiB = fiOf(base);
+    const at = (sim, a) => sim.pts.find(q => Math.round(q.age) === a);
+    const val = q => q ? (real ? q.real : q.nom) : null;
+
+    // KPIs
+    const k = document.getElementById("kpis"); k.innerHTML = "";
+    const tile = (label, v, sub, cls) => { const d = document.createElement("div"); d.className = "kpi"; d.innerHTML = `<span class="k"></span><span class="v"></span><span class="s"></span>`; d.children[0].textContent = label; d.children[1].textContent = v; d.children[2].textContent = sub; if (cls) d.children[1].style.color = `var(--${cls})`; k.appendChild(d); };
+    tile("Tỷ lệ tiết kiệm", Math.round(rate * 100) + "%", `${money(surplus)} / tháng`, rate >= 0.25 ? "good" : rate >= 0.1 ? "warn" : "bad");
+    tile("Quỹ khẩn cấp đủ sau", emMonthsLeft === 0 ? "Đã đủ" : emMonthsLeft === Infinity ? "Không đạt" : emMonthsLeft + " tháng", `Mục tiêu ${money(target0)}`, emMonthsLeft === 0 ? "good" : emMonthsLeft <= 12 ? "warn" : "bad");
+    const a35 = Math.max(35, P.age + 1);
+    tile(`Tài sản ở tuổi ${a35}`, money(val(at(cr, a35)) || 0), real ? "giá trị hôm nay, có khủng hoảng" : "danh nghĩa, có khủng hoảng");
+    tile("Tự do tài chính", fiC ? fiC + " tuổi" : "Sau 65", fiB && fiC && fiB !== fiC ? `Không khủng hoảng: ${fiB} tuổi` : "Tài sản ≥ 25 × chi tiêu năm", fiC && fiC <= 50 ? "good" : fiC ? "warn" : "bad");
+
+    drawChart(base, cr, real);
+
+    // advice
+    const adv = document.getElementById("advice"); adv.innerHTML = "";
+    const add = (st, txt) => { const li = document.createElement("li"); li.innerHTML = `<span class="pill st-${st}">${st === "good" ? "Tốt" : st === "warn" ? "Chú ý" : "Rủi ro"}</span><span></span>`; li.children[1].textContent = txt; adv.appendChild(li); };
+    if (rate >= 0.25) add("good", `Tiết kiệm ${Math.round(rate * 100)}% thu nhập. Hãy giữ mức này khi lương tăng, đừng để chi tiêu tăng theo.`);
+    else if (rate >= 0.1) add("warn", `Tiết kiệm ${Math.round(rate * 100)}%. Mục tiêu ở tuổi 26–30 là 20–30%: thử giảm ${money(Math.ceil(P.income * 0.25 - surplus))}/tháng chi tiêu hoặc tăng thu nhập.`);
+    else add("bad", "Tỷ lệ tiết kiệm dưới 10%. Mỗi đợt khủng hoảng sẽ buộc bạn vay nợ hoặc bán tài sản lúc giá thấp.");
+    if (P.crisisOn) {
+      if (cr.minCash < 0) add("bad", `Trong khủng hoảng bạn phải vay tới ${money(-cr.minCash)}. Tăng quỹ khẩn cấp hoặc giảm chi phí cố định.`);
+      else if (cr.forced > 1) add("warn", `Quỹ khẩn cấp không đủ cho ${P.jobLoss} tháng mất việc: bạn phải bán ${money(cr.forced)} tài sản lúc giá đang giảm.`);
+      else add("good", `Quỹ khẩn cấp đủ để qua ${P.jobLoss} tháng mất thu nhập mà không phải bán tài sản lúc đáy.`);
+      if (cr.boughtLow > 0) add("good", `Nhờ vẫn tiết kiệm đều trong các đợt giảm giá, bạn mua thêm được ${money(cr.boughtLow)} tài sản ở giá thấp (giá danh nghĩa).`);
+    }
+    if (P.ret > 10) add("warn", `Lợi suất ${P.ret}%/năm trong 30+ năm là giả định lạc quan. Thử 5–7% để có kế hoạch an toàn hơn.`);
+    if (P.growth >= 15) add("warn", `Tăng thu nhập ${P.growth}%/năm đến 45 tuổi đòi hỏi bạn liên tục leo lên vai trò giá trị cao hơn (senior, lead, làm cho nước ngoài).`);
+
+    // house
+    const price = P.house * 1000, downAmt = price * P.down / 100, loan = price - downAmt;
+    const i = P.rate / 100 / 12, n = P.loanYears * 12;
+    const pmt = i > 0 ? loan * i / (1 - Math.pow(1 + i, -n)) : loan / n;
+    const ready = cr.pts.find(q => q.real >= downAmt + P.emMonths * P.expense);
+    const readyAge = ready ? Math.round(ready.age) : null;
+    const incAt = ready ? ready.inc / Math.pow(1 + P.inflation / 100, ready.age - P.age) : P.income;
+    const ratioNow = pmt / P.income, ratioThen = pmt / incAt;
+    const hs = r => r <= 0.3 ? "good" : r <= 0.4 ? "warn" : "bad";
+    const hb = document.getElementById("house"); hb.innerHTML = "";
+    const row = (a, b, st) => { const tr = document.createElement("tr"); tr.innerHTML = `<td></td><td class="num"></td>`; tr.children[0].textContent = a; tr.children[1].textContent = b; if (st) tr.children[1].style.color = `var(--${st})`; hb.appendChild(tr); };
+    row("Tiền trả trước", money(downAmt));
+    row("Khoản vay", money(loan));
+    row("Trả góp mỗi tháng", money(pmt));
+    row("So với thu nhập hiện tại", Math.round(ratioNow * 100) + "%", hs(ratioNow));
+    row("Đủ trả trước + giữ quỹ khẩn cấp", readyAge ? `khoảng ${readyAge} tuổi` : "chưa đạt trước 65", readyAge ? null : "bad");
+    if (readyAge) row(`So với thu nhập ở tuổi ${readyAge}`, Math.round(ratioThen * 100) + "%", hs(ratioThen));
+
+    // milestones
+    const mb = document.getElementById("milestones"); mb.innerHTML = "";
+    const tasks = a => a <= 30 ? "Xây kỹ năng sâu + AI, tiếng Anh, quỹ khẩn cấp, không nợ tiêu dùng" : a <= 35 ? "Senior/lead hoặc làm cho công ty nước ngoài, thêm nguồn thu nhập thứ hai" : a <= 45 ? "Chuyển sang sở hữu: cổ phần, kinh doanh, danh mục đầu tư" : "Bảo toàn tài sản, giảm rủi ro, sức khỏe";
+    [30, 35, 40, 45, 50, 55, 60].filter(a => a > P.age).forEach(a => {
+      const q = at(cr, a); if (!q) return;
+      const defl = real ? Math.pow(1 + P.inflation / 100, a - P.age) : 1;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td></td>`;
+      tr.children[0].textContent = a; tr.children[1].textContent = money(q.inc / defl); tr.children[2].textContent = money(q.exp / defl); tr.children[3].textContent = money(val(q)); tr.children[4].textContent = tasks(a);
+      mb.appendChild(tr);
+    });
+  }
+
+  const chart = document.getElementById("chart");
+  let chartState = null, chartAnim = false;
+  function drawChart(base, cr, real) {
+    const CW = 800, CH = 300, ml = 64, mr = 14, mt = 12, mb = 28;
+    chart.innerHTML = "";
+    const v = q => real ? q.real : q.nom;
+    const a0 = P.age, a1 = 65;
+    const fiLine = cr.pts.map(q => ({ age: q.age, y: real ? 25 * P.expense * 12 : 25 * q.exp * 12 }));
+    let ymax = Math.max(...base.pts.map(v), ...cr.pts.map(v), 1);
+    ymax = Math.max(ymax, Math.min(fiLine[0].y * 1.1, ymax * 1.6));
+    let ymin = Math.min(0, ...cr.pts.map(v));
+    const mag = Math.pow(10, Math.floor(Math.log10(ymax / 4)));
+    const stepY = [1, 2, 2.5, 5, 10].map(s => s * mag).find(s => ymax / s <= 5) || mag * 10;
+    ymax = Math.ceil(ymax / stepY) * stepY; ymin = Math.floor(ymin / stepY) * stepY;
+    const X = a => ml + (a - a0) / (a1 - a0) * (CW - ml - mr);
+    const Y = y => mt + (1 - (y - ymin) / (ymax - ymin)) * (CH - mt - mb);
+    cr.crashes.forEach(yr => { const a = a0 + (yr - START_YEAR); if (a >= a1) return; el("rect", { x: X(a), y: mt, width: Math.max(2, X(Math.min(a1, a + 1)) - X(a)), height: CH - mt - mb, fill: "var(--crisis)", "fill-opacity": .16 }, chart); });
+    for (let y = ymin; y <= ymax + 1e-9; y += stepY) {
+      el("line", { x1: ml, x2: CW - mr, y1: Y(y), y2: Y(y), stroke: "var(--line)", "stroke-width": y === 0 ? 1.5 : 1 }, chart);
+      el("text", { x: ml - 8, y: Y(y) + 4, "text-anchor": "end", "font-size": 11, "font-family": "var(--font-data)", fill: "var(--muted)" }, chart, money(y));
+    }
+    for (let a = Math.ceil(a0 / 5) * 5; a <= a1; a += 5) el("text", { x: X(a), y: CH - 8, "text-anchor": "middle", "font-size": 11, "font-family": "var(--font-data)", fill: "var(--muted)" }, chart, a + " tuổi");
+    const path = (pts, fy) => pts.map((q, i) => (i ? "L" : "M") + X(q.age).toFixed(1) + " " + Y(fy(q)).toFixed(1)).join(" ");
+    const fiVis = fiLine.filter(q => q.y <= ymax);
+    if (fiVis.length > 1) el("path", { d: path(fiVis, q => q.y), fill: "none", stroke: "var(--bubble)", "stroke-width": 2, "stroke-dasharray": "6 4" }, chart);
+    const area = path(cr.pts, v) + ` L${X(cr.pts[cr.pts.length - 1].age)} ${Y(Math.max(0, ymin))} L${X(a0)} ${Y(Math.max(0, ymin))} Z`;
+    el("path", { d: area, fill: "var(--accent)", "fill-opacity": .1 }, chart);
+    el("path", { d: path(base.pts, v), fill: "none", stroke: "var(--muted)", "stroke-width": 1.5, "stroke-dasharray": "4 3" }, chart);
+    const main = el("path", { d: path(cr.pts, v), fill: "none", stroke: "var(--accent)", "stroke-width": 2.5 }, chart);
+    if (chartAnim) { main.setAttribute("pathLength", 1); main.setAttribute("class", "draw"); chartAnim = false; }
+    const last = cr.pts[cr.pts.length - 1];
+    el("circle", { cx: X(last.age), cy: Y(v(last)), r: 4, fill: "var(--accent)" }, chart);
+    const hl = el("line", { y1: mt, y2: CH - mb, stroke: "var(--ink)", "stroke-opacity": .4, visibility: "hidden" }, chart);
+    const hd = el("circle", { r: 4, fill: "var(--surface)", stroke: "var(--accent)", "stroke-width": 2, visibility: "hidden" }, chart);
+    chartState = { X, Y, v, base, cr, hl, hd, a0, a1, CW, ml, mr };
+  }
+  chart.addEventListener("pointermove", e => {
+    if (!chartState) return;
+    const s = chartState, r = chart.getBoundingClientRect();
+    const sx = (e.clientX - r.left) * s.CW / r.width;
+    const a = Math.round(s.a0 + (sx - s.ml) / (s.CW - s.ml - s.mr) * (s.a1 - s.a0));
+    const q = s.cr.pts.find(p => Math.round(p.age) === a), b = s.base.pts.find(p => Math.round(p.age) === a);
+    if (!q) return;
+    s.hl.setAttribute("x1", s.X(q.age)); s.hl.setAttribute("x2", s.X(q.age)); s.hl.setAttribute("visibility", "visible");
+    s.hd.setAttribute("cx", s.X(q.age)); s.hd.setAttribute("cy", s.Y(s.v(q))); s.hd.setAttribute("visibility", "visible");
+    const yr = START_YEAR + (a - s.a0);
+    document.getElementById("readout").textContent = `${a} tuổi (năm ${yr}) · có khủng hoảng: ${money(s.v(q))} · không khủng hoảng: ${money(s.v(b))}` + (s.cr.crashes.includes(yr) ? " · năm khủng hoảng" : "");
+  });
+  chart.addEventListener("pointerleave", () => { if (chartState) { chartState.hl.setAttribute("visibility", "hidden"); chartState.hd.setAttribute("visibility", "hidden"); } });
+
+  buildInputs();
+  update();
+
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+  // ---------- OVERVIEW: animated cycle wave ----------
+  const wave = document.getElementById("wave");
+  const WPH = [
+    { t: 0.00, name: "Phục hồi", c: "--growth", tip: "Công ty tuyển lại. Lúc tốt để nhảy việc, đòi tăng lương." },
+    { t: 0.22, name: "Bùng nổ", c: "--boom", tip: "Việc dễ tìm, tài sản tăng. Tiết kiệm nhiều hơn, đừng tăng chi tiêu theo lương." },
+    { t: 0.42, name: "Bong bóng", c: "--bubble", tip: "Ai cũng nói “lần này khác”. Đổ đầy quỹ khẩn cấp, không vay để đầu tư." },
+    { t: 0.55, name: "Khủng hoảng", c: "--crisis", tip: "Sa thải, tài sản giảm mạnh. Giữ việc, giữ tiền mặt, không bán lúc đáy." },
+    { t: 0.78, name: "Đáy, sửa chữa", c: "--stagnation", tip: "Học kỹ năng mới. Nếu còn tiền dư, đầu tư từ từ, đều đặn." }
+  ];
+  const wx = t => 20 + t * 380;
+  const wy = t => 110 - 70 * Math.sin(t * Math.PI * 2 - Math.PI / 2 + Math.PI / 2 * 0) * (t < 0.5 ? 1 : 1) ;
+  // a simple cycle: rises 0→0.5, falls 0.5→0.8, flat-ish 0.8→1
+  const wyy = t => { const s = t < 0.5 ? Math.sin(t / 0.5 * Math.PI / 2) : t < 0.8 ? Math.cos((t - 0.5) / 0.3 * Math.PI / 2) : 0; return 180 - s * 140 - (t > 0.8 ? 0 : 0); };
+  function buildWave() {
+    wave.innerHTML = "";
+    el("line", { x1: 20, x2: 400, y1: 180, y2: 180, stroke: "var(--line)" }, wave);
+    WPH.forEach((p, i) => {
+      const t1 = (WPH[i + 1] || { t: 1 }).t;
+      let d = "";
+      for (let t = p.t; t <= t1 + 0.0001; t += 0.005) d += (d ? "L" : "M") + wx(t).toFixed(1) + " " + wyy(Math.min(t, 1)).toFixed(1);
+      el("path", { d, fill: "none", stroke: `var(${p.c})`, "stroke-width": 6, "stroke-linecap": "round" }, wave);
+      el("text", { x: wx((p.t + t1) / 2), y: i % 2 ? 214 : 200, "text-anchor": "middle", "font-size": 11, "font-weight": 600, fill: `var(${p.c})` }, wave, p.name);
+    });
+    const dot = el("circle", { r: 9, fill: "var(--surface)", stroke: "var(--ink)", "stroke-width": 3 }, wave);
+    const you = el("text", { "text-anchor": "middle", "font-size": 11, "font-weight": 700, fill: "var(--ink)" }, wave, "Bạn");
+    return { dot, you };
+  }
+  const W8 = buildWave();
+  let wt = 0.05, wPaused = false, lastPh = -1, lastTs = 0;
+  function placeDot() {
+    const x = wx(wt), y = wyy(wt);
+    W8.dot.setAttribute("cx", x); W8.dot.setAttribute("cy", y);
+    W8.you.setAttribute("x", x); W8.you.setAttribute("y", y - 15);
+    let idx = 0; WPH.forEach((p, i) => { if (wt >= p.t) idx = i; });
+    if (idx !== lastPh) { lastPh = idx; document.getElementById("wave-phase").textContent = WPH[idx].name; document.getElementById("wave-tip").textContent = WPH[idx].tip; W8.dot.setAttribute("stroke", `var(${WPH[idx].c})`); }
+  }
+  function waveLoop(ts) {
+    if (!wPaused && currentPage === "tong-quan") { const dt = lastTs ? Math.min(50, ts - lastTs) : 16; wt = (wt + dt / 14000) % 1; placeDot(); }
+    lastTs = ts; requestAnimationFrame(waveLoop);
+  }
+  wave.addEventListener("click", e => { const r = wave.getBoundingClientRect(); const x = (e.clientX - r.left) * 420 / r.width; wt = Math.max(0, Math.min(0.999, (x - 20) / 380)); wPaused = true; placeDot(); });
+  wave.addEventListener("dblclick", () => { wPaused = false; });
+  placeDot();
+  if (!reduce) requestAnimationFrame(waveLoop);
+
+  // ---------- COUNTRIES PAGE ----------
+  let ctrySel = "jp";
+  const ctryTabs = document.getElementById("ctry-tabs");
+  COUNTRIES.forEach(c => {
+    const b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.role = "tab"; b.textContent = c.name; b.dataset.id = c.id;
+    b.onclick = () => { ctrySel = c.id; renderCountry(); };
+    ctryTabs.appendChild(b);
+  });
+  function renderCountry() {
+    const c = COUNTRIES.find(x => x.id === ctrySel);
+    ctryTabs.querySelectorAll(".chip").forEach(b => { b.setAttribute("aria-pressed", b.dataset.id === ctrySel); b.setAttribute("aria-selected", b.dataset.id === ctrySel); });
+    const strip = document.getElementById("ctry-strip"); strip.innerHTML = "";
+    const a0 = 1945, a1 = 2026, tot = a1 - a0 + 1;
+    let cursor = a0;
+    const pushSeg = (w, color, title, target, i) => { const s = document.createElement("i"); s.style.width = (w / tot * 100) + "%"; s.style.background = color; s.style.animationDelay = (i * 40) + "ms"; s.title = title; if (target) { s.style.cursor = "pointer"; s.onclick = () => { const li = document.getElementById(target); li.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }); li.classList.remove("pop"); void li.offsetWidth; li.classList.add("pop"); }; } strip.appendChild(s); };
+    c.phases.forEach((p, i) => { if (p[0] > cursor) pushSeg(p[0] - cursor, "var(--surface-2)", "Chưa có dữ liệu", null, i); pushSeg(p[1] - p[0] + 1, TYPES[p[2]].c, `${p[0]}–${p[1]}: ${p[4]}`, `ph-${i}`, i); cursor = p[1] + 1; });
+    const ol = document.getElementById("ctry-phases"); ol.innerHTML = ""; ol.classList.add("stagger");
+    c.phases.forEach((p, i) => {
+      const t = TYPES[p[2]];
+      const li = document.createElement("li"); li.id = `ph-${i}`; li.style.animationDelay = (i * 45) + "ms";
+      const yrs = document.createElement("div"); yrs.className = "yrs"; yrs.textContent = p[0] === p[1] ? p[0] : `${p[0]}–${p[1]}`;
+      const pill = document.createElement("span"); pill.className = "pill"; pill.textContent = t.name; pill.style.background = t.c; pill.style.color = t.on; yrs.appendChild(pill);
+      const body = document.createElement("div"); body.className = "body";
+      const h = document.createElement("h3"); h.textContent = p[4]; body.appendChild(h);
+      if (p[5]) { const d = document.createElement("p"); d.textContent = p[5]; body.appendChild(d); }
+      if (p[6]) { const l = document.createElement("p"); l.className = "lesson"; l.innerHTML = "<b>Bài học: </b>"; l.append(p[6]); body.appendChild(l); }
+      li.append(yrs, body); ol.appendChild(li);
+    });
+    const st = document.getElementById("ctry-stats"); st.innerHTML = "";
+    Object.keys(TYPES).forEach(k => { const n = c.phases.filter(p => p[2] === k).reduce((s, p) => s + p[1] - p[0] + 1, 0); const d = document.createElement("div"); d.innerHTML = "<b></b><span></span>"; d.children[0].textContent = n + " năm"; d.children[0].style.color = TYPES[k].c; d.children[1].textContent = TYPES[k].name; st.appendChild(d); });
+    const ev = document.getElementById("ctry-events"); ev.innerHTML = "";
+    c.events.forEach(([y, l]) => { const li = document.createElement("li"); li.textContent = `◆ ${y}: ${l}`; ev.appendChild(li); });
+  }
+
+  // ---------- WORLD MAP ----------
+  const GEO = {
+    us: { names: ["United States"], at: [-98, 39] },
+    eu: { names: ["Germany", "France", "Italy", "Spain", "Netherlands", "Belgium", "Austria", "Portugal", "Greece", "Ireland", "Finland", "Luxembourg", "Slovakia", "Slovenia", "Estonia", "Latvia", "Lithuania", "Poland", "Sweden", "Denmark", "Czech Rep.", "Czechia", "Czech Republic", "Hungary", "Romania", "Bulgaria", "Croatia", "Cyprus"], at: [10, 50] },
+    jp: { names: ["Japan"], at: [138, 37] },
+    kr: { names: ["Korea", "South Korea", "Republic of Korea"], at: [127.8, 36.4] },
+    tw: { names: ["Taiwan"], at: [121, 23.7] },
+    cn: { names: ["China"], at: [104, 35] },
+    sg: { names: ["Singapore"], at: [103.8, 1.35] },
+    th: { names: ["Thailand"], at: [101, 15] },
+    vn: { names: ["Vietnam", "Viet Nam"], at: [106, 16] }
+  };
+  let map = null, mapYear = 1997, mapTimer = null, mapSel = null;
+  const mapYearIn = document.getElementById("map-year-in");
+  const ml = document.getElementById("map-legend");
+  Object.values(TYPES).forEach(t => { const s = document.createElement("span"); s.innerHTML = '<i class="sw"></i>'; s.firstChild.style.background = t.c; s.append(t.name); ml.appendChild(s); });
+  function mapColors() { const o = {}; Object.keys(TYPES).forEach(k => o[k] = css("--" + k)); return o; }
+  function mapOption(animate) {
+    const col = mapColors();
+    const regions = [], points = [];
+    const LBL = { th: "left", kr: "top", jp: "right", cn: "left", sg: "bottom", tw: "right", vn: "right", us: "right", eu: "right" };
+    COUNTRIES.forEach(c => {
+      const p = phaseAt(c, mapYear), g = GEO[c.id];
+      const color = p ? col[p[2]] : css("--line");
+      g.names.forEach(n => regions.push({ name: n, itemStyle: { areaColor: color, borderColor: css("--surface") }, emphasis: { itemStyle: { areaColor: color } } }));
+      const crisis = p && p[2] === "crisis";
+      points.push({ name: c.name, id: c.id, value: g.at.concat([crisis ? 1 : 0]), itemStyle: { color, borderColor: css("--ink"), borderWidth: c.id === mapSel ? 2 : 1 }, symbolSize: c.id === mapSel ? 18 : crisis ? 14 : 10, label: { position: LBL[c.id] } });
+    });
+    return {
+      animationDurationUpdate: animate ? 600 : 0,
+      tooltip: { trigger: "item", backgroundColor: css("--surface"), borderColor: css("--line"), textStyle: { color: css("--ink"), fontFamily: "Be Vietnam Pro" },
+        formatter: prm => { const id = prm.data && (prm.data.id || prm.data.value); const c = COUNTRIES.find(x => x.id === id); if (!c) return prm.name; const p = phaseAt(c, mapYear); return `<b>${c.name}</b><br>${mapYear}: ${p ? p[4] : "Chưa có dữ liệu"}`; } },
+      geo: { map: "world", roam: true, zoom: 2.1, center: [100, 28], scaleLimit: { min: 1, max: 12 },
+        itemStyle: { areaColor: css("--surface"), borderColor: css("--line"), borderWidth: 0.6 },
+        emphasis: { itemStyle: { areaColor: css("--accent-soft") }, label: { show: false } }, label: { show: false }, regions },
+      series: [
+        { type: "effectScatter", coordinateSystem: "geo", data: points, rippleEffect: { scale: 3.2, brushType: "stroke" }, showEffectOn: "render",
+          symbolSize: (v, prm) => prm.data.symbolSize, label: { show: true, formatter: "{b}", position: "right", color: css("--ink"), fontSize: 11, fontWeight: 600, fontFamily: "Be Vietnam Pro" }, zlevel: 2 }
+      ]
+    };
+  }
+  function renderMapSide() {
+    document.getElementById("map-year").textContent = mapYear;
+    const g = GLOBAL.filter(([y]) => y === mapYear).map(([, l]) => "Toàn cầu: " + l);
+    document.getElementById("map-global").textContent = g.join(" · ");
+    const ul = document.getElementById("map-list"); ul.innerHTML = "";
+    COUNTRIES.forEach(c => {
+      const p = phaseAt(c, mapYear);
+      const li = document.createElement("li"); li.style.cursor = "pointer";
+      const dot = document.createElement("i"); dot.className = "dot"; dot.style.background = p ? TYPES[p[2]].c : "var(--line)";
+      const n = document.createElement("b"); n.textContent = c.name;
+      const t = document.createElement("span"); t.textContent = p ? p[4] : "Chưa có dữ liệu";
+      li.append(dot, n, t); li.onclick = () => selectMap(c.id); ul.appendChild(li);
+    });
+    renderMapDetail();
+  }
+  function renderMapDetail() {
+    const box = document.getElementById("map-detail");
+    const c = COUNTRIES.find(x => x.id === mapSel);
+    if (!c) return;
+    const p = phaseAt(c, mapYear);
+    box.innerHTML = "";
+    const h = document.createElement("h3"); h.textContent = c.name; box.appendChild(h);
+    if (!p) { const d = document.createElement("p"); d.className = "hint"; d.textContent = `Chưa có dữ liệu cho năm ${mapYear}.`; box.appendChild(d); return; }
+    const t = TYPES[p[2]];
+    const pill = document.createElement("span"); pill.className = "pill"; pill.textContent = t.name; pill.style.background = t.c; pill.style.color = t.on; pill.style.alignSelf = "flex-start";
+    const meta = document.createElement("div"); meta.className = "meta"; meta.textContent = `${p[0]}–${p[1]} · ${p[4]}`;
+    box.append(pill, meta);
+    if (p[5]) { const d = document.createElement("p"); d.style.fontSize = "14px"; d.textContent = p[5]; box.appendChild(d); }
+    if (p[6]) { const l = document.createElement("p"); l.className = "lesson"; l.innerHTML = "<b>Bài học: </b>"; l.append(p[6]); box.appendChild(l); }
+    const more = document.createElement("a"); more.href = "#quoc-gia"; more.textContent = "Xem toàn bộ lịch sử " + c.name + " →"; more.style.color = "var(--accent)"; more.style.fontWeight = 600; more.style.fontSize = "13px";
+    more.onclick = () => { ctrySel = c.id; };
+    box.appendChild(more);
+  }
+  function selectMap(id) { mapSel = id; if (map) map.setOption(mapOption(true)); renderMapDetail(); const b = document.getElementById("map-detail"); b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); }
+  function setMapYear(y, animate) { mapYear = y; mapYearIn.value = y; if (map) map.setOption(mapOption(animate)); renderMapSide(); }
+  function initMap() {
+    if (map) { map.resize(); return; }
+    const box = document.getElementById("map");
+    if (!window.echarts || !echarts.getMap || !echarts.getMap("world")) { box.innerHTML = '<p class="hint" style="padding:16px">Không tải được thư viện bản đồ. Kiểm tra kết nối mạng rồi tải lại trang.</p>'; renderMapSide(); return; }
+    map = echarts.init(box);
+    map.setOption(mapOption(false));
+    map.on("click", prm => {
+      let id = prm.data && prm.data.id;
+      if (!id && prm.componentType === "geo") id = Object.keys(GEO).find(k => GEO[k].names.includes(prm.name));
+      if (GEO[id]) selectMap(id);
+    });
+    window.addEventListener("resize", () => map && map.resize());
+    renderMapSide();
+  }
+  mapYearIn.oninput = () => { stopMap(); setMapYear(+mapYearIn.value, true); };
+  document.querySelectorAll("[data-y]").forEach(b => b.onclick = () => { stopMap(); setMapYear(+b.dataset.y, true); });
+  const mapPlay = document.getElementById("map-play");
+  function stopMap() { if (!mapTimer) return; clearInterval(mapTimer); mapTimer = null; mapPlay.setAttribute("aria-pressed", "false"); document.getElementById("map-play-icon").textContent = "▶"; document.getElementById("map-play-label").textContent = "Phát"; }
+  mapPlay.onclick = () => {
+    if (mapTimer) return stopMap();
+    if (mapYear >= 2026) mapYear = 1944;
+    mapPlay.setAttribute("aria-pressed", "true"); document.getElementById("map-play-icon").textContent = "❚❚"; document.getElementById("map-play-label").textContent = "Tạm dừng";
+    mapTimer = setInterval(() => { if (mapYear >= 2026) return stopMap(); setMapYear(mapYear + 1, true); }, 700);
+  };
+  if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (map) map.setOption(mapOption(false)); });
+
+  // ---------- PLAYBOOK: signals + todo ----------
+  const SIGNALS = [
+    ["Lãi suất Fed", "Fed tăng nhanh thì tiền rẻ biến mất, tech dễ sa thải (2022). Fed giảm là dấu hiệu chu kỳ mới bắt đầu."],
+    ["Lãi suất NHNN", "Lãi suất cho vay trong nước tăng thì bất động sản và chứng khoán VN chịu áp lực (2022–2023)."],
+    ["Tỷ giá USD/VND", "VND mất giá nhanh là tín hiệu căng thẳng. Có thu nhập bằng USD giúp bạn được bảo vệ."],
+    ["FDI giải ngân, xuất khẩu", "Đây là động cơ tăng trưởng của VN. FDI tăng (chip, điện tử) thì việc làm kỹ thuật tốt hơn."],
+    ["Tin sa thải ngành tech", "Theo dõi các trang tổng hợp sa thải. Khi số vụ tăng, ưu tiên quỹ khẩn cấp và củng cố vị trí."]
+  ];
+  const sg = document.getElementById("signals");
+  SIGNALS.forEach(([t, d], i) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "sig"; b.setAttribute("aria-expanded", "false");
+    b.innerHTML = '<span class="eyebrow"></span><b></b><span class="more"><span></span></span>';
+    b.children[0].textContent = "Tín hiệu " + (i + 1); b.children[1].textContent = t; b.children[2].firstChild.textContent = d;
+    b.onclick = () => b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") !== "true");
+    sg.appendChild(b);
+  });
+  const TODO = ["Ghi lại số liệu thật: thu nhập, chi tiêu, tiết kiệm, nợ (nhập vào trang Công cụ kế hoạch).", "Cài đặt tiết kiệm tự động vào ngày nhận lương.", "Bắt đầu quỹ khẩn cấp ở một tài khoản riêng.", "Chọn một chuyên môn sâu + kỹ năng AI, làm một dự án thật để trình bày.", "Luyện tiếng Anh 30 phút mỗi ngày.", "Đọc một cuốn: Principles for Navigating Big Debt Crises, How Asia Works, hoặc The Psychology of Money."];
+  const done = store("cyc-todo") || {};
+  const todo = document.getElementById("todo");
+  const bar = document.createElement("div"); bar.className = "progress"; bar.innerHTML = "<i></i>"; todo.before(bar);
+  const refreshBar = () => { const n = TODO.filter((_, i) => done[i]).length; bar.firstChild.style.width = (n / TODO.length * 100) + "%"; bar.title = `${n}/${TODO.length} việc đã xong`; };
+  TODO.forEach((t, i) => {
+    const li = document.createElement("li"); const lab = document.createElement("label");
+    const inp = document.createElement("input"); inp.type = "checkbox"; inp.id = "todo-" + i; inp.checked = !!done[i];
+    inp.onchange = () => { done[i] = inp.checked; store("cyc-todo", done); refreshBar(); };
+    const s = document.createElement("span"); s.textContent = t;
+    lab.append(inp, s); li.appendChild(lab); todo.appendChild(li);
+  });
+  refreshBar();
+
+  // ---------- ROUTER ----------
+  const PAGES = ["tong-quan", "dong-thoi-gian", "ban-do", "quoc-gia", "ke-hoach", "cam-nang"];
+  let currentPage = null;
+  function route() {
+    const h = location.hash.replace("#", "");
+    const page = PAGES.includes(h) ? h : "tong-quan";
+    if (page === currentPage) return;
+    currentPage = page;
+    document.querySelectorAll(".page").forEach(p => { const on = p.dataset.page === page; p.hidden = !on; p.classList.toggle("enter", on); });
+    document.querySelectorAll("[data-nav]").forEach(a => a.setAttribute("aria-current", a.dataset.nav === page ? "page" : "false"));
+    const active = document.querySelector(`[data-nav="${page}"]`); if (active) active.scrollIntoView({ block: "nearest", inline: "center" });
+    window.scrollTo(0, 0);
+    if (page !== "dong-thoi-gian") stopPlay();
+    if (page !== "ban-do") stopMap();
+    if (page === "dong-thoi-gian") drawTimeline(!reduce);
+    if (page === "ban-do") initMap();
+    if (page === "quoc-gia") renderCountry();
+    if (page === "ke-hoach") { chartAnim = !reduce; update(); }
+  }
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
