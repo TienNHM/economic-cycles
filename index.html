@@ -3,6 +3,15 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta charset="utf-8">
+<meta name="description" content="Chu kỳ kinh tế 1700–2026 của 16 nền kinh tế, chuyên mục Việt Nam, bản đồ theo năm và công cụ kế hoạch tài chính cho người trẻ.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bản đồ Chu kỳ Kinh tế">
+<meta property="og:description" content="300 năm bùng nổ và khủng hoảng của 16 nền kinh tế, chuyên mục Việt Nam và công cụ kế hoạch tài chính.">
+<meta property="og:url" content="http://tiennhm.io.vn/economic-cycles/">
+<meta property="og:image" content="http://tiennhm.io.vn/economic-cycles/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -289,6 +298,47 @@ td.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; whit
 .pb ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
 .pb .tag { height: 6px; border-radius: 3px; }
 .note { font-size: 12px; color: var(--muted); }
+.now-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.now { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--surface); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.now .k { font: 600 11px var(--font-data); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.now .t { font-weight: 700; font-size: 14px; }
+.now .v { font: 700 17px var(--font-data); color: var(--ink); display: flex; align-items: center; gap: 8px; }
+.now p { margin: 0; font-size: 13px; color: var(--muted); }
+.now a { font-size: 12px; color: var(--accent); margin-top: auto; }
+.lamp { display: inline-flex; align-items: center; gap: 5px; font: 600 11px var(--font-body); padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--ink); white-space: nowrap; }
+.lamp::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.now-sum { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+.now-sum > div { border-left: 4px solid var(--accent); padding: 4px 12px; font-size: 14px; }
+.now-sum b { display: block; }
+.heat { width: 100%; border-collapse: separate; border-spacing: 4px; table-layout: fixed; min-width: 680px; }
+.heat th { font: 600 12px var(--font-body); color: var(--muted); text-align: left; padding: 4px 6px; vertical-align: bottom; }
+.heat th[scope=row] { vertical-align: middle; width: 130px; }
+.heat td { border-radius: 8px; padding: 8px 10px; font-size: 13px; line-height: 1.35; color: var(--ink); vertical-align: top; }
+.heat td b { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.heat .s2 { background: color-mix(in srgb, var(--growth) 60%, var(--surface)); }
+.heat .s1 { background: color-mix(in srgb, var(--growth) 28%, var(--surface)); }
+.heat .s0 { background: var(--surface-2); }
+.heat .sm1 { background: color-mix(in srgb, var(--crisis) 24%, var(--surface)); }
+.heat .sm2 { background: color-mix(in srgb, var(--crisis) 50%, var(--surface)); }
+.cmp-tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.cmp-row { display: grid; grid-template-columns: minmax(170px, 1.1fr) minmax(0, 2fr) minmax(0, 2fr); gap: 14px; align-items: center; padding: 9px 0; border-top: 1px solid var(--line); }
+.cmp-row.head { border-top: 0; font: 600 12px var(--font-body); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; padding-bottom: 0; }
+.cmp-name b { display: block; font-size: 14px; }
+.cmp-name span { font-size: 12px; color: var(--muted); }
+.bar { position: relative; height: 24px; background: var(--surface-2); border-radius: 6px; overflow: hidden; }
+.bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 6px; transition: width .5s ease; }
+.bar span { position: relative; font: 600 12px var(--font-data); padding: 0 8px; line-height: 24px; color: var(--ink); white-space: nowrap; }
+.src { font-size: 12px; color: var(--muted); margin: 0; }
+.src a { color: var(--accent); }
+.field select { width: 100%; font: inherit; font-size: 14px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); }
+.field .hint { font-size: 12px; color: var(--muted); margin: 0; }
+.field input:disabled { opacity: .4; }
+.mt-line { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+@media (max-width: 620px) {
+  .cmp-row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .cmp-row.head { display: none; }
+  .now-sum { grid-template-columns: minmax(0, 1fr); }
+}
 .ref-q { flex: 1 1 220px; max-width: 320px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); font: inherit; font-size: 14px; }
 .ref-group { margin-top: 18px; }
 .ref-group h3 { margin: 0 0 8px; font-size: 15px; display: flex; gap: 8px; align-items: baseline; }
@@ -339,6 +389,7 @@ footer { font-size: 12px; color: var(--muted); }
       <a href="#ban-do" data-nav="ban-do">Bản đồ</a>
       <a href="#xu-huong" data-nav="xu-huong">Xu hướng dài hạn</a>
       <a href="#quoc-gia" data-nav="quoc-gia">Từng quốc gia</a>
+      <a href="#viet-nam" data-nav="viet-nam">Việt Nam</a>
       <a href="#ke-hoach" data-nav="ke-hoach">Công cụ kế hoạch</a>
       <a href="#cam-nang" data-nav="cam-nang">Cẩm nang</a>
       <a href="#tai-lieu" data-nav="tai-lieu">Tài liệu</a>
@@ -350,7 +401,7 @@ footer { font-size: 12px; color: var(--muted); }
   <div class="page" data-page="tong-quan">
     <header class="hero">
       <div class="hero-text">
-        <span class="eyebrow">1700 – 2026 · 11 nền kinh tế + Việt Nam</span>
+        <span class="eyebrow">1700 – 2026 · 15 nền kinh tế + Việt Nam</span>
         <h1>Chu kỳ kinh tế và kế hoạch của bạn</h1>
         <p class="lede">Các nền kinh tế lặp lại một mẫu: tiền rẻ, vay nhiều, bong bóng, cú sốc, sụp đổ, rồi phục hồi. Hiểu mẫu này giúp bạn, một lập trình viên trẻ ở TP.HCM, sống sót qua 3–4 đợt suy thoái trong sự nghiệp và dùng chúng làm cơ hội.</p>
         <div class="cycle-step" aria-label="Mẫu của một chu kỳ">
@@ -366,6 +417,17 @@ footer { font-size: 12px; color: var(--muted); }
         <div class="wave-cap"><b id="wave-phase">Phục hồi</b><span id="wave-tip">Công ty tuyển lại. Lúc tốt để nhảy việc.</span></div>
       </div>
     </header>
+
+    <section class="panel" aria-labelledby="now-title">
+      <div class="panel-head">
+        <div>
+          <h2 id="now-title">Hôm nay đang ở đâu?</h2>
+          <p>Ảnh chụp các tín hiệu chính của Mỹ và Việt Nam, cập nhật: <b id="now-date"></b>. Số đã làm tròn. Bấm “Nguồn” để xem số mới nhất.</p>
+        </div>
+      </div>
+      <div class="now-sum" id="now-sum"></div>
+      <div class="now-grid" id="now-grid"></div>
+    </section>
 
     <section class="panel">
       <h2>Bắt đầu từ đâu</h2>
@@ -550,10 +612,13 @@ footer { font-size: 12px; color: var(--muted); }
       <div class="mt-row">
         <span class="mt-label" id="mt-ctry">Quốc gia</span>
         <div class="mt-body" role="group" aria-labelledby="mt-ctry">
-          <div class="seg" role="group" aria-label="Chọn nhanh theo khu vực">
-            <button type="button" id="map-all" aria-pressed="true">Tất cả</button>
-            <button type="button" id="map-europe" aria-pressed="false">Châu Âu</button>
-            <button type="button" id="map-asia" aria-pressed="false">Châu Á</button>
+          <div class="mt-line">
+            <div class="seg" role="group" aria-label="Chọn nhanh theo khu vực">
+              <button type="button" id="map-all" aria-pressed="true">Tất cả</button>
+              <button type="button" id="map-europe" aria-pressed="false">Châu Âu</button>
+              <button type="button" id="map-asia" aria-pressed="false">Châu Á</button>
+            </div>
+            <button class="btn" type="button" id="map-share" title="Link giữ đúng năm và nhóm nước đang xem">🔗 Sao chép link</button>
           </div>
           <div class="chips" id="map-chips" role="group" aria-label="Chọn quốc gia hiển thị trên bản đồ"></div>
         </div>
@@ -616,6 +681,95 @@ footer { font-size: 12px; color: var(--muted); }
         <p class="lesson">Chiến tranh Lạnh đẩy số đầu đạn lên khoảng 70.000 năm 1986. Khi căng thẳng giảm, ngân sách quốc phòng chuyển sang dân sự (“cổ tức hòa bình” của thập niên 90). Địa chính trị căng thẳng hôm nay đang đảo ngược xu hướng đó.</p>
       </div>
     </div>
+  </section>
+
+  <section class="panel" aria-labelledby="cmp-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="cmp-title">So sánh các cuộc khủng hoảng</h2>
+        <p>Chỉ số chứng khoán giảm bao nhiêu từ đỉnh, giảm trong bao lâu, và mất bao nhiêu năm để về lại đỉnh cũ (giá danh nghĩa, chưa tính cổ tức).</p>
+      </div>
+    </div>
+    <div class="cmp-tools">
+      <span class="hint">Sắp xếp theo</span>
+      <div class="seg" role="group" aria-label="Sắp xếp">
+        <button type="button" data-sort="year" aria-pressed="true">Năm</button>
+        <button type="button" data-sort="drop" aria-pressed="false">Mức giảm</button>
+        <button type="button" data-sort="rec" aria-pressed="false">Thời gian phục hồi</button>
+      </div>
+    </div>
+    <div id="cmp"></div>
+    <p class="lesson" style="border-left:3px solid var(--accent);padding-left:10px;font-size:14px">Cú giảm sâu không đáng sợ bằng thời gian phục hồi dài. Nhật Bản mất 34 năm, Việt Nam 2008 mất 11 năm. Người vẫn đầu tư đều đặn trong lúc giảm thì về lại mức cũ nhanh hơn nhiều so với chỉ số.</p>
+    <p class="note">Nguồn: số liệu lịch sử của S&amp;P Dow Jones Indices, Nikkei, SET, HOSE, tổng hợp và làm tròn. GDP: IMF, Ngân hàng Thế giới.</p>
+  </section>
+  </div>
+
+  <div class="page" data-page="viet-nam" hidden>
+  <section class="panel" aria-labelledby="vn-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="vn-title">Việt Nam: những chu kỳ bạn đang sống bên trong</h2>
+        <p>Chứng khoán, bất động sản, vàng và tỷ giá ở Việt Nam đi theo cùng một mẫu: tín dụng nới, tài sản sốt, Nhà nước siết, thị trường đóng băng, rồi phục hồi. Số liệu làm tròn để thấy hình dạng chu kỳ.</p>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h3>VN-Index 2000–2025</h3>
+      <svg id="ch-vni" viewBox="0 0 1000 380" role="img" aria-label="VN-Index từ 2000 đến 2025 với đỉnh 2007, 2018, 2022 và các đáy 2009, 2022"></svg>
+      <div class="readout" id="rd-vni">Rê chuột để xem từng năm.</div>
+      <p class="lesson">Hai lần giảm sâu: −80% (2007–2009) và −43% (2022). Lần đầu mất 11 năm để về lại đỉnh, lần sau khoảng 3,5 năm. Thị trường VN nhỏ, nhiều nhà đầu tư cá nhân dùng margin nên tăng và giảm đều mạnh hơn Mỹ.</p>
+      <p class="note">Nguồn: HOSE (hsx.vn). Số cuối năm và các đỉnh, đáy chính, làm tròn.</p>
+    </div>
+    <div class="charts">
+      <div class="chart-card">
+        <h3>Tỷ giá USD/VND</h3>
+        <svg id="ch-fx" viewBox="0 0 1000 380" role="img" aria-label="Tỷ giá USD/VND từ 2000 đến 2025"></svg>
+        <div class="readout" id="rd-fx"></div>
+        <p class="lesson">VND mất giá trung bình khoảng 2–3%/năm so với USD. Tiết kiệm bằng VND phải có lãi cao hơn mức này mới thật sự sinh lời. Thu nhập bằng USD (làm cho công ty nước ngoài) là một lớp bảo vệ.</p>
+        <p class="note">Nguồn: NHNN, Vietcombank. Tỷ giá bán cuối năm, làm tròn.</p>
+      </div>
+      <div class="chart-card">
+        <h3>Giá vàng SJC (triệu đồng/lượng)</h3>
+        <svg id="ch-gold" viewBox="0 0 1000 380" role="img" aria-label="Giá vàng SJC từ 2000 đến 2025"></svg>
+        <div class="readout" id="rd-gold"></div>
+        <p class="lesson">Vàng giữ giá dài hạn nhưng có thể đứng yên 7–8 năm (2012–2019). Giá SJC thường cao hơn giá thế giới quy đổi; khi chênh lệch lớn, người mua chịu thêm một rủi ro.</p>
+        <p class="note">Nguồn: SJC, World Gold Council. Giá bán, làm tròn.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="re-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="re-title">Bất động sản: các vòng sốt và đóng băng</h2>
+        <p>Mỗi cơn sốt đều đi cùng tín dụng tăng nhanh và lãi suất thấp. Khi NHNN siết, thị trường đóng băng 2–4 năm.</p>
+      </div>
+    </div>
+    <ol class="phases" id="vn-re"></ol>
+  </section>
+
+  <section class="panel" aria-labelledby="bond-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="bond-title">Khủng hoảng trái phiếu doanh nghiệp 2022</h2>
+        <p>Cú sốc tài chính lớn nhất Việt Nam kể từ 2011. Nhiều người trẻ mất tiền vì nghĩ trái phiếu an toàn như tiền gửi.</p>
+      </div>
+    </div>
+    <ol class="phases" id="vn-bond"></ol>
+    <div class="scen">
+      <div style="--c:var(--crisis)"><span class="k">Bài học 1</span><h3>Lãi cao bất thường = rủi ro cao</h3><p>Lãi 11–13%/năm khi tiền gửi chỉ 6% nghĩa là người vay khó vay ở nơi khác.</p></div>
+      <div style="--c:var(--bubble)"><span class="k">Bài học 2</span><h3>Trái phiếu không phải tiền gửi</h3><p>Không có bảo hiểm tiền gửi. Nhân viên ngân hàng bán hộ không có nghĩa ngân hàng bảo lãnh.</p></div>
+      <div style="--c:var(--accent)"><span class="k">Bài học 3</span><h3>Đọc ba thứ trước khi mua</h3><p>Ai phát hành, tài sản đảm bảo là gì, và dòng tiền nào dùng để trả nợ.</p></div>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="vnl-title">
+    <h2 id="vnl-title">Điều này nghĩa là gì với bạn</h2>
+    <ol class="lessons">
+      <li><div><b>Chứng khoán: đều đặn hơn bắt đáy</b>Mỗi khủng hoảng, VN-Index giảm 40–80%. Mua đều mỗi tháng giúp bạn mua được nhiều ở giá thấp mà không cần đoán đáy.</div></li>
+      <li><div><b>Bất động sản: đừng vay quá sức lúc sốt</b>Mua nhà khi thị trường đóng băng và lãi suất bắt đầu giảm thường có giá tốt hơn và ít cạnh tranh hơn.</div></li>
+      <li><div><b>Giữ một phần tài sản không phải VND</b>VND mất giá chậm nhưng đều. USD, vàng hoặc quỹ đầu tư quốc tế giúp cân bằng.</div></li>
+      <li><div><b>Theo dõi tín dụng và lãi suất NHNN</b>Đây là “van” của mọi cơn sốt ở Việt Nam. Tín dụng tăng hơn 15%/năm nhiều năm liền là tín hiệu nóng.</div></li>
+    </ol>
   </section>
   </div>
 
@@ -714,6 +868,17 @@ footer { font-size: 12px; color: var(--muted); }
     </div>
   </section>
 
+  <section class="panel" aria-labelledby="heat-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="heat-title">Tài sản thường diễn biến thế nào ở mỗi pha</h2>
+        <p>Xu hướng điển hình rút từ nhiều chu kỳ (Mỹ, Nhật, Việt Nam), không phải quy luật. Khi lạm phát cao như thập niên 1970, trái phiếu và tiền mặt có thể thua lỗ cả trong khủng hoảng.</p>
+      </div>
+    </div>
+    <div class="table-scroll"><table class="heat" id="heat"></table></div>
+    <p class="note">Màu xanh đậm: thường tốt nhất. Màu đỏ đậm: thường tệ nhất.</p>
+  </section>
+
   <section class="panel" aria-labelledby="sig-title">
     <h2 id="sig-title">5 tín hiệu nên xem mỗi tháng</h2>
     <p class="note">Mất khoảng 15 phút. Bấm vào từng tín hiệu để xem nó nói gì.</p>
@@ -756,8 +921,8 @@ footer { font-size: 12px; color: var(--muted); }
 </div>
 
 <div id="tip" role="tooltip" aria-hidden="true"></div>
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+<script src="vendor/echarts.min.js"></script>
+<script src="vendor/world.js"></script>
 <script>
 (function () {
   // ---------- DATA ----------
@@ -1647,6 +1812,7 @@ footer { font-size: 12px; color: var(--muted); }
     ]],
     ["Mô phỏng khủng hoảng", [
       { id: "crisisOn", label: "Có khủng hoảng định kỳ", type: "check", def: true },
+      { id: "hist", label: "Kiểu khủng hoảng", type: "select", def: "custom", opts: () => Object.entries(HIST).map(([k, v]) => [k, v.name]) },
       { id: "firstCrisis", label: "Khủng hoảng tiếp theo vào năm", min: 2026, max: 2035, step: 1, def: 2028, f: v => v },
       { id: "cycle", label: "Lặp lại mỗi", min: 5, max: 15, step: 1, def: 8, f: v => v + " năm" },
       { id: "drawdown", label: "Tài sản đầu tư giảm", min: 0, max: 70, step: 5, def: 35, f: v => "−" + v + "%" },
@@ -1669,6 +1835,17 @@ footer { font-size: 12px; color: var(--muted); }
       const fs = document.createElement("fieldset");
       const lg = document.createElement("legend"); lg.textContent = title; fs.appendChild(lg);
       fields.forEach(f => {
+        if (f.type === "select") {
+          const wrap = document.createElement("div"); wrap.className = "field";
+          const lab = document.createElement("label"); lab.htmlFor = "p-" + f.id; lab.textContent = f.label; lab.style.fontSize = "13px";
+          const sel = document.createElement("select"); sel.id = "p-" + f.id;
+          f.opts().forEach(([v, t]) => { const o = document.createElement("option"); o.value = v; o.textContent = t; sel.appendChild(o); });
+          if (!HIST[P[f.id]]) P[f.id] = f.def;
+          sel.value = P[f.id];
+          const hint = document.createElement("p"); hint.className = "hint"; hint.id = "hist-hint";
+          sel.onchange = () => { P[f.id] = sel.value; syncHist(); update(); };
+          wrap.append(lab, sel, hint); fs.appendChild(wrap); return;
+        }
         if (f.type === "check") {
           const lab = document.createElement("label"); lab.className = "check";
           const inp = document.createElement("input"); inp.type = "checkbox"; inp.id = "p-" + f.id; inp.checked = !!P[f.id];
@@ -1687,7 +1864,12 @@ footer { font-size: 12px; color: var(--muted); }
       form.appendChild(fs);
     });
   }
-  document.getElementById("reset").onclick = () => { P = Object.assign({}, DEF); buildInputs(); update(); };
+  function syncHist() {
+    const hs = HIST[P.hist] || HIST.custom, dd = document.getElementById("p-drawdown"), hint = document.getElementById("hist-hint");
+    if (dd) dd.disabled = !!hs.path;
+    if (hint) hint.textContent = hs.note;
+  }
+  document.getElementById("reset").onclick = () => { P = Object.assign({}, DEF); buildInputs(); syncHist(); update(); };
   document.getElementById("real").onchange = () => update();
 
   function money(v) {
@@ -1697,6 +1879,17 @@ footer { font-size: 12px; color: var(--muted); }
   }
 
   const START_YEAR = 2026;
+  // Index level from the pre-crisis peak: [years after peak, level]. Rounded from historical index data.
+  const HIST = {
+    custom: { name: "Tự chọn (theo mức giảm bên dưới)", note: "Giảm ngay theo mức bạn chọn, rồi hồi phục đều trong 3 năm." },
+    us2008: { name: "Như Mỹ 2008 (S&P 500)", note: "Giảm 57% trong 17 tháng, về lại đỉnh sau khoảng 5,5 năm.", path: [[0, 1], [1, 0.62], [1.4, 0.43], [2, 0.67], [3, 0.75], [4, 0.77], [5, 0.91], [5.5, 1]] },
+    vn2008: { name: "Như Việt Nam 2008 (VN-Index)", note: "Giảm 80% trong 2 năm, mất khoảng 11 năm để về lại đỉnh 2007.", path: [[0, 1], [0.8, 0.79], [1.9, 0.2], [2.8, 0.42], [3.8, 0.41], [4.8, 0.3], [5.8, 0.35], [6.8, 0.43], [7.8, 0.47], [8.8, 0.49], [9.8, 0.57], [10.8, 0.84], [11, 1]] },
+    vn2022: { name: "Như Việt Nam 2022 (VN-Index)", note: "Giảm 43% trong 10 tháng, về lại đỉnh sau khoảng 3,5 năm.", path: [[0, 1], [0.85, 0.57], [1, 0.66], [1.7, 0.82], [1.85, 0.7], [2.9, 0.84], [3.6, 1]] },
+    jp1990: { name: "Như Nhật 1990 (Nikkei)", note: "Giảm dần 80% trong 20 năm. Kịch bản xấu nhất cho người chỉ giữ một thị trường.", path: [[0, 1], [1, 0.61], [2.7, 0.37], [6.5, 0.57], [9, 0.35], [10.3, 0.51], [13.3, 0.2], [17.5, 0.46], [19.3, 0.18], [24, 0.41], [30, 0.7], [34, 1]] },
+    us1929: { name: "Như Đại suy thoái 1929 (Dow Jones)", note: "Giảm 89% trong 3 năm, mất 25 năm để về lại đỉnh.", path: [[0, 1], [0.2, 0.52], [0.6, 0.77], [2.8, 0.11], [7.5, 0.51], [8.5, 0.26], [12.6, 0.24], [17, 0.5], [25, 1]] },
+    us2020: { name: "Như COVID-19 2020 (S&P 500)", note: "Giảm 34% trong 1 tháng, về lại đỉnh sau 5 tháng.", path: [[0, 1], [0.1, 0.66], [0.45, 1]] }
+  };
+  const interp = (pts, x) => { if (x <= pts[0][0]) return pts[0][1]; for (let i = 1; i < pts.length; i++) if (x <= pts[i][0]) { const a = pts[i - 1], b = pts[i]; return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]); } return pts[pts.length - 1][1]; };
   function simulate(p, crisisOn) {
     const years = Math.max(1, 65 - p.age), N = years * 12;
     const g = p.growth / 100, inf = p.inflation / 100, r = p.ret / 100;
@@ -1707,13 +1900,21 @@ footer { font-size: 12px; color: var(--muted); }
     const target0 = p.emMonths * p.expense;
     let cash = Math.min(p.savings, target0), units = p.savings - cash;
     let lastCrash = -9999, jobLeft = 0, forced = 0, boughtLow = 0, minCash = cash, price = 1;
+    const HP = (HIST[p.hist] || {}).path, HT = HP ? HP[HP.length - 1][0] * 12 : 0;
+    let anchorP = 1, anchorM = 0, crashP = 1;
     const pts = [{ age: p.age, nom: p.savings, real: p.savings, inc: p.income, exp: p.expense }];
     for (let m = 0; m < N; m++) {
       const yi = Math.floor(m / 12);
-      if (crashMonths.has(m)) { lastCrash = m; jobLeft = p.jobLoss; }
+      if (crashMonths.has(m)) { lastCrash = m; jobLeft = p.jobLoss; crashP = anchorP * Math.pow(1 + r, (m - anchorM) / 12); }
       const k = m - lastCrash;
-      const f = (k >= 0 && k < 36) ? 1 - (p.drawdown / 100) * (1 - k / 36) : 1;
-      price = Math.pow(1 + r, m / 12) * f;
+      let f = 1;
+      if (HP) {
+        if (k >= 0 && k < HT) { const lv = interp(HP, k / 12); price = crashP * lv; f = Math.min(1, lv); anchorP = price; anchorM = m; }
+        else price = anchorP * Math.pow(1 + r, (m - anchorM) / 12);
+      } else {
+        f = (k >= 0 && k < 36) ? 1 - (p.drawdown / 100) * (1 - k / 36) : 1;
+        price = Math.pow(1 + r, m / 12) * f;
+      }
       const incF = yi < growYears ? Math.pow(1 + g, yi) : Math.pow(1 + g, growYears) * Math.pow(1 + inf, yi - growYears);
       const incFull = p.income * incF;
       const inc = jobLeft > 0 ? 0 : incFull;
@@ -1743,6 +1944,7 @@ footer { font-size: 12px; color: var(--muted); }
   }
 
   function update() {
+    if (!update.synced) { update.synced = true; syncHist(); }
     store("cyc-plan", P);
     const real = document.getElementById("real").checked;
     const base = simulate(P, false), cr = simulate(P, !!P.crisisOn);
@@ -1925,6 +2127,7 @@ footer { font-size: 12px; color: var(--muted); }
   });
   function renderCountry() {
     const c = COUNTRIES.find(x => x.id === ctrySel);
+    if (currentPage === "quoc-gia") history.replaceState(null, "", "#quoc-gia?c=" + ctrySel);
     ctryTabs.querySelectorAll(".chip").forEach(b => { b.setAttribute("aria-pressed", b.dataset.id === ctrySel); b.setAttribute("aria-selected", b.dataset.id === ctrySel); });
     const strip = document.getElementById("ctry-strip"); strip.innerHTML = "";
     renderProfile(document.getElementById("ctry-profile"), c.id, false);
@@ -1945,6 +2148,8 @@ footer { font-size: 12px; color: var(--muted); }
       const h = document.createElement("h3"); h.textContent = p[4]; body.appendChild(h);
       if (p[5]) { const d = document.createElement("p"); d.textContent = p[5]; body.appendChild(d); }
       if (p[6]) { const l = document.createElement("p"); l.className = "lesson"; l.innerHTML = "<b>Bài học: </b>"; l.append(p[6]); body.appendChild(l); }
+      const st = phaseSource(c.id, p), sp = document.createElement("p"); sp.className = "src"; sp.innerHTML = 'Nguồn: <a target="_blank" rel="noopener"></a>';
+      sp.lastChild.href = WIKI(st); sp.lastChild.textContent = "Wikipedia · " + st; body.appendChild(sp);
       li.append(yrs, body); ol.appendChild(li);
     });
     const fol = document.getElementById("ctry-future"); fol.innerHTML = "";
@@ -2099,7 +2304,34 @@ footer { font-size: 12px; color: var(--muted); }
   function syncMapChips() {
     mapChips.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", mapActive.has(b.dataset.id)));
     Object.entries(MAP_SETS).forEach(([bid, ids]) => document.getElementById(bid).setAttribute("aria-pressed", ids.length === mapActive.size && ids.every(i => mapActive.has(i))));
+    mapURL();
   }
+  const SET_NAME = { "map-all": "all", "map-europe": "europe", "map-asia": "asia" };
+  let mapRouted = false;
+  function mapURL() {
+    if (!mapRouted || !location.hash.startsWith("#ban-do")) return;
+    const set = Object.entries(MAP_SETS).find(([, ids]) => ids.length === mapActive.size && ids.every(i => mapActive.has(i)));
+    const c = set ? SET_NAME[set[0]] : [...mapActive].join(",");
+    history.replaceState(null, "", `#ban-do?y=${mapYear}` + (c === "all" ? "" : `&c=${c}`));
+  }
+  function applyMapParams(prm) {
+    mapRouted = true;
+    const y = parseInt(prm.get("y"), 10);
+    if (y) { mapYear = Math.max(1700, Math.min(2026, y)); mapYearIn.value = mapYear; }
+    const c = prm.get("c");
+    if (c) {
+      const named = Object.keys(SET_NAME).find(k => SET_NAME[k] === c);
+      const ids = named ? MAP_SETS[named] : c.split(",").filter(i => COUNTRIES.some(x => x.id === i));
+      if (ids.length) { mapActive.clear(); ids.forEach(i => mapActive.add(i)); }
+    }
+    syncMapChips();
+    if (map) { setMapYear(mapYear, true); refreshMap(true); } else setMapYear(mapYear, false);
+  }
+  document.getElementById("map-share").onclick = () => {
+    const b = document.getElementById("map-share"), url = location.href;
+    const done = () => { b.textContent = "✓ Đã sao chép"; setTimeout(() => b.textContent = "🔗 Sao chép link", 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => prompt("Sao chép link:", url)); else prompt("Sao chép link:", url);
+  };
   COUNTRIES.forEach(c => {
     const b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.dataset.id = c.id; b.textContent = c.name;
     b.onclick = () => { if (mapActive.has(c.id)) { if (mapActive.size > 1) mapActive.delete(c.id); } else mapActive.add(c.id); syncMapChips(); refreshMap(true); };
@@ -2177,12 +2409,12 @@ footer { font-size: 12px; color: var(--muted); }
     if (p[6]) { const l = document.createElement("p"); l.className = "lesson"; l.innerHTML = "<b>Bài học: </b>"; l.append(p[6]); box.appendChild(l); }
     const mini = document.createElement("div"); box.appendChild(mini); renderProfile(mini, c.id, true);
     gloss(box);
-    const more = document.createElement("a"); more.href = "#quoc-gia"; more.textContent = "Xem toàn bộ lịch sử " + c.name + " →"; more.style.color = "var(--accent)"; more.style.fontWeight = 600; more.style.fontSize = "13px";
+    const more = document.createElement("a"); more.href = "#quoc-gia?c=" + c.id; more.textContent = "Xem toàn bộ lịch sử " + c.name + " →"; more.style.color = "var(--accent)"; more.style.fontWeight = 600; more.style.fontSize = "13px";
     more.onclick = () => { ctrySel = c.id; };
     box.appendChild(more);
   }
   function selectMap(id) { mapSel = id; if (map) map.setOption(mapOption(true)); renderMapDetail(); const b = document.getElementById("map-detail"); b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); }
-  function setMapYear(y, animate) { y = Math.max(1700, Math.min(2026, y)); mapYear = y; mapYearIn.value = y; document.getElementById("map-prev").disabled = y <= 1700; document.getElementById("map-next").disabled = y >= 2026; document.querySelectorAll(".map-tools [data-y]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.y === y)); if (map) map.setOption(mapOption(animate)); renderMapSide(); }
+  function setMapYear(y, animate) { y = Math.max(1700, Math.min(2026, y)); mapYear = y; mapYearIn.value = y; document.getElementById("map-prev").disabled = y <= 1700; document.getElementById("map-next").disabled = y >= 2026; document.querySelectorAll(".map-tools [data-y]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.y === y)); if (map) map.setOption(mapOption(animate)); renderMapSide(); mapURL(); }
   function initMap() {
     if (map) { map.resize(); return; }
     const box = document.getElementById("map");
@@ -2200,7 +2432,7 @@ footer { font-size: 12px; color: var(--muted); }
   document.getElementById("map-prev").onclick = () => { stopMap(); setMapYear(mapYear - 1, true); };
   document.getElementById("map-next").onclick = () => { stopMap(); setMapYear(mapYear + 1, true); };
   document.addEventListener("keydown", e => {
-    if (location.hash !== "#ban-do" || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (currentPage !== "ban-do" || e.altKey || e.ctrlKey || e.metaKey) return;
     if (e.target.closest && e.target.closest("input, textarea, select")) return;
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); stopMap(); setMapYear(mapYear + (e.key === "ArrowRight" ? 1 : -1), true); }
   });
@@ -2349,13 +2581,183 @@ footer { font-size: 12px; color: var(--muted); }
     el("text", { x: yx + 14, y: base - 12, "font-size": 14, "font-weight": 800, fill: "var(--accent)" }, s, "Bạn ở đây (2026)");
   }
 
+  // ---------- SOURCES PER PHASE ----------
+  const PHASE_SRC = {
+    "us:1837": "Panic of 1837", "us:1873": "Panic of 1873", "us:1893": "Panic of 1893", "us:1907": "Panic of 1907", "us:1920": "Recession of 1920–1921",
+    "us:1922": "Roaring Twenties", "us:1929": "Great Depression in the United States", "us:1980": "Early 1980s recession in the United States",
+    "us:2000": "Dot-com bubble", "us:2003": "2000s United States housing bubble", "us:2021": "2021–2023 inflation surge",
+    "uk:1719": "South Sea Company", "uk:1720": "South Sea Company", "uk:1825": "Panic of 1825", "uk:1845": "Railway Mania", "uk:1847": "Panic of 1847",
+    "uk:1930": "Great Depression in the United Kingdom", "uk:1974": "1976 sterling crisis", "uk:1990": "Black Wednesday",
+    "de:1870": "Gründerzeit", "de:1873": "Panic of 1873", "de:1919": "Hyperinflation in the Weimar Republic",
+    "fr:1719": "John Law's Company", "fr:1720": "John Law's Company", "it:1992": "Mani pulite", "it:2010": "Eurozone crisis",
+    "nl:1763": "Amsterdam banking crisis of 1763", "nl:1780": "Fourth Anglo-Dutch War",
+    "ru:1986": "Dissolution of the Soviet Union", "ru:1992": "1998 Russian financial crisis", "ru:2014": "Russian financial crisis (2014–2016)",
+    "jp:1974": "1973 oil crisis", "jp:1986": "Japanese asset price bubble", "jp:1997": "Lost Decades",
+    "cn:1959": "Great Chinese Famine", "in:1991": "1991 Indian economic crisis", "th:1991": "1997 Asian financial crisis",
+    "vn:1986": "Đổi Mới", "vn:2022": "Trương Mỹ Lan"
+  };
+  function phaseSource(id, p) {
+    const k = PHASE_SRC[id + ":" + p[0]]; if (k) return k;
+    if (p[2] === "crisis" && (p[0] === 2008 || p[0] === 2009)) return "2008 financial crisis";
+    if (p[2] === "crisis" && p[0] === 2020) return "COVID-19 recession";
+    if (p[2] === "crisis" && p[0] === 2001) return "Dot-com bubble";
+    if (p[2] === "crisis" && p[0] === 1997) return "1997 Asian financial crisis";
+    if (p[2] === "crisis" && (p[0] === 1929 || p[0] === 1930)) return "Great Depression";
+    if (p[2] === "crisis" && (p[0] === 1914)) return "Economic history of World War I";
+    if (p[2] === "crisis" && (p[0] >= 1937 && p[0] <= 1942)) return "Economic history of World War II";
+    return CTRY_WIKI[id];
+  }
+
+  // ---------- TODAY SNAPSHOT ----------
+  // Edit this block to refresh the "Hôm nay" panel. lamp: g = ổn, y = cần theo dõi, r = nóng / rủi ro.
+  const SNAPSHOT = {
+    date: "giữa năm 2026",
+    sum: [
+      ["Mỹ: cuối chu kỳ tăng trưởng, đang hạ nhiệt chậm", "Fed đã giảm lãi suất từ đỉnh 2023, lạm phát vẫn trên mục tiêu, thất nghiệp tăng nhẹ. Chưa suy thoái, nhưng dư địa sai sót nhỏ."],
+      ["Việt Nam: tăng trưởng mạnh, tài sản bắt đầu nóng", "GDP tăng nhanh nhờ đầu tư công và xuất khẩu, tín dụng tăng gần 20%/năm, chứng khoán và vàng lập đỉnh. Pha này hợp để tăng tiết kiệm và quỹ khẩn cấp."]
+    ],
+    items: [
+      ["Mỹ", "Lãi suất Fed", "≈ 3,5–3,75%", "y", "Đã giảm từ đỉnh 5,5% (2023). Tiền bớt đắt nhưng chưa rẻ.", "https://www.federalreserve.gov/monetarypolicy/openmarket.htm"],
+      ["Mỹ", "Đường cong lợi suất 10 năm − 2 năm", "≈ +0,5 điểm %", "y", "Hết đảo ngược sau 2022–2024. Suy thoái thường đến sau giai đoạn này, nên cần theo dõi.", "https://fred.stlouisfed.org/series/T10Y2Y"],
+      ["Mỹ", "Lạm phát (CPI)", "≈ 2,5–3%", "y", "Vẫn trên mục tiêu 2%, khiến Fed không thể giảm lãi suất nhanh.", "https://fred.stlouisfed.org/series/CPIAUCSL"],
+      ["Mỹ", "Thất nghiệp", "≈ 4,3–4,6%", "y", "Tăng chậm từ đáy 3,4% (2023). Tuyển dụng tech vẫn chậm.", "https://fred.stlouisfed.org/series/UNRATE"],
+      ["Việt Nam", "Lãi suất tái cấp vốn NHNN", "4,5%", "g", "Giữ ở mức thấp từ 2023 để hỗ trợ tăng trưởng.", "https://www.sbv.gov.vn"],
+      ["Việt Nam", "Tăng trưởng GDP", "≈ 8% (2025)", "g", "Thuộc nhóm cao nhất châu Á, nhờ đầu tư công, FDI và xuất khẩu.", "https://www.nso.gov.vn"],
+      ["Việt Nam", "Tăng trưởng tín dụng", "≈ 18–19% (2025)", "y", "Tăng nhanh gấp hơn 2 lần GDP. Nhiều năm liền như vậy là nợ đang tích tụ.", "https://www.sbv.gov.vn"],
+      ["Việt Nam", "Tỷ giá USD/VND", "≈ 26.000–26.400", "y", "VND mất giá khoảng 3%/năm trong 2024–2025.", "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-Tien-ich/Ty-gia"],
+      ["Việt Nam", "VN-Index", "Vượt đỉnh 2022", "y", "Tăng mạnh trong 2025, định giá không còn rẻ như cuối 2022.", "https://www.hsx.vn"],
+      ["Việt Nam", "Giá vàng SJC", "Gấp đôi so với 2023", "r", "Vàng thế giới lập đỉnh mới. Mua lúc giá nóng thì rủi ro điều chỉnh cao.", "https://sjc.com.vn"]
+    ]
+  };
+  const LAMP = { g: ["Ổn", "var(--growth)"], y: ["Cần theo dõi", "var(--bubble)"], r: ["Nóng / rủi ro", "var(--crisis)"] };
+  document.getElementById("now-date").textContent = SNAPSHOT.date;
+  SNAPSHOT.sum.forEach(([t, d]) => { const x = document.createElement("div"); x.innerHTML = "<b></b><span></span>"; x.children[0].textContent = t; x.children[1].textContent = d; document.getElementById("now-sum").appendChild(x); });
+  SNAPSHOT.items.forEach(([reg, name, val, lamp, desc, url]) => {
+    const d = document.createElement("div"); d.className = "now";
+    d.innerHTML = '<span class="k"></span><span class="t"></span><span class="v"><span></span><span class="lamp"></span></span><p></p><a target="_blank" rel="noopener">Nguồn ↗</a>';
+    d.querySelector(".k").textContent = reg; d.querySelector(".t").textContent = name; d.querySelector(".v span").textContent = val;
+    const l = d.querySelector(".lamp"); l.textContent = LAMP[lamp][0]; l.style.setProperty("--c", LAMP[lamp][1]);
+    d.querySelector("p").textContent = desc; d.querySelector("a").href = url;
+    document.getElementById("now-grid").appendChild(d);
+  });
+
+  // ---------- VIỆT NAM ----------
+  const VNI = [[2000.6, 100], [2001.5, 571], [2001.99, 235], [2002.99, 183], [2003.99, 167], [2004.99, 239], [2005.99, 307], [2006.99, 752], [2007.2, 1170], [2007.99, 927], [2008.99, 316], [2009.15, 235], [2009.99, 495], [2010.99, 485], [2011.99, 352], [2012.99, 414], [2013.99, 505], [2014.99, 546], [2015.99, 579], [2016.99, 665], [2017.99, 984], [2018.3, 1204], [2018.99, 893], [2019.99, 961], [2020.25, 660], [2020.99, 1104], [2022.02, 1528], [2022.87, 873], [2022.99, 1007], [2023.99, 1130], [2024.99, 1267], [2025.6, 1600], [2025.85, 1700]];
+  const FX = [[2000, 14500], [2004, 15800], [2007, 16100], [2008, 17000], [2009, 17900], [2010, 18900], [2011, 20800], [2013, 21100], [2015, 22500], [2017, 22700], [2019, 23200], [2021, 22800], [2022, 24800], [2023, 24300], [2024, 25400], [2025, 26300]];
+  const GOLD = [[2000, 5], [2003, 7], [2005, 9.5], [2006, 13], [2007, 16], [2008, 18], [2009, 26], [2010, 36], [2011.7, 49], [2012, 46], [2013, 35], [2015, 33], [2017, 36.5], [2019, 42], [2020.6, 61], [2021, 61], [2022, 67], [2023, 74], [2024, 84], [2025, 120], [2025.8, 145]];
+  const VN_RE = [
+    ["1993–1995", "bubble", "Cơn sốt đất lần 1", "Luật Đất đai 1993 cho phép chuyển nhượng quyền sử dụng đất. Giá đất đô thị tăng vọt, rồi đóng băng 1996–1999 khi Nhà nước siết giao dịch và khủng hoảng châu Á ập đến."],
+    ["2001–2003", "bubble", "Cơn sốt đất lần 2", "Kiều hối và quy hoạch mở rộng đô thị đẩy giá đất nền. Luật Đất đai 2003 và kiểm soát chuyển nhượng làm thị trường lắng xuống 2004–2006."],
+    ["2007–2008", "bubble", "Bong bóng sau khi vào WTO", "Tín dụng tăng hơn 50% năm 2007, vốn ngoại đổ vào. Giá căn hộ Hà Nội, TP.HCM tăng gấp đôi trong vài tháng, rồi lạm phát 23% (2008) buộc NHNN nâng lãi suất cơ bản lên 14%."],
+    ["2011–2013", "crisis", "Đóng băng và nợ xấu", "Lãi vay gần 20%/năm, nhiều dự án bỏ hoang, tồn kho lớn. Ngân hàng ôm nợ xấu bất động sản. Gói 30.000 tỷ đồng (2013) hỗ trợ nhà ở xã hội."],
+    ["2014–2019", "growth", "Phục hồi theo hạ tầng", "Lãi suất giảm, Luật Nhà ở 2014 mở cho người nước ngoài mua nhà. Căn hộ trung cấp và khu đô thị mới phát triển theo đường vành đai, metro."],
+    ["2020–2022", "bubble", "Sốt đất nền và condotel", "Lãi suất thấp nhất lịch sử sau COVID. Tin quy hoạch sân bay, cầu đường đẩy giá đất nền các tỉnh tăng 2–3 lần. Doanh nghiệp huy động vốn qua trái phiếu."],
+    ["2022–2023", "crisis", "Đóng băng sau khủng hoảng trái phiếu", "Kênh trái phiếu tắc, ngân hàng siết tín dụng bất động sản, lãi vay vượt 12%. Giao dịch giảm mạnh, nhiều doanh nghiệp lớn không trả được nợ."],
+    ["2024–2025", "growth", "Phục hồi không đều", "Luật Đất đai, Nhà ở, Kinh doanh bất động sản mới có hiệu lực từ 8/2024. Giá căn hộ Hà Nội tăng mạnh vì thiếu nguồn cung, còn đất nền tỉnh vẫn trầm lắng."]
+  ];
+  const VN_BOND = [
+    ["2019–2021", "boom", "Phát hành ồ ạt", "Lãi suất thấp, doanh nghiệp bất động sản phát hành trái phiếu riêng lẻ lãi 10–13%/năm. Năm 2021 phát hành khoảng 700 nghìn tỷ đồng, nhiều phần bán cho nhà đầu tư cá nhân qua ngân hàng và công ty chứng khoán."],
+    ["4/2022", "crisis", "Vụ Tân Hoàng Minh", "Cơ quan chức năng hủy 9 lô trái phiếu khoảng 10.000 tỷ đồng vì gian lận. Niềm tin vào cả thị trường lung lay."],
+    ["9/2022", "crisis", "Nghị định 65 siết điều kiện", "Quy định chặt hơn về nhà đầu tư chuyên nghiệp và mục đích dùng vốn. Phát hành mới gần như dừng, doanh nghiệp không đảo nợ được."],
+    ["10/2022", "crisis", "Vạn Thịnh Phát và SCB", "Bà Trương Mỹ Lan bị bắt, người gửi tiền xếp hàng rút ở SCB. Lãi suất liên ngân hàng tăng vọt, VN-Index rơi về 873."],
+    ["3/2023", "stagnation", "Nghị định 08 cho gia hạn", "Doanh nghiệp được gia hạn trả nợ tối đa 2 năm và trả bằng tài sản khác. Tránh được vỡ nợ dây chuyền, nhưng nhiều nhà đầu tư cá nhân chưa lấy lại tiền."],
+    ["2024–2025", "growth", "Xét xử và hồi phục chậm", "Vụ Vạn Thịnh Phát được xét xử, khoảng 30.000 tỷ đồng trái phiếu lừa đảo của hơn 35.000 người. Phát hành mới quay lại, chủ yếu từ ngân hàng."]
+  ];
+  function phaseRows(ol, rows) {
+    ol.innerHTML = "";
+    rows.forEach(([yrsTxt, type, title, desc]) => {
+      const t = TYPES[type], li = document.createElement("li");
+      const yrs = document.createElement("div"); yrs.className = "yrs"; yrs.textContent = yrsTxt;
+      const pill = document.createElement("span"); pill.className = "pill"; pill.textContent = t.name; pill.style.background = t.c; pill.style.color = t.on; yrs.appendChild(pill);
+      const body = document.createElement("div"); body.className = "body";
+      const hh = document.createElement("h3"); hh.textContent = title; const d = document.createElement("p"); d.textContent = desc;
+      body.append(hh, d); li.append(yrs, body); ol.appendChild(li);
+    });
+  }
+  phaseRows(document.getElementById("vn-re"), VN_RE);
+  phaseRows(document.getElementById("vn-bond"), VN_BOND);
+  function drawVN(anim) {
+    const vf = v => Math.round(v).toLocaleString("vi-VN");
+    lineChart("ch-vni", { x0: 2000, x1: 2026, y0: 0, y1: 1800, yticks: [0, 400, 800, 1200, 1600], yfmt: vf, xticks: [2000, 2005, 2010, 2015, 2020, 2025], series: [{ c: "var(--accent)", pts: VNI, area: true }], markColor: "var(--accent)", readout: "rd-vni",
+      bands: [[2007.2, 2009.2, "−80%"], [2022, 2022.9, "−43%"]],
+      marks: [[2007.2, 1170, "Đỉnh 3/2007: 1.170", "r"], [2009.15, 235, "Đáy 2/2009: 235", "r"], [2018.3, 1204, "Đỉnh 4/2018", "l"], [2022.02, 1528, "Đỉnh 1/2022: 1.528", "l"], [2022.87, 873, "Đáy 11/2022: 873", "b"]],
+      read: x => `${x}: VN-Index khoảng ${vf(interp(VNI, x + 0.99))} điểm` }, anim);
+    lineChart("ch-fx", { x0: 2000, x1: 2025, y0: 14000, y1: 27000, yticks: [14000, 18000, 22000, 26000], yfmt: vf, xticks: [2000, 2010, 2020], series: [{ c: "var(--s4)", pts: FX }], markColor: "var(--s4)", readout: "rd-fx",
+      marks: [[2011, 20800, "2/2011: phá giá 9,3%", "l"], [2022, 24800, "2022: Fed tăng lãi suất", "l"]],
+      read: x => `${x}: khoảng ${vf(interp(FX, x))} đồng/USD` }, anim);
+    lineChart("ch-gold", { x0: 2000, x1: 2026, y0: 0, y1: 160, yticks: [0, 40, 80, 120, 160], yfmt: v => v + " tr", xticks: [2000, 2010, 2020], series: [{ c: "var(--bubble)", pts: GOLD, area: true }], markColor: "var(--bubble)", readout: "rd-gold",
+      marks: [[2011.7, 49, "Đỉnh 2011: 49 tr", "l"], [2025.8, 145, "2025: khoảng 145 tr", "l"]],
+      read: x => `${x}: khoảng ${nf(Math.round(interp(GOLD, x)))} triệu đồng/lượng` }, anim);
+  }
+
+  // ---------- ASSET HEATMAP ----------
+  const ASSETS = ["Cổ phiếu", "Trái phiếu chính phủ", "Vàng", "Bất động sản", "Tiền gửi, tiền mặt"];
+  const HEAT = [
+    ["growth", [[2, "Lợi nhuận doanh nghiệp tăng"], [0, "Ổn định, lãi vừa"], [-1, "Thường kém hơn cổ phiếu"], [1, "Tăng dần theo thu nhập"], [-1, "Thua lạm phát"]]],
+    ["boom", [[1, "Vẫn tăng, rủi ro lớn dần"], [-1, "Lãi suất tăng làm giá giảm"], [0, "Trung tính"], [2, "Tăng mạnh nhờ tín dụng"], [0, "Lãi tiết kiệm bắt đầu tăng"]]],
+    ["bubble", [[1, "Tăng chặng cuối, rồi đảo chiều đột ngột"], [-1, "Lãi suất ở đỉnh"], [1, "Bắt đầu được tìm đến"], [0, "Thanh khoản giảm dần"], [1, "Lãi cao, giữ được giá trị"]]],
+    ["crisis", [[-2, "Giảm 30–80%"], [2, "Lãi suất giảm, giá tăng"], [1, "Nơi trú ẩn (trừ lúc bán tháo)"], [-2, "Đóng băng, khó bán"], [2, "Giữ được việc và cơ hội mua rẻ"]]],
+    ["stagnation", [[0, "Đi ngang nhiều năm"], [1, "Ổn định"], [1, "Tốt khi lạm phát hoặc bất ổn"], [-1, "Đứng giá"], [0, "Tùy lãi suất thực"]]]
+  ];
+  const HEAT_WORD = { 2: "Thường tốt nhất", 1: "Khá", 0: "Trung tính", "-1": "Kém", "-2": "Thường tệ nhất" };
+  (function () {
+    const tb = document.getElementById("heat");
+    const head = document.createElement("tr"); head.innerHTML = "<th>Pha</th>"; ASSETS.forEach(a => { const th = document.createElement("th"); th.scope = "col"; th.textContent = a; head.appendChild(th); });
+    const th0 = document.createElement("thead"); th0.appendChild(head); tb.appendChild(th0);
+    const body = document.createElement("tbody");
+    HEAT.forEach(([type, cells]) => {
+      const tr = document.createElement("tr"), th = document.createElement("th"); th.scope = "row";
+      const pill = document.createElement("span"); pill.className = "pill"; pill.textContent = TYPES[type].name; pill.style.background = TYPES[type].c; pill.style.color = TYPES[type].on; th.appendChild(pill); tr.appendChild(th);
+      cells.forEach(([s, txt]) => { const td = document.createElement("td"); td.className = s < 0 ? "sm" + (-s) : "s" + s; td.innerHTML = "<b></b>"; td.firstChild.textContent = HEAT_WORD[s]; td.append(txt); tr.appendChild(td); });
+      body.appendChild(tr);
+    });
+    tb.appendChild(body);
+  })();
+
+  // ---------- CRISIS COMPARISON ----------
+  // [name, market, peak year, drop %, months down, years to regain peak, real economy]
+  const CRISES = [
+    ["Đại suy thoái", "Mỹ · Dow Jones", 1929, 89, 34, 25, "GDP Mỹ −26%"],
+    ["Cú sốc dầu", "Mỹ · S&P 500", 1973, 48, 21, 7.5, "Lạm phát 12%, suy thoái"],
+    ["Bong bóng Nhật Bản", "Nhật · Nikkei", 1989, 80, 232, 34, "Hai thập kỷ mất mát"],
+    ["Khủng hoảng châu Á", "Thái Lan · SET (đỉnh 1994)", 1997, 88, 56, 24, "GDP Thái −7,6% (1998)"],
+    ["Dot-com", "Mỹ · Nasdaq", 2000, 78, 31, 15, "Suy thoái nhẹ"],
+    ["Khủng hoảng 2008", "Mỹ · S&P 500", 2007, 57, 17, 5.5, "GDP Mỹ −4%"],
+    ["Khủng hoảng 2008", "Việt Nam · VN-Index", 2007, 80, 23, 11, "GDP VN vẫn +5,7%"],
+    ["COVID-19", "Mỹ · S&P 500", 2020, 34, 1, 0.5, "GDP Mỹ −3,4% (2020)"],
+    ["Trái phiếu 2022", "Việt Nam · VN-Index", 2022, 43, 10, 3.6, "GDP VN vẫn +8%"]
+  ];
+  let cmpSort = "year";
+  function drawCmp() {
+    const box = document.getElementById("cmp"); box.innerHTML = "";
+    const rows = CRISES.slice().sort((a, b) => cmpSort === "drop" ? b[3] - a[3] : cmpSort === "rec" ? b[5] - a[5] : a[2] - b[2]);
+    const hd = document.createElement("div"); hd.className = "cmp-row head"; hd.innerHTML = "<span>Cuộc khủng hoảng</span><span>Mức giảm từ đỉnh</span><span>Số năm để về lại đỉnh</span>"; box.appendChild(hd);
+    const maxRec = Math.max(...CRISES.map(c => c[5]));
+    rows.forEach(([name, mk, yr, drop, mon, rec, gdp]) => {
+      const r = document.createElement("div"); r.className = "cmp-row";
+      r.innerHTML = '<div class="cmp-name"><b></b><span></span></div><div class="bar"><i></i><span></span></div><div class="bar"><i></i><span></span></div>';
+      r.querySelector("b").textContent = `${name} (${yr})`; r.querySelector(".cmp-name span").textContent = `${mk} · ${gdp}`;
+      const [b1, b2] = r.querySelectorAll(".bar");
+      b1.firstChild.style.cssText = `width:${drop}%;background:color-mix(in srgb, var(--crisis) 55%, var(--surface))`;
+      b1.lastChild.textContent = `−${drop}% trong ${mon >= 24 ? nf(Math.round(mon / 12 * 10) / 10) + " năm" : mon + " tháng"}`;
+      b2.firstChild.style.cssText = `width:${rec / maxRec * 100}%;background:color-mix(in srgb, var(--stagnation) 60%, var(--surface))`;
+      b2.lastChild.textContent = rec < 1 ? `${Math.round(rec * 12)} tháng` : `${nf(rec)} năm`;
+      box.appendChild(r);
+    });
+  }
+  document.querySelectorAll("[data-sort]").forEach(b => b.onclick = () => { cmpSort = b.dataset.sort; document.querySelectorAll("[data-sort]").forEach(x => x.setAttribute("aria-pressed", x === b)); drawCmp(); });
+  drawCmp();
+
   // ---------- ROUTER ----------
-  const PAGES = ["tong-quan", "dong-thoi-gian", "ban-do", "xu-huong", "quoc-gia", "ke-hoach", "cam-nang", "tai-lieu"];
+  const PAGES = ["tong-quan", "dong-thoi-gian", "ban-do", "xu-huong", "quoc-gia", "viet-nam", "ke-hoach", "cam-nang", "tai-lieu"];
   let currentPage = null;
   function route() {
-    const h = location.hash.replace("#", "");
+    const [h, qs] = location.hash.replace("#", "").split("?");
+    const prm = new URLSearchParams(qs || "");
     const page = PAGES.includes(h) ? h : "tong-quan";
-    if (page === currentPage) return;
+    const cq = prm.get("c");
+    if (page === "quoc-gia" && cq && COUNTRIES.some(c => c.id === cq)) ctrySel = cq;
+    if (page === currentPage) { if (page === "ban-do") applyMapParams(prm); if (page === "quoc-gia") renderCountry(); return; }
     currentPage = page;
     document.querySelectorAll(".page").forEach(p => { const on = p.dataset.page === page; p.hidden = !on; p.classList.toggle("enter", on); });
     document.querySelectorAll("[data-nav]").forEach(a => a.setAttribute("aria-current", a.dataset.nav === page ? "page" : "false"));
@@ -2364,7 +2766,8 @@ footer { font-size: 12px; color: var(--muted); }
     if (page !== "dong-thoi-gian") stopPlay();
     if (page !== "ban-do") stopMap();
     if (page === "dong-thoi-gian") drawTimeline(!reduce);
-    if (page === "ban-do") initMap();
+    if (page === "ban-do") { applyMapParams(prm); initMap(); }
+    if (page === "viet-nam") drawVN(!reduce);
     if (page === "quoc-gia") renderCountry();
     if (page === "xu-huong") drawTrends(!reduce);
     if (page === "ke-hoach") { chartAnim = !reduce; update(); }
