@@ -1,0 +1,55 @@
+# Bản đồ Chu kỳ Kinh tế
+
+> Trang học tương tác bằng tiếng Việt về chu kỳ kinh tế 1700–2026 của 16 nền kinh tế (Mỹ, Anh, Đức, Pháp, Ý, Hà Lan, Nga, Nhật, Hàn Quốc, Đài Loan, Trung Quốc, Ấn Độ, Singapore, Thái Lan, Indonesia, Việt Nam), kèm chuyên mục Việt Nam, chu kỳ việc làm ngành tech và công cụ kế hoạch tài chính cho người trẻ. Số liệu là ước tính đã làm tròn để học, không phải tư vấn đầu tư.
+
+URL chính: https://tiennhm.io.vn/economic-cycles/
+Ngôn ngữ: tiếng Việt. Mã nguồn: https://github.com/TienNHM/economic-cycles
+
+## Các trang
+
+- [Tổng quan](https://tiennhm.io.vn/economic-cycles/#tong-quan): mẫu của một chu kỳ (tiền rẻ → vay nhiều → bong bóng → cú sốc → sửa chữa), 3 loại chu kỳ, 7 bài học, ảnh chụp tín hiệu hiện tại của Mỹ và Việt Nam.
+- [Dòng thời gian](https://tiennhm.io.vn/economic-cycles/#dong-thoi-gian): các pha của 16 nền kinh tế từ 1700 đến 2026, kịch bản 2027–2040.
+- [Bản đồ](https://tiennhm.io.vn/economic-cycles/#ban-do): bản đồ thế giới tô màu theo pha của từng năm.
+- [Xu hướng dài hạn](https://tiennhm.io.vn/economic-cycles/#xu-huong): tỷ trọng GDP thế giới, làn sóng công nghệ, dân số, CO₂, so sánh các cuộc khủng hoảng.
+- [Từng quốc gia](https://tiennhm.io.vn/economic-cycles/#quoc-gia): hồ sơ và toàn bộ giai đoạn của từng nước, có nguồn Wikipedia cho từng giai đoạn.
+- [Việt Nam](https://tiennhm.io.vn/economic-cycles/#viet-nam): VN-Index, tỷ giá USD/VND, vàng SJC, các vòng sốt bất động sản, khủng hoảng trái phiếu 2022.
+- [Việc làm tech](https://tiennhm.io.vn/economic-cycles/#viec-lam-tech): chu kỳ tuyển dụng và sa thải ngành công nghệ 1995–2026.
+- [Công cụ kế hoạch](https://tiennhm.io.vn/economic-cycles/#ke-hoach): mô phỏng tài sản theo tuổi, có thể chạy lại các cuộc khủng hoảng thật.
+- [Cẩm nang](https://tiennhm.io.vn/economic-cycles/#cam-nang): làm gì ở mỗi pha, tài sản thường diễn biến thế nào ở mỗi pha.
+
+## Dữ kiện chính
+
+### Mẫu chung
+- Pha: tăng trưởng → tăng trưởng nóng → bong bóng → khủng hoảng/suy thoái → trì trệ → phục hồi.
+- Bong bóng thường đi cùng tín dụng tăng nhanh và lãi suất thấp; khủng hoảng bắt đầu khi lãi suất tăng hoặc có cú sốc niềm tin.
+
+### So sánh khủng hoảng (chỉ số giảm từ đỉnh, số năm để về lại đỉnh, giá danh nghĩa)
+- Đại suy thoái 1929, Dow Jones: −89%, khoảng 25 năm.
+- Cú sốc dầu 1973, S&P 500: −48%, khoảng 7,5 năm.
+- Bong bóng Nhật 1989, Nikkei: −80%, khoảng 34 năm (vượt đỉnh 2/2024).
+- Khủng hoảng châu Á 1997, SET Thái Lan: −88%, khoảng 24 năm.
+- Dot-com 2000, Nasdaq: −78%, khoảng 15 năm.
+- Khủng hoảng 2008, S&P 500: −57%, khoảng 5,5 năm.
+- Khủng hoảng 2008, VN-Index: −80% (1.170 → 235), khoảng 11 năm.
+- COVID-19 2020, S&P 500: −34%, khoảng 5 tháng.
+- Trái phiếu 2022, VN-Index: −43% (1.528 → 873), khoảng 3,5 năm.
+
+### Việt Nam
+- VN-Index: đỉnh 3/2007 khoảng 1.170, đáy 2/2009 khoảng 235, đỉnh 4/2018 khoảng 1.204, đỉnh 1/2022 khoảng 1.528, đáy 11/2022 khoảng 873, vượt đỉnh 2022 vào năm 2025.
+- Bất động sản: sốt đất 1993–1995 và 2001–2003; bong bóng 2007–2008; đóng băng và nợ xấu 2011–2013; phục hồi 2014–2019; sốt đất nền 2020–2022; đóng băng 2022–2023; phục hồi không đều 2024–2025.
+- Khủng hoảng trái phiếu 2022: phát hành ồ ạt 2019–2021 (khoảng 700 nghìn tỷ đồng năm 2021, lãi 10–13%/năm); hủy 9 lô trái phiếu Tân Hoàng Minh (4/2022); Nghị định 65 (9/2022); Vạn Thịnh Phát và SCB (10/2022); Nghị định 08 cho gia hạn (3/2023).
+- Tỷ giá USD/VND: khoảng 14.500 (2000) → 20.800 (2011, sau phá giá 9,3%) → 24.800 (2022) → khoảng 26.300 (2025). VND mất giá trung bình khoảng 2–3%/năm.
+- Vàng SJC: khoảng 5 triệu/lượng (2000), đỉnh 49 triệu (2011), đi ngang 2012–2019, khoảng 145 triệu (cuối 2025).
+
+### Việc làm ngành tech
+- Tin tuyển lập trình viên ở Mỹ (Indeed, 2/2020 = 100): đỉnh khoảng 225 (đầu 2022), khoảng 62 (cuối 2025).
+- Sa thải ở các công ty tech (layoffs.fyi): khoảng 165.000 (2022), 264.000 (2023), 153.000 (2024).
+- Bị cắt trước: vị trí xa doanh thu, dự án thử nghiệm, recruiter, junior ở startup chưa có lãi. Giữ hoặc tăng tuyển: AI/ML, data, bảo mật, platform/SRE.
+
+### Tài sản theo pha (xu hướng điển hình)
+- Tăng trưởng: cổ phiếu tốt nhất, tiền mặt thua lạm phát.
+- Tăng trưởng nóng: bất động sản tăng mạnh nhờ tín dụng.
+- Khủng hoảng: cổ phiếu và bất động sản giảm mạnh; tiền mặt, trái phiếu chính phủ và vàng giữ giá tốt hơn.
+
+## Nguồn
+Angus Maddison Project, IMF, Ngân hàng Thế giới, HOSE, NHNN, SJC, World Gold Council, Indeed Hiring Lab, layoffs.fyi, S&P Dow Jones Indices, Wikipedia.

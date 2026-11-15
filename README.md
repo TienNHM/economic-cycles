@@ -10,6 +10,7 @@ Trang web tĩnh (một file `index.html`, không cần build), chia thành nhi�
 | Xu hướng dài hạn | `#xu-huong` | Tỷ trọng GDP thế giới 1700–2023, làn sóng công nghệ, dân số, CO₂, nhiệt độ, đầu đạn hạt nhân |
 | Từng quốc gia | `#quoc-gia` | Hồ sơ (địa lý, địa chính trị, tôn giáo, nhân chủng, văn hóa), toàn bộ giai đoạn và bài học, nguồn Wikipedia cho từng giai đoạn |
 | Việt Nam | `#viet-nam` | VN-Index, tỷ giá USD/VND, vàng SJC, các vòng sốt bất động sản, khủng hoảng trái phiếu 2022 |
+| Việc làm tech | `#viec-lam-tech` | Tin tuyển lập trình viên, số người bị sa thải, các chu kỳ việc làm tech 1995–2026, kỹ năng bị cắt và được giữ |
 | Công cụ kế hoạch | `#ke-hoach` | Slider: thu nhập, chi tiêu, tăng lương, lạm phát, lợi suất, quỹ khẩn cấp, mô phỏng khủng hoảng, mua nhà |
 | Cẩm nang | `#cam-nang` | Làm gì ở mỗi pha, 5 tín hiệu cần theo dõi, kế hoạch theo tuổi, checklist 90 ngày |
 | Tài liệu | `#tai-lieu` | Video, sách, nguồn dữ liệu, bài viết; lọc theo loại và tìm kiếm |
@@ -25,9 +26,11 @@ Thêm vào các trang:
 
 Link chia sẻ giữ đúng trạng thái: `#ban-do?y=2008&c=europe` (hoặc `c=uk,de,vn`), `#quoc-gia?c=vn`.
 
-Thư viện ECharts 4.9.0 và bản đồ `world.js` nằm sẵn trong `vendor/`, không phụ thuộc CDN. Ảnh xem trước khi chia sẻ: `og.png`.
+Thư viện ECharts 4.9.0 và bản đồ `world.js` nằm sẵn trong `vendor/` (không phụ thuộc CDN) và chỉ được tải khi mở trang Bản đồ. Ảnh xem trước khi chia sẻ: `og.png`.
 
-Trang được đăng bằng GitHub Pages từ nhánh `main`: http://tiennhm.io.vn/economic-cycles/
+SEO: `<html lang="vi">`, canonical, mô tả, JSON-LD (`WebSite`, `LearningResource`, `FAQPage`), `sitemap.xml`. Cho AI: `llms.txt` tóm tắt các dữ kiện chính (cập nhật khi đổi số liệu). `robots.txt` nằm ở gốc tên miền (repo `tiennhm.github.io`). Biểu tượng: `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`.
+
+Trang được đăng bằng GitHub Pages từ nhánh `main`: https://tiennhm.io.vn/economic-cycles/
 
 ## Chạy
 
