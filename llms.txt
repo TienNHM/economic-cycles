@@ -53,7 +53,9 @@ Ngôn ngữ: tiếng Việt. Mã nguồn: https://github.com/TienNHM/economic-cy
 - Ở Mỹ, chỉ 4,5% tin tuyển lập trình viên dành cho người mới (Q1/2026); senior chiếm 69,3%.
 - Tỷ lệ thất nghiệp sinh viên mới ra trường ở Mỹ: Khoa học máy tính 7,0%, Kỹ thuật máy tính 7,8%, mọi ngành khoảng 4,2% (New York Fed, số liệu 2024).
 - Lương trung vị back-end mới ra trường ở Việt Nam: 12,4 triệu đồng/tháng (ITviec 2025–2026).
-- Cửa còn mở: fresher AI ứng dụng, chương trình trainee của ngân hàng và tập đoàn, data/cloud/DevOps/bảo mật/QA automation, ngành truyền thống chuyển đổi số, startup và remote, vai trò cạnh kỹ thuật (BA, product, support).
+- Ở Việt Nam, tin tuyển senior nhiều gấp khoảng 4 lần tin cho người mới; tỷ lệ doanh nghiệp định mở rộng team IT giảm từ 73% (2024) xuống 60,7% (2025) theo ITviec. TopCV 2025–2026: lập trình viên mới vào nghề khó xin việc hơn; khó tuyển nhất là AI engineer, bridge engineer, solution architect.
+- Sáu hướng vào nghề (đánh giá định tính, cửa vào / dài hạn): AI ứng dụng (trung bình – thấp / rất cao); trainee, fresher (trung bình / cao); data, cloud, DevOps, bảo mật (thấp – trung bình / rất cao); IT trong ngành truyền thống (trung bình / cao, cần hiểu nghiệp vụ); startup và remote (thấp / cao nhưng rủi ro); BA, QA, support (tùy chuyên môn; là đường vào ngành IT, không tự động là đường vào nghề lập trình).
+- Khả năng cạnh tranh phụ thuộc vào năng lực hơn chức danh: người chỉ code theo hướng dẫn rất khó; người tự làm trọn một tính năng và giải quyết được vấn đề nghiệp vụ có lợi thế. Bốn nhóm năng lực đáng đầu tư: nền tảng kỹ thuật, kỹ thuật có AI hỗ trợ, tư duy hệ thống, hiểu nghiệp vụ.
 
 - Tin tuyển lập trình viên ở Mỹ (Indeed, 2/2020 = 100): đỉnh khoảng 225 (đầu 2022), khoảng 62 (cuối 2025).
 - Năm 2026: tin tuyển lập trình viên hồi phục lên khoảng 81 (11/2026, tăng khoảng 24% so với cùng kỳ), nhưng gần 70% là vị trí senior, chỉ khoảng 4,5% cho người mới.

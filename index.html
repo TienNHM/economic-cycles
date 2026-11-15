@@ -417,6 +417,10 @@ legend { font: 700 12px var(--font-data); text-transform: uppercase; letter-spac
 .ops li { list-style: none; border: 1px solid var(--line); border-left: 4px solid var(--c, var(--accent)); border-radius: 8px; padding: 12px; background: var(--surface-2); font-size: 14px; }
 .ops li b { display: block; margin-bottom: 4px; }
 .ops li small { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
+.ops .rate { display: block; font: 600 12px var(--font-data); color: var(--muted); margin-bottom: 6px; }
+.ops .rate em { font-style: normal; }
+#ladder { min-width: 0; } #ladder td:first-child { white-space: normal; font-weight: 400; }
+.ops .r1 { color: var(--crisis); } .ops .r2 { color: var(--bubble); } .ops .r3 { color: var(--ink); } .ops .r4 { color: var(--boom); }
 @media (max-width: 860px) { .ops { grid-template-columns: minmax(0, 1fr); } }
 .vcyc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 22px; }
 .vcyc li { position: relative; border: 1px solid var(--line); border-top: 4px solid var(--c); border-radius: 8px; padding: 12px; background: var(--surface-2); font-size: 13px; }
@@ -1078,14 +1082,14 @@ footer { font-size: 12px; color: var(--muted); }
     <div class="panel-head">
       <div>
         <h2 id="grad-title">Cơ hội cho sinh viên mới ra trường</h2>
-        <p>2026 là thị trường hai tốc độ: tin tuyển lập trình viên đã tăng trở lại, nhưng gần như toàn bộ là cho người có kinh nghiệm. Cửa cho người mới vẫn còn, chỉ hẹp hơn và nằm ở chỗ khác so với 2021.</p>
+        <p>Cửa vào ngành IT năm 2026 chưa đóng, nhưng tiêu chuẩn đầu vào đã đổi. Cần tách ba câu hỏi khác nhau: ngành nào còn nhu cầu, doanh nghiệp nào còn tuyển người mới, và người chưa có kinh nghiệm có cạnh tranh được không. Câu trả lời cho câu thứ ba khó hơn nhiều so với hai câu đầu.</p>
       </div>
     </div>
     <div class="kpis">
       <div class="kpi"><span class="k">Tin tuyển lập trình viên dành cho người mới (Mỹ)</span><span class="v">4,5%</span><span class="s">Q1/2026; senior chiếm 69,3%</span></div>
+      <div class="kpi"><span class="k">Tin tuyển senior so với tin cho người mới (Việt Nam)</span><span class="v">gấp ~4</span><span class="s">Doanh nghiệp định mở rộng team IT: 73% (2024) → 60,7% (2025)</span></div>
       <div class="kpi"><span class="k">Tỷ lệ thất nghiệp sinh viên mới ra trường ngành Khoa học máy tính (Mỹ)</span><span class="v">7,0%</span><span class="s">Kỹ thuật máy tính 7,8%; trung bình mọi ngành khoảng 4,2%</span></div>
       <div class="kpi"><span class="k">Lương trung vị back-end mới ra trường ở Việt Nam</span><span class="v">12,4 tr</span><span class="s">đồng/tháng; nhiều kinh nghiệm: 54,9 tr</span></div>
-      <div class="kpi"><span class="k">Tin tuyển lập trình viên 2026 so với cùng kỳ (Mỹ)</span><span class="v">+24%</span><span class="s">Thị trường đang hồi phục, bắt đầu từ senior</span></div>
     </div>
     <div class="chart-card" style="margin-top:16px">
       <h3>Tin tuyển lập trình viên chia theo cấp bậc, Q1/2026 (Mỹ)</h3>
@@ -1095,29 +1099,57 @@ footer { font-size: 12px; color: var(--muted); }
         <i style="width:4.5%;background:var(--bubble)" title="Người mới 4,5%"></i>
       </div>
       <div class="lvl-key"><span><i class="sw" style="background:var(--bubble)"></i>Người mới: 4,5%, cứ khoảng 22 tin tuyển mới có 1 tin cho người mới</span></div>
-      <p class="lesson">Đầu mỗi đợt hồi phục, công ty thường tuyển người làm được việc ngay trước. Người mới thường được tuyển nhiều trở lại khi senior trở nên khan hiếm và đắt hơn, nên đây là lúc chuẩn bị, không phải lúc bỏ cuộc.</p>
-      <p class="note">Nguồn: Indeed Hiring Lab (Q1/2026, 7/2026), New York Fed (Labor Market for Recent College Graduates, cập nhật 2/2026, số liệu 2024, tuổi 22–27), ITviec (báo cáo lương 2025–2026).</p>
+      <p class="lesson">AI không tạo ra sân chơi bình đẳng cho người mới. Nó là công cụ cho tất cả mọi người, và người đã có nền tảng kỹ thuật thường tận dụng được nhiều hơn. Ở Việt Nam, TopCV ghi nhận lập trình viên mới vào nghề khó xin việc hơn, trong khi các vị trí khó tuyển nhất lại là AI engineer, bridge engineer và solution architect.</p>
+      <p class="note">Nguồn: Indeed Hiring Lab (Q1/2026, 7/2026), New York Fed (cập nhật 2/2026, số liệu 2024, tuổi 22–27), ITviec (báo cáo 2024–2025 và 2025–2026, qua CafeF và VnExpress), TopCV 2025–2026 (qua VnExpress).</p>
     </div>
 
-    <h3 style="margin:20px 0 10px">Cửa còn mở ở đâu</h3>
+    <h3 style="margin:20px 0 6px">Sáu hướng vào nghề: cơ hội thật và rào cản thật</h3>
+    <p class="note" style="margin:0 0 10px">Đánh giá định tính, không phải xác suất trúng tuyển. “Cửa vào” là mức dễ cho người chưa có kinh nghiệm; “Dài hạn” là triển vọng nếu đã vào được.</p>
     <ul class="ops">
-      <li style="--c:var(--boom)"><b>Fresher AI ứng dụng</b>Xây chatbot, AI agent, tích hợp LLM vào sản phẩm có sẵn. Đây là mảng mới nên người mới và người cũ gần như xuất phát cùng lúc.<small>Ví dụ 2026: tin “Fresher Accepted” cho AI Agent Engineer trên ITviec, MB Trainee AI Engineer.</small></li>
-      <li style="--c:var(--s1)"><b>Chương trình trainee, fresher</b>Ngân hàng, tập đoàn lớn và công ty gia công phần mềm vẫn tuyển theo lứa và tự đào tạo. Cạnh tranh cao nhưng có lộ trình rõ.<small>Tuyển theo đợt, thường vào đầu và giữa năm; thực tập trước khi tốt nghiệp là lợi thế lớn.</small></li>
-      <li style="--c:var(--growth)"><b>Data, cloud, DevOps, bảo mật, QA automation</b>Các mảng giữ hệ thống chạy và an toàn. Ít bị cắt khi khủng hoảng, và AI hỗ trợ chứ khó thay thế hoàn toàn.<small>Chứng chỉ cloud (AWS, Azure) giúp CV người mới nổi bật hơn.</small></li>
-      <li style="--c:var(--bubble)"><b>Ngành truyền thống chuyển đổi số</b>Ngân hàng, bán lẻ, logistics, sản xuất, y tế cần người biết công nghệ và hiểu nghiệp vụ. Ít người chú ý hơn Big Tech nên dễ vào hơn.<small>Lương khởi điểm có thể thấp hơn, nhưng ổn định khi tech sa thải.</small></li>
-      <li style="--c:var(--accent)"><b>Startup và remote cho nước ngoài</b>Startup AI tuyển ít nhưng cho làm nhiều thứ; remote cần tiếng Anh tốt và portfolio thật.<small>Rủi ro cao hơn: startup có thể đóng cửa khi hết vốn.</small></li>
-      <li style="--c:var(--stagnation)"><b>Vai trò cạnh kỹ thuật</b>Business analyst, product, technical support, solution, kiểm thử AI và gán nhãn dữ liệu. Cửa vào ngành rồi chuyển dần sang kỹ thuật.<small>Nhiều người chuyển sang dev sau 1–2 năm khi đã có kinh nghiệm thật.</small></li>
+      <li style="--c:var(--boom)"><b>AI ứng dụng (chatbot, agent, tích hợp LLM)</b><span class="rate">Cửa vào: <em class="r2">trung bình – thấp</em> · Dài hạn: <em class="r4">rất cao</em></span>AI mới, nhưng nền tảng để làm sản phẩm AI tốt thì không mới: backend, API, database, bảo mật, kiểm thử. Một senior backend học thêm RAG và agent thường đi nhanh hơn fresher chỉ biết gọi API.<small>Để nổi bật: chứng minh được cách xử lý hallucination, đánh giá chất lượng câu trả lời, kiểm soát chi phí token, bảo vệ dữ liệu, giới hạn quyền của agent.</small></li>
+      <li style="--c:var(--s1)"><b>Chương trình trainee, fresher</b><span class="rate">Cửa vào: <em class="r3">trung bình</em> · Dài hạn: <em class="r3">cao</em></span>Ngân hàng, tập đoàn và công ty gia công vẫn tuyển theo lứa và tự đào tạo, nhưng chỉ vài đợt mỗi năm, ít suất, thường lọc bằng GPA, tiếng Anh, thuật toán.<small>Kênh tốt để vào nghề, nhưng đừng đặt cả kế hoạch vào một chương trình: số suất thay đổi theo ngân sách từng năm.</small></li>
+      <li style="--c:var(--growth)"><b>Data, cloud, DevOps, bảo mật, QA automation</b><span class="rate">Cửa vào: <em class="r1">thấp – trung bình</em> · Dài hạn: <em class="r4">rất cao</em></span>Nhu cầu cao nhưng chủ yếu cần người có kinh nghiệm: người mới khó được giao quyền production, bảo mật cần hiểu hệ thống, data cần hiểu pipeline. Không mảng nào mặc nhiên an toàn khi cắt giảm, và AI cũng đang tự động hóa một phần việc test, giám sát, phân tích log.<small>Chứng chỉ cloud là bằng chứng bổ trợ, không phải tấm vé: nhà tuyển dụng muốn thấy bạn từng dựng, vận hành và sửa một hệ thống thật.</small></li>
+      <li style="--c:var(--bubble)"><b>IT trong ngành truyền thống</b><span class="rate">Cửa vào: <em class="r3">trung bình</em> · Dài hạn: <em class="r3">cao</em></span>Ngân hàng, bán lẻ, logistics, sản xuất cần người vừa biết công nghệ vừa hiểu nghiệp vụ (tín dụng, thanh toán, đối soát, kho vận). Ít người chú ý chưa chắc là dễ vào.<small>Không mặc định ổn định hơn: họ vẫn có thể cắt ngân sách IT, thuê ngoài hoặc mua SaaS thay cho team nội bộ.</small></li>
+      <li style="--c:var(--accent)"><b>Startup và remote cho nước ngoài</b><span class="rate">Cửa vào: <em class="r1">thấp</em> · Dài hạn: <em class="r3">cao nhưng rủi ro</em></span>Startup ít nguồn lực nên thường muốn người tự xử lý được việc ngay, không phải người cần đào tạo. Remote nghĩa là cạnh tranh với ứng viên nhiều nước, kèm múi giờ, hợp đồng, thuế.<small>Phù hợp hơn cho bước thứ hai trong sự nghiệp, sau khi đã có năng lực thực chiến.</small></li>
+      <li style="--c:var(--stagnation)"><b>BA, QA, support, product</b><span class="rate">Cửa vào: <em class="r3">tùy chuyên môn</em> · Dài hạn: <em class="r3">tốt nếu có định hướng rõ</em></span>Đây là đường vào ngành IT, không tự động là đường vào nghề lập trình. Muốn chuyển sang dev vẫn phải học lại lập trình, API, database, thiết kế phần mềm, và cạnh tranh với fresher có nền tảng tốt hơn.<small>Chọn vì bạn thích vai trò đó, không chỉ coi là đường tắt.</small></li>
     </ul>
+
+    <h3 style="margin:20px 0 10px">Đừng chỉ hỏi ngành nào còn cửa, hãy hỏi năng lực nào còn giá trị</h3>
+    <div class="charts">
+      <div class="chart-card">
+        <h3>Khả năng cạnh tranh theo năng lực, không theo chức danh</h3>
+        <div class="table-scroll"><table class="skill" id="ladder">
+          <thead><tr><th>Bạn làm được gì</th><th>Khả năng cạnh tranh 2026</th></tr></thead>
+          <tbody>
+            <tr><td>Code theo hướng dẫn, vài dự án CRUD hoặc chatbot gọi API</td><td class="cut">Rất khó</td></tr>
+            <tr><td>Dùng AI để làm nhanh hơn, nhưng chưa tự làm trọn một tính năng</td><td>Có cơ hội, phải chứng minh</td></tr>
+            <tr><td>Tự làm trọn một tính năng: thiết kế, code, test, deploy</td><td class="up">Tốt hơn đáng kể</td></tr>
+            <tr><td>Giải quyết được vấn đề nghiệp vụ và kỹ thuật cùng lúc</td><td class="up">Có lợi thế</td></tr>
+            <tr><td>Chịu trách nhiệm kiến trúc, vận hành, rủi ro của cả hệ thống</td><td class="up">Giá trị cao</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="chart-card">
+        <h3>Bốn nhóm năng lực đáng đầu tư</h3>
+        <ol class="lessons" style="grid-template-columns:minmax(0,1fr)">
+          <li><div><b>Nền tảng kỹ thuật</b>Lập trình, cơ sở dữ liệu, mạng, hệ điều hành, hệ thống phân tán. Không lỗi thời theo framework.</div></li>
+          <li><div><b>Kỹ thuật có AI hỗ trợ</b>Dùng AI để làm phần mềm, xây agent, và quan trọng nhất là kiểm soát chất lượng đầu ra của AI.</div></li>
+          <li><div><b>Tư duy hệ thống</b>Kiến trúc, khả năng chịu tải, độ tin cậy, bảo mật, hiệu năng, vận hành.</div></li>
+          <li><div><b>Hiểu nghiệp vụ</b>Hiểu người dùng và biến vấn đề kinh doanh thành giải pháp kỹ thuật.</div></li>
+        </ol>
+      </div>
+    </div>
 
     <h3 style="margin:20px 0 10px">Kế hoạch 12 tháng cho người mới</h3>
     <ol class="lessons">
-      <li><div><b>Thực tập trước khi tốt nghiệp</b>Phần lớn suất fresher được lấp bởi chính thực tập sinh của công ty. Một kỳ thực tập đáng giá hơn nhiều chứng chỉ.</div></li>
-      <li><div><b>2–3 dự án thật, có dùng AI</b>Sản phẩm có người dùng, có deploy, có README rõ ràng. Cho thấy bạn dùng AI để làm nhanh hơn, không phải để thay mình suy nghĩ.</div></li>
-      <li><div><b>Chọn một mảng sâu</b>Backend, data, cloud hoặc bảo mật, cộng với kỹ năng AI. Người mới “biết một chút mọi thứ” cạnh tranh trực tiếp với công cụ AI.</div></li>
-      <li><div><b>Năm đầu chọn nơi học được nhiều</b>Đừng chỉ so lương khởi điểm. Người hướng dẫn tốt và việc thật quan trọng hơn vài triệu đồng mỗi tháng.</div></li>
-      <li><div><b>Ra trường lúc thị trường xấu không phải là mãi mãi</b>Nghiên cứu ở Mỹ và Canada (Kahn 2010, Oreopoulos 2012) cho thấy người ra trường lúc suy thoái có lương thấp hơn vài năm đầu, rồi khoảng cách thu hẹp dần sau khoảng 10 năm. Người chủ động đổi việc lúc thị trường hồi phục bắt kịp nhanh hơn.</div></li>
-      <li><div><b>Tiếng Anh và mạng lưới</b>Khi tin tuyển ít, việc tốt thường đến qua người giới thiệu. Tham gia cộng đồng, meetup, đóng góp mã nguồn mở.</div></li>
+      <li><div><b>Thực tập trước khi tốt nghiệp</b>Nhiều suất fresher được lấp bởi chính thực tập sinh của công ty. Một kỳ thực tập có việc thật đáng giá hơn nhiều chứng chỉ.</div></li>
+      <li><div><b>Một dự án làm trọn, thay vì nhiều dự án dở</b>Có người dùng thật, có deploy, có test, có xử lý lỗi và bảo mật. Một chatbot gọi API hay một app CRUD không còn đủ để nổi bật.</div></li>
+      <li><div><b>Nền tảng trước, công cụ sau</b>Học chắc lập trình, database, mạng và hệ thống. Framework và công cụ AI đổi mỗi năm; nền tảng thì không.</div></li>
+      <li><div><b>Dùng AI nhưng hiểu từng dòng</b>Nhà tuyển dụng sẽ hỏi vì sao code chạy và khi nào nó sai. Người chỉ dán code AI viết sẽ lộ ngay ở vòng phỏng vấn.</div></li>
+      <li><div><b>Rải nhiều kênh cùng lúc</b>Trainee, công ty gia công, IT trong ngân hàng và doanh nghiệp truyền thống. Đừng chờ một chương trình duy nhất.</div></li>
+      <li><div><b>Ra trường lúc thị trường xấu không phải là mãi mãi</b>Nghiên cứu ở Mỹ và Canada (Kahn 2010, Oreopoulos 2012) cho thấy người ra trường lúc suy thoái có lương thấp hơn vài năm đầu, rồi khoảng cách thu hẹp dần sau khoảng 10 năm.</div></li>
     </ol>
+    <p class="lesson" style="margin-top:14px">Đừng cạnh tranh với AI bằng tốc độ viết code. Hãy cạnh tranh bằng khả năng hiểu vấn đề, thiết kế giải pháp, kiểm soát rủi ro và chịu trách nhiệm với kết quả.</p>
   </section>
 
   <section class="panel" aria-labelledby="jobl-title">
