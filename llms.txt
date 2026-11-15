@@ -41,7 +41,20 @@ Ngôn ngữ: tiếng Việt. Mã nguồn: https://github.com/TienNHM/economic-cy
 - Tỷ giá USD/VND: khoảng 14.500 (2000) → 20.800 (2011, sau phá giá 9,3%) → 24.800 (2022) → khoảng 26.300 (2025). VND mất giá trung bình khoảng 2–3%/năm.
 - Vàng SJC: khoảng 5 triệu/lượng (2000), đỉnh 49 triệu (2011), đi ngang 2012–2019, khoảng 145 triệu (cuối 2025).
 
+- Năm 2026 (đến tháng 11): VN-Index khoảng 1.740; vàng SJC lập đỉnh khoảng 191 triệu/lượng đầu 2026 rồi giảm về khoảng 138 triệu; tỷ giá khoảng 25.750 đồng/USD (VND lên giá nhẹ).
+- Tăng trưởng GDP: 2008: 5,7%; 2011: 6,2%; 2020: 2,9%; 2021: 2,6%; 2022: 8,0%; 2023: 5,1%; 2024: 7,1%; 2025: 8,0%; 2026: 9,0% (9 tháng).
+- Lạm phát CPI bình quân: 2008: 23%; 2011: 18,6%; 2015: 0,6%; 2025: 3,3%; 2026: 4,6% (10 tháng).
+- Tăng trưởng tín dụng: 2007: 54%; 2009: 38%; 2010: 30%; 2012: 9%; 2015–2017: khoảng 18%; 2020–2024: 12–15%; 2025: khoảng 18%; 2026: 12,6% (đến cuối tháng 10).
+- Vòng lặp kinh tế Việt Nam: tín dụng nới → tài sản sốt → lạm phát hoặc đổ vỡ → Nhà nước siết → đóng băng rồi nới lại, mỗi vòng khoảng 4–7 năm.
+
 ### Việc làm ngành tech
+
+#### Sinh viên mới ra trường (2026)
+- Ở Mỹ, chỉ 4,5% tin tuyển lập trình viên dành cho người mới (Q1/2026); senior chiếm 69,3%.
+- Tỷ lệ thất nghiệp sinh viên mới ra trường ở Mỹ: Khoa học máy tính 7,0%, Kỹ thuật máy tính 7,8%, mọi ngành khoảng 4,2% (New York Fed, số liệu 2024).
+- Lương trung vị back-end mới ra trường ở Việt Nam: 12,4 triệu đồng/tháng (ITviec 2025–2026).
+- Cửa còn mở: fresher AI ứng dụng, chương trình trainee của ngân hàng và tập đoàn, data/cloud/DevOps/bảo mật/QA automation, ngành truyền thống chuyển đổi số, startup và remote, vai trò cạnh kỹ thuật (BA, product, support).
+
 - Tin tuyển lập trình viên ở Mỹ (Indeed, 2/2020 = 100): đỉnh khoảng 225 (đầu 2022), khoảng 62 (cuối 2025).
 - Năm 2026: tin tuyển lập trình viên hồi phục lên khoảng 81 (11/2026, tăng khoảng 24% so với cùng kỳ), nhưng gần 70% là vị trí senior, chỉ khoảng 4,5% cho người mới.
 - Tin tuyển lập trình viên theo nước (Indeed qua FRED, 2/2020 = 100, tháng 9–11/2026): Úc khoảng 101, Mỹ 81, Canada 76, Anh 62, Pháp 52, Đức 49.
