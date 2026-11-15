@@ -10,7 +10,7 @@ Trang web tĩnh (một file `index.html`, không cần build), chia thành nhi�
 | Xu hướng dài hạn | `#xu-huong` | Tỷ trọng GDP thế giới 1700–2023, làn sóng công nghệ, dân số, CO₂, nhiệt độ, đầu đạn hạt nhân |
 | Từng quốc gia | `#quoc-gia` | Hồ sơ (địa lý, địa chính trị, tôn giáo, nhân chủng, văn hóa), toàn bộ giai đoạn và bài học, nguồn Wikipedia cho từng giai đoạn |
 | Việt Nam | `#viet-nam` | VN-Index, tỷ giá USD/VND, vàng SJC, các vòng sốt bất động sản, khủng hoảng trái phiếu 2022 |
-| Việc làm tech | `#viec-lam-tech` | Tin tuyển lập trình viên, số người bị sa thải, các chu kỳ việc làm tech 1995–2026, kỹ năng bị cắt và được giữ |
+| Việc làm tech | `#viec-lam-tech` | Tin tuyển lập trình viên so với mọi ngành, số người bị sa thải, vốn mạo hiểm và lãi suất Fed, nhân sự Big Tech, các đợt cắt giảm lớn, các chu kỳ việc làm tech 1995–2026, kỹ năng bị cắt và được giữ |
 | Công cụ kế hoạch | `#ke-hoach` | Slider: thu nhập, chi tiêu, tăng lương, lạm phát, lợi suất, quỹ khẩn cấp, mô phỏng khủng hoảng, mua nhà |
 | Cẩm nang | `#cam-nang` | Làm gì ở mỗi pha, 5 tín hiệu cần theo dõi, kế hoạch theo tuổi, checklist 90 ngày |
 | Tài liệu | `#tai-lieu` | Video, sách, nguồn dữ liệu, bài viết; lọc theo loại và tìm kiếm |

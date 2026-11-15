@@ -468,6 +468,10 @@ td.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; whit
 .skill td:first-child { font-weight: 700; white-space: nowrap; }
 .skill .cut { color: var(--crisis); }
 .skill .up { color: var(--boom); }
+.skill td.num { font-family: var(--font-data); text-align: right; white-space: nowrap; }
+.skill th.num { text-align: right; }
+.skill td.neg { color: var(--crisis); font-weight: 700; }
+.skill td.pos { color: var(--boom); font-weight: 700; }
 .mt-line { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 @media (max-width: 620px) {
   .cmp-row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
@@ -920,10 +924,11 @@ footer { font-size: 12px; color: var(--muted); }
     <div class="charts">
       <div class="chart-card">
         <h3>Tin tuyển lập trình viên ở Mỹ (2/2020 = 100)</h3>
-        <svg id="ch-jobs" viewBox="0 0 1000 380" role="img" aria-label="Chỉ số tin tuyển dụng lập trình viên trên Indeed từ 2020 đến 2025"></svg>
+        <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>Lập trình viên</span><span><i class="sw" style="background:var(--muted)"></i>Tất cả ngành nghề</span></div>
+        <svg id="ch-jobs" viewBox="0 0 1000 380" role="img" aria-label="Chỉ số tin tuyển dụng lập trình viên và tất cả ngành nghề trên Indeed từ 2020 đến 2025"></svg>
         <div class="readout" id="rd-jobs">Rê chuột để xem từng năm.</div>
-        <p class="lesson">Số tin tuyển tăng hơn gấp đôi khi lãi suất bằng 0 (2021–2022), rồi rơi xuống dưới mức trước COVID khi Fed tăng lãi suất. Tuyển dụng đi theo giá tiền, không chỉ theo nhu cầu công nghệ.</p>
-        <p class="note">Nguồn: Indeed Hiring Lab, chỉ số tin tuyển “Software Development”, làm tròn.</p>
+        <p class="lesson">Số tin tuyển lập trình viên tăng hơn gấp đôi khi lãi suất bằng 0 (2021–2022), rồi rơi xuống dưới mức trước COVID khi Fed tăng lãi suất. Tin tuyển chung của mọi ngành vẫn trên mức trước COVID: tech lên mạnh hơn và xuống sâu hơn phần còn lại của nền kinh tế.</p>
+        <p class="note">Nguồn: Indeed Hiring Lab (chỉ số “Software Development” và tổng tin tuyển ở Mỹ), Fed. Làm tròn.</p>
       </div>
       <div class="chart-card">
         <h3>Số người bị sa thải ở các công ty tech (thế giới)</h3>
@@ -942,6 +947,40 @@ footer { font-size: 12px; color: var(--muted); }
       </div>
     </div>
     <ol class="phases" id="job-cycles"></ol>
+  </section>
+
+  <section class="panel" aria-labelledby="money-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="money-title">Tiền chảy vào tech, rồi rút ra</h2>
+        <p>Tiền vốn mạo hiểm và lãi suất quyết định startup tuyển bao nhiêu người. Big Tech cũng tuyển theo cùng nhịp đó.</p>
+      </div>
+    </div>
+    <div class="charts">
+      <div class="chart-card">
+        <h3>Vốn đầu tư mạo hiểm toàn cầu mỗi năm</h3>
+        <div id="ch-vc"></div>
+        <p class="lesson">Năm 2021 vốn mạo hiểm gấp đôi 2020, đúng lúc lãi suất bằng 0. Khi Fed lên 5,5%, vốn rơi hơn một nửa. Từ 2024, vốn quay lại nhưng phần lớn chảy vào AI.</p>
+        <p class="note">Nguồn: Crunchbase (vốn mạo hiểm toàn cầu), Fed (lãi suất cuối năm, mức trên). Làm tròn.</p>
+      </div>
+      <div class="chart-card">
+        <h3>Số nhân viên của Big Tech</h3>
+        <div class="table-scroll"><table class="skill" id="bigtech"></table></div>
+        <p class="lesson">Từ 2019 đến 2022, Meta, Google, Microsoft và Amazon tăng nhân sự 50–100%. Đợt sa thải 2023 chỉ cắt lại một phần nhỏ số đã tuyển thêm.</p>
+        <p class="note">Nguồn: báo cáo thường niên (10-K) của từng công ty, số cuối năm tài chính, làm tròn. Microsoft tính năm tài chính kết thúc tháng 6.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="cuts-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="cuts-title">Các đợt cắt giảm lớn, 2022–2025</h2>
+        <p>Các công ty có lãi vẫn sa thải: mục tiêu là giảm chi phí để làm vừa lòng nhà đầu tư khi tiền đắt, và dồn tiền cho AI.</p>
+      </div>
+    </div>
+    <div class="table-scroll"><table class="skill" id="cuts"></table></div>
+    <p class="note">Nguồn: thông báo của công ty và báo chí (Reuters, CNBC, The Verge), làm tròn.</p>
   </section>
 
   <section class="panel" aria-labelledby="skill-title">
@@ -2956,6 +2995,24 @@ footer { font-size: 12px; color: var(--muted); }
 
   // ---------- TECH JOBS ----------
   const JOBS = [[2020.1, 100], [2020.4, 66], [2020.8, 85], [2021.2, 115], [2021.7, 175], [2022.2, 225], [2022.6, 195], [2022.95, 150], [2023.4, 100], [2023.9, 80], [2024.4, 72], [2024.9, 68], [2025.4, 64], [2025.8, 62]];
+  const JOBS_ALL = [[2020.1, 100], [2020.4, 64], [2020.8, 88], [2021.2, 108], [2021.7, 140], [2022.2, 155], [2022.6, 150], [2022.95, 140], [2023.4, 128], [2023.9, 118], [2024.4, 112], [2024.9, 110], [2025.4, 106], [2025.8, 104]];
+  const FED = { 2020: "0–0,25%", 2021: "0–0,25%", 2022: "0,25% → 4,5%", 2023: "4,5% → 5,5%", 2024: "5,5% → 4,5%", 2025: "4,5% → 3,75%" };
+  // [năm, vốn mạo hiểm toàn cầu (tỷ USD), lãi suất Fed cuối năm]
+  const VC = [[2019, 295, "1,75%"], [2020, 300, "0,25%"], [2021, 640, "0,25%"], [2022, 445, "4,5%"], [2023, 285, "5,5%"], [2024, 315, "4,5%"], [2025, 425, "3,75%"]];
+  // [công ty, 2019, 2022, 2024] số nhân viên
+  const BIGTECH = [["Meta", 44900, 86500, 74100], ["Alphabet (Google)", 118900, 190200, 183300], ["Microsoft", 144000, 221000, 228000], ["Amazon", 798000, 1541000, 1556000]];
+  const CUTS = [
+    ["11/2022", "Twitter (X)", "khoảng 3.700", "khoảng 50%", "Sau khi Elon Musk mua lại"],
+    ["11/2022", "Meta", "11.000", "13%", "Đợt sa thải lớn đầu tiên trong lịch sử Meta"],
+    ["1/2023", "Amazon", "18.000", "khoảng 6% văn phòng", "Thêm 9.000 người vào tháng 3/2023"],
+    ["1/2023", "Microsoft", "10.000", "khoảng 5%", ""],
+    ["1/2023", "Google", "12.000", "khoảng 6%", "Lớn nhất trong lịch sử Google"],
+    ["1/2023", "Salesforce", "khoảng 8.000", "10%", ""],
+    ["3/2023", "Meta", "10.000", "khoảng 11%", "“Năm hiệu quả”"],
+    ["8/2024", "Intel", "khoảng 15.000", "khoảng 15%", "Thua lỗ, tụt lại trong cuộc đua chip AI"],
+    ["2025", "Microsoft", "khoảng 15.000", "khoảng 7%", "Hai đợt (5 và 7/2025) dù lãi kỷ lục, dồn tiền cho AI"],
+    ["10/2025", "Amazon", "khoảng 14.000", "khoảng 4% văn phòng", "Giảm tầng quản lý, đầu tư AI"]
+  ];
   const LAYOFFS = [[2020, 81000], [2021, 16000], [2022, 165000], [2023, 264000], [2024, 153000], [2025, 123000]];
   const JOB_CYCLES = [
     ["1995–2000", "bubble", "Bong bóng dot-com", "Internet và vốn mạo hiểm dồi dào: công ty chưa có doanh thu vẫn tuyển hàng trăm người. Lương lập trình viên tăng vọt, ai biết HTML cũng có việc."],
@@ -2988,12 +3045,36 @@ footer { font-size: 12px; color: var(--muted); }
       box.appendChild(r);
     });
     const n = document.createElement("p"); n.className = "note"; n.textContent = "* 2025: ước tính theo số đã công bố."; box.appendChild(n);
+    const vc = document.getElementById("ch-vc"), vmax = Math.max(...VC.map(x => x[1]));
+    VC.forEach(([y, v, fed]) => {
+      const r = document.createElement("div"); r.className = "lay-row";
+      r.innerHTML = '<span></span><div class="bar"><i></i><span></span></div>';
+      r.firstChild.textContent = y + (y === 2025 ? "*" : "");
+      r.querySelector("i").style.cssText = `width:${v / vmax * 100}%;background:color-mix(in srgb, var(--accent) 45%, var(--surface))`;
+      r.querySelector(".bar span").textContent = `khoảng ${v} tỷ USD · Fed ${fed}`;
+      vc.appendChild(r);
+    });
+    const n2 = document.createElement("p"); n2.className = "note"; n2.textContent = "* 2025: ước tính, khoảng một nửa vào các công ty AI."; vc.appendChild(n2);
+    const bt = document.getElementById("bigtech"), nf0 = v => v.toLocaleString("vi-VN");
+    bt.innerHTML = '<thead><tr><th>Công ty</th><th class="num">2019</th><th class="num">2022</th><th class="num">2024</th><th class="num">2019→2022</th></tr></thead><tbody></tbody>';
+    BIGTECH.forEach(([name, a, b, c]) => {
+      const tr = document.createElement("tr");
+      [name, nf0(a), nf0(b), nf0(c), "+" + Math.round((b / a - 1) * 100) + "%"].forEach((v, i) => { const td = document.createElement("td"); td.textContent = v; if (i) td.className = i === 4 ? "num pos" : "num"; tr.appendChild(td); });
+      bt.tBodies[0].appendChild(tr);
+    });
+    const ct = document.getElementById("cuts");
+    ct.innerHTML = '<thead><tr><th>Thời gian</th><th>Công ty</th><th class="num">Số người</th><th class="num">Tỷ lệ</th><th>Ghi chú</th></tr></thead><tbody></tbody>';
+    CUTS.forEach(r => {
+      const tr = document.createElement("tr");
+      r.forEach((v, i) => { const td = document.createElement("td"); td.textContent = v; if (i === 2) td.className = "num neg"; if (i === 3) td.className = "num"; tr.appendChild(td); });
+      ct.tBodies[0].appendChild(tr);
+    });
   })();
   function drawJobs(anim) {
-    lineChart("ch-jobs", { x0: 2020, x1: 2026, y0: 0, y1: 250, yticks: [0, 50, 100, 150, 200, 250], yfmt: v => v, xticks: [2020, 2021, 2022, 2023, 2024, 2025, 2026], series: [{ c: "var(--accent)", pts: JOBS, area: true }], markColor: "var(--accent)", readout: "rd-jobs",
+    lineChart("ch-jobs", { x0: 2020, x1: 2026, y0: 0, y1: 250, yticks: [0, 50, 100, 150, 200, 250], yfmt: v => v, xticks: [2020, 2021, 2022, 2023, 2024, 2025, 2026], series: [{ c: "var(--muted)", pts: JOBS_ALL }, { c: "var(--accent)", pts: JOBS, area: true }], markColor: "var(--accent)", readout: "rd-jobs",
       refs: [[100, "Mức trước COVID"]], bands: [[2022.2, 2023.6, "Fed tăng lãi suất"]],
-      marks: [[2022.2, 225, "Đỉnh 2022: gấp 2,25 lần", "r"], [2025.8, 62, "2025: khoảng 62", "l"]],
-      read: x => `${x}: chỉ số khoảng ${Math.round(interp(JOBS, x + 0.5))}` }, anim);
+      marks: [[2022.2, 225, "Đỉnh 2022: gấp 2,25 lần", "l"], [2025.8, 62, "Lập trình viên: 62", "l"], [2025.8, 104, "Tất cả: 104", "l"]],
+      read: x => x >= 2026 ? "2026: chưa có số cả năm" : `${x}: lập trình viên khoảng ${Math.round(interp(JOBS, x + 0.5))}, tất cả ngành khoảng ${Math.round(interp(JOBS_ALL, x + 0.5))} · lãi suất Fed ${FED[x]}` }, anim);
   }
 
   // ---------- ROUTER ----------
