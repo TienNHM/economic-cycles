@@ -44,6 +44,8 @@ Ngôn ngữ: tiếng Việt. Mã nguồn: https://github.com/TienNHM/economic-cy
 ### Việc làm ngành tech
 - Tin tuyển lập trình viên ở Mỹ (Indeed, 2/2020 = 100): đỉnh khoảng 225 (đầu 2022), khoảng 62 (cuối 2025).
 - Năm 2026: tin tuyển lập trình viên hồi phục lên khoảng 81 (11/2026, tăng khoảng 24% so với cùng kỳ), nhưng gần 70% là vị trí senior, chỉ khoảng 4,5% cho người mới.
+- Tin tuyển lập trình viên theo nước (Indeed qua FRED, 2/2020 = 100, tháng 9–11/2026): Úc khoảng 101, Mỹ 81, Canada 76, Anh 62, Pháp 52, Đức 49.
+- Số lập trình viên (ước tính): thế giới khoảng 22–29 triệu, Trung Quốc 4–7 triệu, Ấn Độ 4–6 triệu, Việt Nam khoảng 530.000–560.000 (TopDev). Lương back-end trung vị ở Việt Nam: 12,4 triệu (mới ra trường) đến 54,9 triệu đồng/tháng (nhiều kinh nghiệm), theo ITviec 2025–2026.
 - Tổng tin tuyển mọi ngành ở Mỹ (Indeed, 2/2020 = 100): đỉnh khoảng 155 (đầu 2022), khoảng 104 (cuối 2025), khoảng 107 (11/2026).
 - Sa thải ở các công ty tech (layoffs.fyi): khoảng 165.000 (2022), 264.000 (2023), 153.000 (2024), 123.000 (2025), khoảng 137.000 (2026, đến giữa tháng 11).
 - Vốn mạo hiểm toàn cầu (Crunchbase): khoảng 300 tỷ USD (2020), 640 tỷ (2021), 445 tỷ (2022), 285 tỷ (2023), 315 tỷ (2024), 425 tỷ (2025, khoảng một nửa vào AI), khoảng 680 tỷ chỉ trong 9 tháng đầu 2026 (kỷ lục, AI chiếm 64–80% mỗi quý). Lãi suất Fed cuối năm: 0,25% (2021), 5,5% (2023), 3,75% (2025); tăng lên 3,75–4% vào 9/2026.
